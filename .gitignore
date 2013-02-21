@@ -4,3 +4,12 @@
 *.jar
 *.war
 *.ear
+
+/bin
+/gen
+local.properties
+proguard-project.txt
+project.properties
+ant.properties
+build.xml
+.DS_Store
