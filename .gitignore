@@ -13,3 +13,7 @@ project.properties
 ant.properties
 build.xml
 .DS_Store
+/nbandroid/
+default.properties
+
+build.properties
