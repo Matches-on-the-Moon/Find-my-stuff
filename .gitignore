@@ -8,8 +8,10 @@
 /gen
 /assets
 /libs
+/.settings
+.classpath
+.project
 ic_launcher-web.png
-
 local.properties
 proguard-project.txt
 project.properties
