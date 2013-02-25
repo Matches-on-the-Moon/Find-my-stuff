@@ -3,14 +3,12 @@ package com.motm.activities;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import com.motm.R;
+import com.motm.helpers.Logger;
 
 public class MainActivity extends Activity
 {
-    private static final String TAG = "MainActivity";
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -20,6 +18,9 @@ public class MainActivity extends Activity
         if(true){
             // take them to the login activity
             startLoginActivity();
+            // close the main activity, so you can't go back
+            finish();
+            return;
         }
 
         setContentView(R.layout.main);

@@ -50,6 +50,11 @@ public class LoginActivity extends Activity
 
     private void returnToMainActivity()
     {
+        // start main activity
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        
+        // finish
         finish();
     }
 

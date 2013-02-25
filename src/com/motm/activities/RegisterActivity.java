@@ -41,7 +41,13 @@ public class RegisterActivity extends Activity
      */
     public void registerButtonPressed(View view)
     {
-        // successful
-        returnToLoginActivity();
+        // check valid username
+        if(true){
+            // successful
+            returnToLoginActivity();
+        } else {
+            // failure
+            
+        }
     }
 }
