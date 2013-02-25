@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import com.motm.R;
 
 /**
@@ -23,7 +22,7 @@ public class LoginActivity extends Activity
     // view variables
     EditText loginNameInput;
     EditText passwordInput;
-    
+
     /**
      * Called when the activity is first created.
      */
@@ -31,45 +30,44 @@ public class LoginActivity extends Activity
     public void onCreate(Bundle icicle)
     {
         super.onCreate(icicle);
-        
+
         // set the models
-        
-        
+
+
         // setup the view elements
-        loginNameInput = (EditText)findViewById(R.id.loginNameInput);
-        passwordInput = (EditText)findViewById(R.id.passwordInput);
-        
+        loginNameInput = (EditText) findViewById(R.id.loginNameInput);
+        passwordInput = (EditText) findViewById(R.id.passwordInput);
+
         // set the view
         setContentView(R.layout.login);
     }
-    
+
     private void startRegisterActivity()
     {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
-    
+
     private void returnToMainActivity()
     {
         finish();
     }
-    
+
     /*
      *      Actions
      */
-    
     public void loginButtonPressed(View view)
     {
         // attempt login
-        
+
         // successful
         returnToMainActivity();
-        
+
         // failure
         // notify user
         // clear fields
     }
-    
+
     public void registerButtonPressed(View view)
     {
         startRegisterActivity();
