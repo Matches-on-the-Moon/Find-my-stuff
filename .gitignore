@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.class
 
 # Package Files #
@@ -21,3 +22,28 @@ build.xml
 default.properties
 
 build.properties
+=======
+*.class
+
+# Package Files #
+*.war
+*.ear
+
+/bin
+/gen
+/assets
+/.settings
+.classpath
+.project
+ic_launcher-web.png
+local.properties
+proguard-project.txt
+project.properties
+ant.properties
+build.xml
+.DS_Store
+/nbandroid/
+default.properties
+
+build.properties
+>>>>>>> 71d6d59186e85a4337f02a39c0091d73a96605be
