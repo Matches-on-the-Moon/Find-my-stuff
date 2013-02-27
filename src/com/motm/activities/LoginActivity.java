@@ -11,10 +11,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import java.util.HashMap;
-
-import com.motm.models.User;
 import com.motm.R;
+import com.motm.application.FMSApplication;
+import com.motm.helpers.Factory;
+import com.motm.models.Account;
+import com.motm.models.AccountManager;
 
 /**
  *
@@ -23,14 +24,12 @@ import com.motm.R;
 public class LoginActivity extends Activity
 {
     // models
+    AccountManager accountManager;
     
     // view variables
     EditText loginNameInput;
     EditText passwordInput;
-    static TextView passwordStatus;
-    String passwordSuccessful;
-    String passwordUnsuccessful;
-    HashMap<String,User> userTable;
+    TextView passwordStatus;
 
     /**
      * Called when the activity is first created.
@@ -41,21 +40,25 @@ public class LoginActivity extends Activity
         super.onCreate(icicle);
 
         // set the models
-
-
-        // setup the view elements
-        loginNameInput = (EditText) findViewById(R.id.loginNameInput);
-        passwordInput = (EditText) findViewById(R.id.passwordInput);
+        accountManager = Factory.getAccountManager();
 
         // set the view
         setContentView(R.layout.login);
         
-        loginNameInput = (EditText) findViewById(R.id.loginNameInput);
-        passwordInput = (EditText) findViewById(R.id.passwordInput);
-        passwordStatus = (TextView) findViewById(R.id.passwordStatus);
-        passwordSuccessful = getString(R.string.passwordSuccessful);
-        passwordUnsuccessful = getString(R.string.passwordUnsuccessful);
-        userTable = MainActivity.getTable();
+        // setup the view elements
+        loginNameInput = (EditText)findViewById(R.id.loginNameInput);
+        passwordInput  = (EditText)findViewById(R.id.passwordInput);
+        passwordStatus = (TextView)findViewById(R.id.passwordStatus);
+    }
+    
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        
+        // clear fields
+        clearFields();
+        clearStatus();
     }
 
     private void startRegisterActivity()
@@ -74,42 +77,79 @@ public class LoginActivity extends Activity
         finish();
     }
 
+    private void setStatus(String message)
+    {
+        // set text
+        passwordStatus.setText(message);
+        
+        // make visible
+        passwordStatus.setVisibility(View.VISIBLE);
+    }
+    
+    private void clearStatus()
+    {
+        // set text
+        passwordStatus.setText("");
+        
+        // hide
+        passwordStatus.setVisibility(View.INVISIBLE);
+    }
+    
+    private void clearFields()
+    {
+        loginNameInput.setText("");
+        passwordInput.setText("");
+    }
+    
     /*
      *      Actions
      */
+    
     public void loginButtonPressed(View view)
     {
-        // attempt login
-    	String name = loginNameInput.getText().toString();
-    	String password = passwordInput.getText().toString();
+    	String loginName;
+        String password;
+        
+        // get fields
+        loginName = loginNameInput.getText().toString().trim();
+    	password = passwordInput.getText().toString().trim();
 
+        // validate
+        if(loginName.isEmpty() || password.isEmpty()){
+            String message = getString(R.string.loginRequiredFields);
+            passwordStatus.setTextColor(Color.parseColor("#FF0000"));
+            setStatus(message);
+            return;
+        }
+        
+        // try to get an account
+        Account account = accountManager.getAccount(loginName, password);
+        
         // successful
-        if( userTable.containsKey( name ) && userTable.get( name ).getPassword().equals( password ) ){
-    		passwordStatus.setText( passwordSuccessful );
-    		passwordStatus.setTextColor( Color.parseColor("#00FF00"));
-    		loginNameInput.setText("");
-    		passwordInput.setText("");
-                
+        if(account == null){
+            // failure
+            String message = getString(R.string.passwordUnsuccessful);
+            setStatus(message);
+            passwordStatus.setTextColor(Color.parseColor("#FF0000"));
+            // clear fields
+            clearFields();
+            
     	} else {
-    		passwordStatus.setText( passwordUnsuccessful );
-    		passwordStatus.setTextColor( Color.parseColor("#FF0000"));
+            // successful
+            String message = getString(R.string.passwordSuccessful);
+            setStatus(message);
+            passwordStatus.setTextColor(Color.parseColor("#00FF00"));
+            
+            // set the current account
+            ((FMSApplication)getApplication()).setCurrentAccount(account);
+            
+            // return to main
+            returnToMainActivity();
     	}
-		
-    	
-    	passwordStatus.setVisibility(View.VISIBLE);
-
-        // failure
-        // notify user
-        // clear fields
     }
 
     public void registerButtonPressed(View view)
     {
         startRegisterActivity();
-    }
-    
-    public static void setStatus(String str)
-    {
-        passwordStatus.setText(str);
     }
 }

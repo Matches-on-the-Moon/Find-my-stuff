@@ -21,8 +21,5 @@
         <activity android:name=".activities.RegisterActivity"
                   android:label="@string/registerActivityLabel" />
         
-        <activity android:name=".activities.FMSActivity"
-                  android:label="@string/registerActivityLabel" />
-        
     </application>
 </manifest>

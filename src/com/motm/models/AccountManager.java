@@ -4,54 +4,71 @@
  */
 package com.motm.models;
 
+import java.util.HashMap;
+
 /**
  *
  * @author michael
  */
 public class AccountManager
 {
-    private Account currentAccount;
-    //  Logger logger;
-    // DataManager dataManager;
-            
-    public boolean createAccount(String loginName, String password, String name, String email)
+    private static HashMap<String, Account> accounts;
+
+    public AccountManager()
     {
-        //checks if loginName is already in use, then if it is valid
-        //check if password is valid
-        //checks if email is valid
-        //creates new account, sets currentAccount to said account (unless Admin can create them - then no!)
+        if(accounts == null){
+            accounts = new HashMap<String, Account>();
+        }
+    }
+    
+    public void createAccount(String loginName, String password, String name, String email)
+    {
+        Account account = new Account(loginName, password, name, email);
+        accounts.put(loginName, account);
+    }
+
+    public Account getAccount(String loginName, String password)
+    {
+        Account account = accounts.get(loginName);
+        
+        if(account == null || !account.getPassword().equals(password)){
+            return null;
+        }
+        
+        return account;
+    }
+
+    public boolean lockAccount(String loginName)
+    {
+
+        return true;
+    }
+
+    public boolean unlockAccount(String loginName)
+    {
+        return true;
+    }
+
+    public boolean deleteAccount(String loginName)
+    {
+        return true;
+    }
+
+    public boolean editAccount(String loginName)
+    {
         return true;
     }
     
-    public Account getCurrentAccount() {
-        return currentAccount;
-    }
-    
-    public boolean setCurrentAccount(Account currentAccount) {
-        this.currentAccount = currentAccount;
-        return true;
-    }
-    
-    public boolean checkLogin (String loginName, String password) {
-        return true;
-    }
-    
-    public boolean lockAccount (String loginName) {
+    public boolean isLoginNameUnique(String loginName)
+    {
+        // check if there is a user with that login name
+        // the hashmap's key is the login name
+        
+        if(accounts.containsKey(loginName)){
+            // contains, so not unique
+            return false;
+        }
         
         return true;
     }
-    
-    public boolean unlockAccount (String loginName) {
-        return true;
-    }
-    
-    public boolean deleteAccount (String loginName) {
-        return true;
-    }
-    
-    public boolean editAccount (String loginName) {
-        return true;
-    }
-    
-    
 }
