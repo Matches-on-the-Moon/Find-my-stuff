@@ -6,9 +6,8 @@ package com.motm.models;
 
 /**
  *
- * @author michael
+ * @author William
  */
-public class ItemManager
-{
+public class DataManager {
     
 }

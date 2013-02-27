@@ -19,5 +19,6 @@ build.xml
 .DS_Store
 /nbandroid/
 default.properties
-
+private/
 build.properties
+

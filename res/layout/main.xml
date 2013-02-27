@@ -4,10 +4,22 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
+    
     <TextView
-        android:layout_width="fill_parent"
+        android:id="@+id/fmsStatus"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World, MainActivity"
-        />
+        android:layout_gravity="center_horizontal|top"
+        android:text="foo"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/exitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:onClick="writeTable"
+        android:text="Write File" />
+    
 </LinearLayout>
 
