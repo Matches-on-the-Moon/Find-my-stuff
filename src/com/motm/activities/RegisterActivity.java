@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.motm.R;
-import com.motm.application.FMSApplication;
+// import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
 import com.motm.models.AccountManager;
 
@@ -24,14 +24,14 @@ import com.motm.models.AccountManager;
 public class RegisterActivity extends Activity
 {
     // models
-    AccountManager accountManager;
+    private AccountManager accountManager;
     
     // view elements
-    EditText loginNameInput;
-    EditText passwordInput;
-    EditText nameInput;
-    EditText emailInput;
-    TextView status;
+    private EditText loginNameInput;
+    private EditText passwordInput;
+    private EditText nameInput;
+    private EditText emailInput;
+    private TextView registrationStatus;
     
     /**
      * Called when the activity is first created.
@@ -48,11 +48,11 @@ public class RegisterActivity extends Activity
         setContentView(R.layout.register);
         
         // view elements
-        loginNameInput  = (EditText)findViewById(R.id.registrationUsername);
-        passwordInput   = (EditText)findViewById(R.id.registrationPassword);
-        nameInput       = (EditText)findViewById(R.id.registrationName);
-        emailInput      = (EditText)findViewById(R.id.registrationEmail);
-        status          = (TextView)findViewById(R.id.registrationStatus);
+        loginNameInput       = (EditText)findViewById(R.id.registrationUsername);
+        passwordInput        = (EditText)findViewById(R.id.registrationPassword);
+        nameInput            = (EditText)findViewById(R.id.registrationName);
+        emailInput           = (EditText)findViewById(R.id.registrationEmail);
+        registrationStatus   = (TextView)findViewById(R.id.registrationStatus);
    }
     
     @Override
@@ -74,19 +74,19 @@ public class RegisterActivity extends Activity
     private void setStatus(String message)
     {
         // set text
-        status.setText(message);
+    	registrationStatus.setText(message);
         
         // make visible
-        status.setVisibility(View.VISIBLE);
+    	registrationStatus.setVisibility(View.VISIBLE);
     }
     
     private void clearStatus()
     {
         // set text
-        status.setText("");
+    	registrationStatus.setText("");
         
         // hide
-        status.setVisibility(View.INVISIBLE);
+    	registrationStatus.setVisibility(View.INVISIBLE);
     }
     
     private void clearFields()
@@ -108,29 +108,26 @@ public class RegisterActivity extends Activity
     	String email = emailInput.getText().toString().trim();
         
         
-        // check valid username
-        if(loginName.isEmpty() || password.isEmpty() || name.isEmpty() || email.isEmpty()){
+        // check valid login name
+        if(loginName.isEmpty() || password.isEmpty() || name.isEmpty() || email.isEmpty()) {
             // not all fields
             String message = getString(R.string.registrationRequiredFields);
             setStatus(message);
-            status.setTextColor(Color.parseColor("#FF0000"));
+            registrationStatus.setTextColor(Color.parseColor("#FF0000"));
             
-        } else if(!accountManager.isLoginNameUnique(loginName)){
-            // not unique
-            String message = getString(R.string.registrationUnsuccessful);
-            setStatus(message);
-            status.setTextColor(Color.parseColor("#FF0000"));
-        	        	
         } else {
             // success
             // create the account
-            accountManager.createAccount(loginName, password, name, email);
-            
-            // display the message
-            String message = getString(R.string.registrationSuccessful);
-            setStatus(message);
-            status.setTextColor(Color.parseColor("#00FF00"));
-            
+        	if (!accountManager.createAccount(loginName, password, name, email)) {
+	            String message = getString(R.string.registrationUnsuccessful);
+	            setStatus(message);
+	            registrationStatus.setTextColor(Color.parseColor("#FF0000"));
+        	} else {
+	            // display the message
+	            String message = getString(R.string.registrationSuccessful);
+	            setStatus(message);
+	            registrationStatus.setTextColor(Color.parseColor("#00FF00"));
+        	}
             // return to the login activity
             returnToLoginActivity();
         }

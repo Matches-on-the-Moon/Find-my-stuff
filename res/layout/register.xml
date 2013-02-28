@@ -19,7 +19,7 @@
         android:layout_marginTop="40sp"
         android:layout_row="0"
         android:text="@string/register"
-        android:textSize="32dip" />
+        android:textSize="32sp" />
 
 <!--  Sets the password string next to the appropriate input box -->
     
@@ -40,7 +40,6 @@
 <!--  Sets the name string next to the appropriate input box -->
     
     <TextView
-        android:id="@+id/textView1"
         android:layout_column="0"
         android:layout_gravity="center"
         android:layout_row="3"
@@ -49,7 +48,6 @@
 <!--  Sets the email string next to the appropriate input box -->
     
     <TextView
-        android:id="@+id/fmsStatus"
         android:layout_column="0"
         android:layout_gravity="center"
         android:layout_row="4"
@@ -60,7 +58,7 @@
     <EditText
         android:id="@+id/registrationUsername"
         android:layout_column="3"
-        android:layout_gravity="center_horizontal|top"
+        android:layout_gravity="fill_horizontal"
         android:layout_row="1"
         android:ems="10"
         android:inputType="text" />
@@ -70,7 +68,7 @@
     <EditText
         android:id="@+id/registrationEmail"
         android:layout_column="3"
-        android:layout_gravity="left|top"
+        android:layout_gravity="fill_horizontal"
         android:layout_row="4"
         android:ems="10"
         android:inputType="textEmailAddress" >
@@ -83,7 +81,7 @@
     <EditText
         android:id="@+id/registrationName"
         android:layout_column="3"
-        android:layout_gravity="center_horizontal|top"
+        android:layout_gravity="fill_horizontal"
         android:layout_row="3"
         android:ems="10"
         android:inputType="textPersonName" />
@@ -93,11 +91,13 @@
     <EditText
         android:id="@+id/registrationPassword"
         android:layout_column="3"
-        android:layout_gravity="center"
+        android:layout_gravity="fill_horizontal"
         android:layout_row="2"
         android:ems="10"
         android:inputType="textPassword" />
 
+    <!-- Sets up submit button -->
+    
     <Button
         android:id="@+id/submitButton"
         android:layout_column="0"
@@ -106,6 +106,8 @@
         android:text="@string/submit" 
         android:onClick="submitButtonPressed" />
 
+    <!-- Sets up registration status message -->
+    
     <TextView
         android:id="@+id/registrationStatus"
         android:layout_column="0"

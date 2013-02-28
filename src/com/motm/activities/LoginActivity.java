@@ -24,12 +24,12 @@ import com.motm.models.AccountManager;
 public class LoginActivity extends Activity
 {
     // models
-    AccountManager accountManager;
+    private AccountManager accountManager;
     
     // view variables
-    EditText loginNameInput;
-    EditText passwordInput;
-    TextView passwordStatus;
+    private EditText loginNameInput;
+    private EditText passwordInput;
+    private TextView passwordStatus;
 
     /**
      * Called when the activity is first created.

@@ -12,26 +12,39 @@ import java.util.HashMap;
  */
 public class AccountManager
 {
-    private static HashMap<String, Account> accounts;
+    private static HashMap<String, Account> accountHM;
+    private Account account;
 
     public AccountManager()
     {
-        if(accounts == null){
-            accounts = new HashMap<String, Account>();
+        if(accountHM == null){
+            accountHM = new HashMap<String, Account>();
         }
     }
     
-    public void createAccount(String loginName, String password, String name, String email)
+    public boolean createAccount(String loginName, String password, String name, String email)
     {
-        Account account = new Account(loginName, password, name, email);
-        accounts.put(loginName, account);
+        // check if there is a user with that login name
+        // the hashmap's key is the login name
+        if(accountHM.containsKey(loginName)){
+            // contains, so not unique
+            return false;
+        }
+        account = new Account(loginName, password, name, email);
+        accountHM.put(loginName, account);
+        return true;
     }
 
     public Account getAccount(String loginName, String password)
     {
-        Account account = accounts.get(loginName);
-        
-        if(account == null || !account.getPassword().equals(password)){
+        account = accountHM.get(loginName);
+
+        if(account == null || !account.getAccountState() || !account.getPassword().equals(password)) {
+        	if(account != null) {
+	        	account.setLoginAttempts();
+	        	if(account.getLoginAttempts() >= 3)
+	        		account.setAccountState(false);
+        	}
             return null;
         }
         
@@ -40,35 +53,34 @@ public class AccountManager
 
     public boolean lockAccount(String loginName)
     {
-
+    	account = accountHM.get(loginName);
+    	account.setAccountState(false);
         return true;
     }
 
     public boolean unlockAccount(String loginName)
     {
+    	account = accountHM.get(loginName);
+    	account.setAccountState(true);
         return true;
     }
 
     public boolean deleteAccount(String loginName)
     {
+    	account = accountHM.remove(loginName);
         return true;
     }
 
-    public boolean editAccount(String loginName)
+    public boolean editAccountPassword(String loginName, String password)
     {
+    	account = accountHM.get(loginName);
+    	account.setPassword(password);
         return true;
     }
     
-    public boolean isLoginNameUnique(String loginName)
-    {
-        // check if there is a user with that login name
-        // the hashmap's key is the login name
-        
-        if(accounts.containsKey(loginName)){
-            // contains, so not unique
-            return false;
-        }
-        
-        return true;
+    public boolean editAccountEmail(String loginName, String email) {
+    	account = accountHM.get(loginName);
+    	account.setEmail(email);
+    	return true;
     }
 }

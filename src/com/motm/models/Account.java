@@ -38,7 +38,7 @@ public class Account {
         return password;
     }
     
-    public boolean accountState() {
+    public boolean getAccountState() {
         return accountState;
     }
     

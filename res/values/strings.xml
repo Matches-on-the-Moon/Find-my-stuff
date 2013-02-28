@@ -16,7 +16,7 @@
     <string name="email">Email</string>
     
     <string name="loginRequiredFields">Your login name and password are required</string>
-    <string name="passwordUnsuccessful">Username and/or password not found</string>
+    <string name="passwordUnsuccessful">Username and/or password not found or locked.</string>
     <string name="passwordSuccessful">Login Success!</string>
     
     
@@ -25,6 +25,10 @@
     <string name="registrationUnsuccessful">Login Name already in use</string>
     
     <string name="submit">Submit</string>
+    
+    <string name="findItems">Find Items</string>
+    <string name="description">Description</string>
+    <string name="addItem">Add Item</string>
     
 
 </resources>
