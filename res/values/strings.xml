@@ -18,7 +18,7 @@
     <string name="loginRequiredFields">Your login name and password are required</string>
     <string name="passwordUnsuccessful">Username and/or password not found or locked.</string>
     <string name="passwordSuccessful">Login Success!</string>
-    
+    <string name="addPictureMessage">Click above to add a picture!</string>
     
     <string name="registrationRequiredFields">All fields are required</string>
     <string name="registrationSuccessful">Registration Successful!</string>
@@ -29,6 +29,11 @@
     <string name="findItems">Find Items</string>
     <string name="description">Description</string>
     <string name="addItem">Add Item</string>
+    <string name="loadingData">Loading data&#8230;</string>
+    <string name="location">Location</string>
+    <string name="reward">Reward</string>
+    <string name="type">Type</string>
+    <string name="category">Category</string>
     
 
 </resources>
