@@ -45,7 +45,7 @@ public class RegisterActivity extends Activity
         accountManager = Factory.getAccountManager();
         
         // set view
-        setContentView(R.layout.register);
+        setContentView(R.layout.account_add);
         
         // view elements
         loginNameInput       = (EditText)findViewById(R.id.registrationUsername);

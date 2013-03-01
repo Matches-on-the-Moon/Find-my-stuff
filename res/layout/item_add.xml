@@ -66,57 +66,62 @@
     <EditText
         android:id="@+id/itemNameInput"
         android:layout_column="3"
-        android:layout_gravity="fill_horizontal"
+		android:layout_width="230dp"
         android:layout_row="1"
         android:ems="10"
         android:hint="name of item"
-        android:inputType="text" />
+        android:inputType="text"
+        android:textSize="13sp" />
     
     <EditText
         android:id="@+id/itemTypeInput"
         android:layout_column="3"
-        android:layout_gravity="fill_horizontal"
+		android:layout_width="230dp"
         android:layout_row="4"
         android:ems="10"
         android:hint="Lost or Found"
-        android:inputType="textEmailAddress" />
-
+        android:inputType="text" 
+        android:textSize="13sp" />
 
     <EditText
         android:id="@+id/itemRewardInput"
         android:layout_column="3"
-        android:layout_gravity="fill_horizontal"
+		android:layout_width="230dp"
         android:layout_row="3"
         android:ems="10"
         android:hint="None or $$$"
-        android:inputType="textPersonName" />
+        android:inputType="text"
+        android:textSize="13sp" />
 
     <EditText
         android:id="@+id/itemLocationInput"
+		android:layout_width="230dp"
         android:layout_column="3"
-        android:layout_gravity="fill_horizontal"
         android:layout_row="2"
         android:ems="10"
         android:hint="location of item"
-        android:inputType="textPassword" />
+        android:inputType="text"
+        android:textSize="13sp" />
 
     <EditText
         android:id="@+id/itemCategoryInput"
         android:layout_column="3"
-        android:layout_gravity="fill_horizontal"
+		android:layout_width="230dp"
         android:layout_row="5"
         android:ems="10"
         android:hint="Misc/Heirloom/Keepsake"
-        android:inputType="textPassword" />
+        android:inputType="text" 
+        android:textSize="13sp" />
     
     <EditText
         android:id="@+id/itemDescriptionInput"
         android:layout_column="3"
-        android:layout_gravity="fill_horizontal"
+		android:layout_width="230dp"
         android:layout_row="6"
         android:ems="10"
         android:hint="description of item"
-        android:inputType="textPassword" />
+        android:inputType="text" 
+        android:textSize="13sp" />
     
 </GridLayout>
 
