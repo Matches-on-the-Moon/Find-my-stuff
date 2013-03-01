@@ -11,9 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.motm.R;
-// import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
 import com.motm.models.AccountManager;
 

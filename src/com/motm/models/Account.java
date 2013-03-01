@@ -8,22 +8,34 @@ package com.motm.models;
  *
  * @author William
  */
-public class Account {
+public class Account
+{
+    public enum State {
+        Locked, Unlocked
+    }
+    
     private String name;
     private String loginName;
     private String password;
-    private boolean accountState;
+    private State accountState;
     private String email;
     private int loginAttempts;
     
     // creates the Account using the user's login name, password, name, and email.
-    public Account(String loginName, String password, String name, String email) {
+    public Account(String loginName, String password, String name, String email, State accountState, int loginAttempts)
+    {
         this.loginName = loginName;
         this.password = password;
         this.name = name;
         this.email = email;
-        accountState = true;
-        loginAttempts = 0;
+        this.accountState = accountState;
+        this.loginAttempts = loginAttempts;
+    }
+    
+    // convience constructor
+    public static Account newAccount(String loginName, String password, String name, String email)
+    {
+        return new Account(loginName, password, name, email, State.Unlocked, 0);
     }
     
     public String getName() {
@@ -38,7 +50,7 @@ public class Account {
         return password;
     }
     
-    public boolean getAccountState() {
+    public State getAccountState() {
         return accountState;
     }
     
@@ -65,7 +77,7 @@ public class Account {
         return true;
     }
     
-    public boolean setAccountState(boolean accountState) {
+    public boolean setAccountState(State accountState) {
         this.accountState = accountState;
         return true;
     }

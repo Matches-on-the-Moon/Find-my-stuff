@@ -30,8 +30,10 @@ public class AccountManager
             // contains, so not unique
             return false;
         }
-        account = new Account(loginName, password, name, email);
+        
+        account = Account.newAccount(loginName, password, name, email);
         accountHM.put(loginName, account);
+        
         return true;
     }
 
@@ -39,11 +41,12 @@ public class AccountManager
     {
         account = accountHM.get(loginName);
 
-        if(account == null || !account.getAccountState() || !account.getPassword().equals(password)) {
+        if(account == null || account.getAccountState() == Account.State.Locked || !account.getPassword().equals(password)) {
         	if(account != null) {
 	        	account.setLoginAttempts();
-	        	if(account.getLoginAttempts() >= 3)
-	        		account.setAccountState(false);
+	        	if(account.getLoginAttempts() >= 3){
+	        		account.setAccountState(Account.State.Locked);
+                        }
         	}
             return null;
         }
@@ -54,14 +57,14 @@ public class AccountManager
     public boolean lockAccount(String loginName)
     {
     	account = accountHM.get(loginName);
-    	account.setAccountState(false);
+    	account.setAccountState(Account.State.Locked);
         return true;
     }
 
     public boolean unlockAccount(String loginName)
     {
     	account = accountHM.get(loginName);
-    	account.setAccountState(true);
+    	account.setAccountState(Account.State.Unlocked);
         return true;
     }
 
@@ -78,7 +81,8 @@ public class AccountManager
         return true;
     }
     
-    public boolean editAccountEmail(String loginName, String email) {
+    public boolean editAccountEmail(String loginName, String email)
+    {
     	account = accountHM.get(loginName);
     	account.setEmail(email);
     	return true;

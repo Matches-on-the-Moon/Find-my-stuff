@@ -7,9 +7,7 @@ import android.view.Menu;
 import com.motm.R;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.AccountHelper;
-// import com.motm.helpers.Factory;
 import com.motm.models.Account;
-// import com.motm.models.AccountManager;
 
 public class MainActivity extends Activity
 {
