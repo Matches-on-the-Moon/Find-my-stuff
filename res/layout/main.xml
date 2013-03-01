@@ -20,16 +20,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
-        android:onClick="addItemButtonPressed"
+        android:onClick="itemViewButtonPressed"
         android:text="Browse and Search for Items" 
         android:layout_marginTop="20dp"/>
     
     <Button
-        android:id="@+id/userViewButton"
+        android:id="@+id/accountViewButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
-        android:onClick="addItemButtonPressed"
+        android:onClick="accountViewButtonPressed"
         android:text="Browse and Search for Users" 
         android:layout_marginTop="20dp"/>
     
@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
-        android:onClick="addItemButtonPressed"
+        android:onClick="viewAccountButtonPressed"
         android:text="View Your Account" 
         android:layout_marginTop="20dp"/>
     
