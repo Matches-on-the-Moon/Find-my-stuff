@@ -16,41 +16,22 @@
         android:textSize="24sp" />
     
     <Button
-        android:id="@+id/itemViewButton"
+        android:id="@+id/findItemButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
-        android:onClick="itemViewButtonPressed"
-        android:text="Browse and Search for Items" 
+        android:onClick="findItemButtonPressed"
+        android:text="View Items" 
         android:layout_marginTop="20dp"/>
     
     <Button
-        android:id="@+id/accountViewButton"
+        android:id="@+id/findAccountButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
-        android:onClick="accountViewButtonPressed"
-        android:text="Browse and Search for Users" 
+        android:onClick="findAccountButtonPressed"
+        android:text="View Accounts"
         android:layout_marginTop="20dp"/>
     
-    <Button
-        android:id="@+id/viewAccountButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
-        android:onClick="viewAccountButtonPressed"
-        android:text="View Your Account" 
-        android:layout_marginTop="20dp"/>
-    
-    <Button
-        android:id="@+id/addItemButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
-        android:onClick="addItemButtonPressed"
-        android:text="@string/addItem" 
-        android:layout_marginTop="20dp"/>
-    	
- 
         
 </LinearLayout>

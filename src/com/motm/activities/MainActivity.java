@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+
 import com.motm.R;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.AccountHelper;
@@ -47,4 +49,27 @@ public class MainActivity extends Activity
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+    
+    public void findItemButtonPressed(View view)
+    {
+        startFindItemActivity();
+    }
+    
+    private void startFindItemActivity()
+    {
+        Intent intent = new Intent(this, FindItemActivity.class);
+        startActivity(intent);
+    }
+    
+    public void findAccountButtonPressed(View view)
+    {
+        startFindAccountActivity();
+    }
+    
+    private void startFindAccountActivity()
+    {
+        Intent intent = new Intent(this, FindAccountActivity.class);
+        startActivity(intent);
+    }
+    
 }

@@ -32,7 +32,7 @@ public class Account
         this.loginAttempts = loginAttempts;
     }
     
-    // convience constructor
+    // Convenience constructor
     public static Account newAccount(String loginName, String password, String name, String email)
     {
         return new Account(loginName, password, name, email, State.Unlocked, 0);
