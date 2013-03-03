@@ -7,55 +7,51 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.motm.R;
-import com.motm.application.FMSApplication;
 import com.motm.models.Item;
 import com.motm.models.ItemManager;
 
 public class AddItemActivity extends Activity
 {
-    // models
     private ItemManager itemManager;
-    
-    // view variables
     private EditText itemNameInput;
     private EditText itemLocationInput;
     private EditText itemRewardInput;
     private EditText itemTypeInput;
     private EditText itemCategoryInput;
     private EditText itemDescriptionInput;
-    private TextView registrationStatus;
+    private TextView addItemStatus;
 
     @Override
     public void onCreate(Bundle icicle)
     {
         super.onCreate(icicle);
-
-        itemManager = new ItemManager();
-
         setContentView(R.layout.item_add);
         
+        itemManager = new ItemManager();
         itemNameInput = (EditText)findViewById(R.id.itemNameInput);
         itemLocationInput = (EditText)findViewById(R.id.itemLocationInput);
         itemRewardInput = (EditText)findViewById(R.id.itemRewardInput);
         itemTypeInput = (EditText)findViewById(R.id.itemTypeInput);
         itemCategoryInput = (EditText)findViewById(R.id.itemCategoryInput);
         itemDescriptionInput = (EditText)findViewById(R.id.itemDescriptionInput);
-        registrationStatus   = (TextView)findViewById(R.id.registrationStatus);
+        addItemStatus   = (TextView)findViewById(R.id.registrationStatus);
     }
 
     private void startViewItemActivity()
     {
         Intent intent = new Intent(this, ViewItemActivity.class);
         startActivity(intent);
+        finish();
     }
     
     private void startFindItemActivity()
     {
     	Intent intent = new Intent(this, FindItemActivity.class);
     	startActivity(intent);
+        finish();
     }
 
-    private void returnToMainActivity()
+    private void startMainActivity()
     {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -66,10 +62,8 @@ public class AddItemActivity extends Activity
     	//steps to add a picture
     }
     
-    
     public void submitItemButtonPressed(View view)
     {
-    	
         String itemName = itemNameInput.getText().toString().trim();
     	String itemLocation = itemLocationInput.getText().toString().trim();
     	String itemReward = itemRewardInput.getText().toString().trim();
@@ -78,22 +72,17 @@ public class AddItemActivity extends Activity
     	String itemDescription = itemDescriptionInput.getText().toString().trim();
         
         if(itemName.isEmpty() || itemLocation.isEmpty() || itemType.isEmpty() || itemCategory.isEmpty() || itemDescription.isEmpty()) {
-            // not all fields
             String message = getString(R.string.registrationRequiredFields);
-            setStatus(message);
-            
+            setAddItemStatus(message);
         } else {
-            // success
         	if (!itemManager.createItem(itemName, itemLocation, itemReward, itemType, itemCategory, itemDescription)) {
-	            String message = getString(R.string.registrationUnsuccessful);
-	            setStatus(message);
+	            String message = getString(R.string.submissionUnsuccessful);
+	            setAddItemStatus(message);
         	} else {
-	            // display the message
 	            String message = getString(R.string.submissionSuccessful);
-	            setStatus(message);
+	            setAddItemStatus(message);
 	            startViewItemActivity();
         	}
-        	startFindItemActivity();
         }
     }
     
@@ -102,31 +91,23 @@ public class AddItemActivity extends Activity
     	startFindItemActivity();
     }
     
-    private void setStatus(String message)
+    private void setAddItemStatus(String message)
     {
-        // set text
-    	registrationStatus.setText(message);
-        
-        // make visible
-    	registrationStatus.setVisibility(View.VISIBLE);
+    	addItemStatus.setText(message);
+    	addItemStatus.setVisibility(View.VISIBLE);
     }
     
     public void onResume()
     {
         super.onResume();
-        
-        // clear fields
         clearFields();
-        clearStatus();
+        clearAddItemStatus();
     }
     
-    private void clearStatus()
+    private void clearAddItemStatus()
     {
-        // set text
-    	registrationStatus.setText("");
-        
-        // hide
-    	registrationStatus.setVisibility(View.INVISIBLE);
+    	addItemStatus.setText("");
+    	addItemStatus.setVisibility(View.INVISIBLE);
     }
     
     private void clearFields()

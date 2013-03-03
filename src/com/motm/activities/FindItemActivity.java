@@ -7,16 +7,12 @@ import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
 import com.motm.R;
-import com.motm.application.FMSApplication;
 import com.motm.models.Item;
 import com.motm.models.ItemManager;
 
 public class FindItemActivity extends Activity
 {
-    // models
     private ItemManager itemManager;
-    
-    // view variables
     private SearchView itemSearchView;
     private TextView name;
     private TextView description;
@@ -25,11 +21,9 @@ public class FindItemActivity extends Activity
     public void onCreate(Bundle icicle)
     {
         super.onCreate(icicle);
-
-        itemManager = new ItemManager();
-
         setContentView(R.layout.item_main);
         
+        itemManager = new ItemManager();
         itemSearchView = (SearchView)findViewById(R.id.itemSearchView);
         name = (TextView)findViewById(R.id.nameOneTextView);
         description = (TextView)findViewById(R.id.descriptionOneTextView);
@@ -39,21 +33,22 @@ public class FindItemActivity extends Activity
     {
         Intent intent = new Intent(this, AddItemActivity.class);
         startActivity(intent);
+        finish();
     }
     
-    private void startItemViewActivity()
+    private void startViewItemActivity()
     {
     	Intent intent = new Intent(this, ViewItemActivity.class);
     	startActivity(intent);
+        finish();
     }
 
-    private void returnToMainActivity()
+    private void startMainActivity()
     {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
-
 
     public void addItemButtonPressed(View view)
     {
@@ -62,6 +57,6 @@ public class FindItemActivity extends Activity
     
     public void itemOneButtonPressed(View view) 
     {
-    	startItemViewActivity();
+    	startViewItemActivity();
     }
 }

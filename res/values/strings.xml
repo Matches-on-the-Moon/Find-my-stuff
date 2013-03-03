@@ -36,7 +36,7 @@
     <string name="reward">Reward</string>
     <string name="type">Type</string>
     <string name="category">Category</string>
-    <string name="addItemFailed">Failed to add this item.</string>
+    <string name="submissionUnsuccessful">Failed to add this item.</string>
     <string name="submissionSuccessful">Thank you for your submission.</string>
     
 

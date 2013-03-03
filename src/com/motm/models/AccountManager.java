@@ -1,17 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.motm.models;
 
 import java.util.HashMap;
 
-/**
- *
- * @author michael
- */
 public class AccountManager
-{
+{	
     private static HashMap<String, Account> accountHM;
     private Account account;
 
