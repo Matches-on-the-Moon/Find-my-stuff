@@ -20,8 +20,9 @@ build.xml
 .DS_Store
 /nbandroid/
 default.properties
-
+private/
 build.properties
+<<<<<<< HEAD
 =======
 *.class
 
@@ -47,3 +48,6 @@ default.properties
 
 build.properties
 >>>>>>> 71d6d59186e85a4337f02a39c0091d73a96605be
+=======
+
+>>>>>>> 38e022dc8f84ba5d89cdd2f1cf3c8f2b267a397f

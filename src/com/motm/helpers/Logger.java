@@ -13,11 +13,20 @@ import android.util.Log;
  */
 public class Logger
 {
+    // debug message
     public static void d(String message)
     {
         String tag = getCallingClassName();
                 
         Log.d(tag, message);
+    }
+    
+    // error message
+    public static void e(String message)
+    {
+        String tag = getCallingClassName();
+                
+        Log.e(tag, message);
     }
     
     private static String getCallingClassName()

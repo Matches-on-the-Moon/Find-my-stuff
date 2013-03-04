@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Outer most Linear Layout, holds the search bar and the previews -->
+
+<LinearLayout
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:weightSum="3" 
+	xmlns:android="http://schemas.android.com/apk/res/android" >
+        
+    <!--  Hold search bar and add item button -->
+    
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	    android:weightSum="3" >
+        
+		<!-- The search bar-->
+	
+	    <SearchView
+	        android:id="@+id/itemSearchView"
+	    	android:layout_width="250dp"
+	    	android:layout_height="match_parent"
+			android:inputType="text" />
+    	
+		<!--  Sets up the add item button -->  
+    
+	    <Button
+	        android:id="@+id/addItemButton"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_horizontal|top"
+	        android:onClick="addItemButtonPressed"
+	        android:text="@string/addItem" />
+    	
+	</LinearLayout>
+    	
+	<!-- Preview pane's holder -->
+    	
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:orientation="vertical"
+		android:weightSum="3">
+	
+	    <!-- Preview pane number one -->
+	
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="0dip"
+			android:layout_margin="5dip"
+			android:layout_weight="1"
+			android:gravity="center"
+			android:orientation="horizontal" >
+	           
+			<ImageButton
+			android:id="@+id/itemOneButton"
+			android:layout_width="0dp"
+			android:layout_height="fill_parent"
+			android:layout_weight=".6"
+			android:background="@android:color/transparent"
+			android:src="@drawable/question_mark" 
+			android:onClick="itemOneButtonPressed"/>
+	            
+			<LinearLayout
+				android:layout_width="0dip"
+				android:layout_height="fill_parent"
+				android:layout_margin="5dip"
+				android:layout_weight="1"
+				android:orientation="vertical" >
+		
+				<TextView
+					android:id="@+id/nameOneTextView"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:text="@string/name" />
+		
+				<TextView
+					android:id="@+id/descriptionOneTextView"
+					android:layout_width="fill_parent"
+					android:layout_height="fill_parent"
+					android:text="@string/description" />
+				
+		</LinearLayout>
+	</LinearLayout>
+	
+	<!-- Preview pane number two -->
+	        
+	        <LinearLayout
+	            android:layout_width="fill_parent"
+	            android:layout_height="0dip"
+	            android:layout_margin="5dip"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:orientation="horizontal" >
+	
+	            <ImageButton
+	                android:id="@+id/itemTwoButton"
+	                android:layout_width="0dp"
+	                android:layout_height="fill_parent"
+	                android:layout_weight=".6"
+	                android:background="@android:color/transparent"
+	                android:src="@drawable/question_mark" 
+	                android:onClick="itemTwoButtonPressed"/>
+	            
+<!-- Holds "name" and "description -->
+	            
+	            <LinearLayout
+		            android:layout_width="0dip"
+		            android:layout_height="fill_parent"
+		            android:layout_margin="5dip"
+		            android:layout_weight="1"
+		            android:orientation="vertical" >
+		
+		            <TextView
+		                android:layout_width="fill_parent"
+		                android:layout_height="wrap_content"
+		                android:text="@string/name" />
+		
+		            <TextView
+		                android:layout_width="fill_parent"
+		                android:layout_height="fill_parent"
+		                android:text="@string/description" />
+		        </LinearLayout>
+	        </LinearLayout>
+	
+<!-- Preview pane number three -->
+	        
+	        <LinearLayout
+	            android:layout_width="fill_parent"
+	            android:layout_height="0dip"
+	            android:layout_margin="5dip"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:orientation="horizontal" >
+	
+	            <ImageButton
+	                android:id="@+id/itemThreeButton"
+	                android:layout_width="0dp"
+	                android:layout_height="fill_parent"
+	                android:layout_weight=".6"
+	                android:background="@android:color/transparent"
+	                android:src="@drawable/question_mark"
+	                android:onClick="itemThreeButtonPressed"/>
+	            
+<!-- Holds "name" and "description -->
+	            
+	            <LinearLayout
+		            android:layout_width="0dip"
+		            android:layout_height="fill_parent"
+		            android:layout_margin="5dip"
+		            android:layout_weight="1"
+		            android:orientation="vertical" >
+		
+		            <TextView
+		                android:layout_width="fill_parent"
+		                android:layout_height="wrap_content"
+		                android:text="@string/name" />
+		
+		            <TextView
+		                android:layout_width="fill_parent"
+		                android:layout_height="fill_parent"
+		                android:text="@string/description" />
+		        </LinearLayout>
+	        </LinearLayout>
+    	</LinearLayout>
+        
+    </LinearLayout>

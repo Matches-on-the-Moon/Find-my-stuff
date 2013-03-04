@@ -1,73 +1,100 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+=======
+>>>>>>> 38e022dc8f84ba5d89cdd2f1cf3c8f2b267a397f
 package com.motm.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import com.motm.R;
+import com.motm.helpers.Factory;
 import com.motm.models.AccountManager;
 
-/**
- *
- * @author michael
- */
 public class RegisterActivity extends Activity
 {
-    // models
-    AccountManager account;
-    
-    // view elements
-    EditText loginNameInput;
-    EditText passwordInput;
+    private AccountManager accountManager;
+    private EditText loginNameInput;
+    private EditText passwordInput;
+    private EditText nameInput;
+    private EditText emailInput;
+    private TextView registrationStatus;
 
-    /**
-     * Called when the activity is first created.
-     */
     @Override
     public void onCreate(Bundle icicle)
     {
         super.onCreate(icicle);
-
-        // models
-        account = new AccountManager();
+        accountManager = Factory.getAccountManager();
+        setContentView(R.layout.account_add);
         
-        // view elements
-        
-        
-        setContentView(R.layout.register);
+        loginNameInput       = (EditText)findViewById(R.id.registrationUsername);
+        passwordInput        = (EditText)findViewById(R.id.registrationPassword);
+        nameInput            = (EditText)findViewById(R.id.registrationName);
+        emailInput           = (EditText)findViewById(R.id.registrationEmail);
+        registrationStatus   = (TextView)findViewById(R.id.registrationStatus);
+   }
+    
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        clearFields();
+        clearStatus();
     }
 
-    private void returnToLoginActivity()
+    private void startLoginActivity()
     {
-        // login is previous, don't go forward go back
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
         finish();
     }
     
-    /*
-     *      Actions
-     */
-    public void registerButtonPressed(View view)
+    private void setStatus(String message)
     {
-        String name = "";
-        String login = "";
-        String password = "";
-        String email = "";
+    	registrationStatus.setText(message);
+    	registrationStatus.setVisibility(View.VISIBLE);
+    }
+    
+    private void clearStatus()
+    {
+    	registrationStatus.setText("");
+    	registrationStatus.setVisibility(View.INVISIBLE);
+    }
+    
+    private void clearFields()
+    {
+        loginNameInput.setText("");
+        passwordInput.setText("");
+        nameInput.setText("");
+        emailInput.setText("");
+    }
+    
+    public void submitButtonPressed(View view)
+    {
+        String loginName = loginNameInput.getText().toString().trim();
+    	String password = passwordInput.getText().toString().trim();
+    	String name = nameInput.getText().toString().trim();
+    	String email = emailInput.getText().toString().trim();
         
-        boolean result = account.createAccount(name, login, password, email);
-        
-        // check valid username
-        if(result){
-            // successful
-            returnToLoginActivity();
-            
+        if(loginName.isEmpty() || password.isEmpty() || name.isEmpty() || email.isEmpty()) {
+            String message = getString(R.string.registrationRequiredFields);
+            setStatus(message);
         } else {
-            // failure
-            
+        	if (!accountManager.createAccount(loginName, password, name, email)) {
+	            String message = getString(R.string.registrationUnsuccessful);
+	            setStatus(message);
+        	} else {
+	            String message = getString(R.string.registrationSuccessful);
+	            setStatus(message);
+	            startLoginActivity();
+        	}
         }
     }
 }

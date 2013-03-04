@@ -1,24 +1,34 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+=======
+>>>>>>> 38e022dc8f84ba5d89cdd2f1cf3c8f2b267a397f
 package com.motm.application;
 
 import android.app.Application;
-import com.motm.helpers.Logger;
+import com.motm.models.Account;
 
-/**
- *
- * @author michael
- */
 public class FMSApplication extends Application 
 {
+    private Account currentAccount;
+    
     @Override
     public void onCreate()
     {
         super.onCreate();
-        
+    }
+    
+    public Account getCurrentAccount()
+    {
+        return currentAccount;
+    }
+    
+    public void setCurrentAccount(Account account)
+    {
+        currentAccount = account;
     }
 }
 =======

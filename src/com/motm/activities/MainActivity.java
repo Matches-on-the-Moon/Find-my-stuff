@@ -1,12 +1,14 @@
 <<<<<<< HEAD
 package com.motm.activities;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import com.motm.R;
-import com.motm.helpers.Logger;
+import com.motm.application.FMSApplication;
+import com.motm.models.Account;
 
 public class MainActivity extends Activity
 {
@@ -14,23 +16,18 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Account currentAccount = ((FMSApplication)getApplication()).getCurrentAccount();
 
-        // if the user is not logged in
-        if(true){
-            // take them to the login activity
+        if(currentAccount == null) {
             startLoginActivity();
-            // close the main activity, so you can't go back
-            finish();
-            return;
         }
-
+        
         setContentView(R.layout.main);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -39,7 +36,33 @@ public class MainActivity extends Activity
     {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+        finish();
     }
+
+    private void startFindItemActivity()
+    {
+        Intent intent = new Intent(this, FindItemActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    
+    private void startFindAccountActivity()
+    {
+        Intent intent = new Intent(this, FindAccountActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    
+    public void findAccountButtonPressed(View view)
+    {
+        startFindAccountActivity();
+    }
+    
+    public void findItemButtonPressed(View view)
+    {
+        startFindItemActivity();
+    }
+    
 }
 =======
 package com.motm.activities;

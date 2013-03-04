@@ -4,6 +4,7 @@
       package="com.motm"
       android:versionCode="1"
       android:versionName="1.0">
+    <uses-sdk android:minSdkVersion="14"/>
     
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher" android:name=".application.FMSApplication">
      
@@ -20,6 +21,21 @@
         
         <activity android:name=".activities.RegisterActivity"
                   android:label="@string/registerActivityLabel" />
+        
+        <activity android:name=".activities.FindItemActivity"
+                  android:label="@string/findItemActivityLabel" />
+        
+        <activity android:name=".activities.AddItemActivity"
+                  android:label="@string/addItemActivityLabel" />
+        
+        <activity android:name=".activities.ViewItemActivity"
+                  android:label="View an account" />
+        
+        <activity android:name=".activities.FindAccountActivity"
+                  android:label="Find an account" />
+        
+        <activity android:name=".activities.ViewAccountActivity"
+                  android:label="View an account" />
         
     </application>
 </manifest>

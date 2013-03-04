@@ -5,17 +5,40 @@
     <string name="app_name">Find My Stuff</string>
     <string name="loginActivityLabel">Login to Find My Stuff</string>
     <string name="registerActivityLabel">Register a new account</string>
-    <string name="welcome">Welcome to Find My Stuff!</string>
-    <string name="password">Password</string>
+    <string name="findItemActivityLabel">Find an item</string>
+    <string name="addItemActivityLabel">Add an item</string>
+    <string name="fmsActivityLabel">Find My Stuff</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="welcome">Welcome to Find My Stuff!</string>
+    <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="loginName">Login Name</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
     
+    <string name="loginRequiredFields">Your login name and password are required</string>
+    <string name="passwordUnsuccessful">Username and/or password not found or locked.</string>
+    <string name="passwordSuccessful">Login Success!</string>
+    <string name="addPictureMessage">Click above to change the picture!</string>
+    
+    <string name="registrationRequiredFields">All fields are required</string>
+    <string name="registrationSuccessful">Registration Successful!</string>
+    <string name="registrationUnsuccessful">Login Name already in use</string>
+    
     <string name="submit">Submit</string>
+    
+    <string name="findItems">Find Items</string>
+    <string name="description">Description</string>
+    <string name="addItem">Add Item</string>
+    <string name="loadingData">Loading data&#8230;</string>
+    <string name="location">Location</string>
+    <string name="reward">Reward</string>
+    <string name="type">Type</string>
+    <string name="category">Category</string>
+    <string name="submissionUnsuccessful">Failed to add this item.</string>
+    <string name="submissionSuccessful">Thank you for your submission.</string>
     
 
 =======
