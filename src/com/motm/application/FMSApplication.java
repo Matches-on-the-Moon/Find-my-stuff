@@ -1,16 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.motm.application;
 
 import android.app.Application;
 import com.motm.models.Account;
 
-/**
- *
- * @author michael
- */
 public class FMSApplication extends Application 
 {
     private Account currentAccount;
@@ -20,10 +12,6 @@ public class FMSApplication extends Application
     {
         super.onCreate();
     }
-    
-    /*
-     *  
-     */
     
     public Account getCurrentAccount()
     {

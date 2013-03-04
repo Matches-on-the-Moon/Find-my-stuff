@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.motm.activities;
 
 import android.app.Activity;
@@ -17,82 +13,56 @@ import com.motm.helpers.Factory;
 import com.motm.models.Account;
 import com.motm.models.AccountManager;
 
-/**
- *
- * @author michael
- */
 public class LoginActivity extends Activity
 {
-    // models
     private AccountManager accountManager;
-    
-    // view variables
     private EditText loginNameInput;
     private EditText passwordInput;
-    private TextView passwordStatus;
+    private TextView loginStatus;
 
-    /**
-     * Called when the activity is first created.
-     */
     @Override
     public void onCreate(Bundle icicle)
     {
         super.onCreate(icicle);
-
-        // set the models
-        accountManager = Factory.getAccountManager();
-
-        // set the view
         setContentView(R.layout.login);
-        
-        // setup the view elements
+        accountManager = Factory.getAccountManager();
         loginNameInput = (EditText)findViewById(R.id.loginNameInput);
         passwordInput  = (EditText)findViewById(R.id.passwordInput);
-        passwordStatus = (TextView)findViewById(R.id.passwordStatus);
+        loginStatus = (TextView)findViewById(R.id.loginStatus);
     }
     
     @Override
     public void onResume()
     {
         super.onResume();
-        
-        // clear fields
         clearFields();
-        clearStatus();
+        clearLoginStatus();
     }
 
     private void startRegisterActivity()
     {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
-    }
-
-    private void returnToMainActivity()
-    {
-        // start main activity
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        
-        // finish
         finish();
     }
 
-    private void setStatus(String message)
+    private void startMainActivity()
     {
-        // set text
-        passwordStatus.setText(message);
-        
-        // make visible
-        passwordStatus.setVisibility(View.VISIBLE);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void setLoginStatus(String message)
+    {
+        loginStatus.setText(message);
+        loginStatus.setVisibility(View.VISIBLE);
     }
     
-    private void clearStatus()
+    private void clearLoginStatus()
     {
-        // set text
-        passwordStatus.setText("");
-        
-        // hide
-        passwordStatus.setVisibility(View.INVISIBLE);
+        loginStatus.setText("");
+        loginStatus.setVisibility(View.INVISIBLE);
     }
     
     private void clearFields()
@@ -100,51 +70,36 @@ public class LoginActivity extends Activity
         loginNameInput.setText("");
         passwordInput.setText("");
     }
-    
-    /*
-     *      Actions
-     */
-    
+
     public void loginButtonPressed(View view)
     {
     	String loginName;
         String password;
-        
-        // get fields
         loginName = loginNameInput.getText().toString().trim();
     	password = passwordInput.getText().toString().trim();
-
-        // validate
-        if(loginName.isEmpty() || password.isEmpty()){
+    	
+        if(loginName.isEmpty() || password.isEmpty()) {
             String message = getString(R.string.loginRequiredFields);
-            passwordStatus.setTextColor(Color.parseColor("#FF0000"));
-            setStatus(message);
+            loginStatus.setTextColor(Color.parseColor("#FF0000"));
+            setLoginStatus(message);
             return;
         }
         
-        // try to get an account
         Account account = accountManager.getAccount(loginName, password);
         
-        // successful
-        if(account == null){
-            // failure
+        if(account == null) {
             String message = getString(R.string.passwordUnsuccessful);
-            setStatus(message);
-            passwordStatus.setTextColor(Color.parseColor("#FF0000"));
-            // clear fields
+            setLoginStatus(message);
+            loginStatus.setTextColor(Color.parseColor("#FF0000"));
             clearFields();
-            
     	} else {
-            // successful
             String message = getString(R.string.passwordSuccessful);
-            setStatus(message);
-            passwordStatus.setTextColor(Color.parseColor("#00FF00"));
+            setLoginStatus(message);
+            loginStatus.setTextColor(Color.parseColor("#00FF00"));
             
-            // set the current account
             ((FMSApplication)getApplication()).setCurrentAccount(account);
-            
-            // return to main
-            returnToMainActivity();
+
+            startMainActivity();
     	}
     }
 

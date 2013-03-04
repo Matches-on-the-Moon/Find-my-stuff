@@ -1,15 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.motm.models;
 
-/**
- *
- * @author William
- */
 public class Account
-{
+{	
     public enum State {
         Locked, Unlocked
     }
@@ -21,7 +13,6 @@ public class Account
     private String email;
     private int loginAttempts;
     
-    // creates the Account using the user's login name, password, name, and email.
     public Account(String loginName, String password, String name, String email, State accountState, int loginAttempts)
     {
         this.loginName = loginName;
@@ -32,7 +23,6 @@ public class Account
         this.loginAttempts = loginAttempts;
     }
     
-    // convience constructor
     public static Account newAccount(String loginName, String password, String name, String email)
     {
         return new Account(loginName, password, name, email, State.Unlocked, 0);
@@ -90,8 +80,5 @@ public class Account
     public boolean setLoginAttempts() {
         loginAttempts++;
         return true;
-    }
-    
-        
-        
+    }   
 }

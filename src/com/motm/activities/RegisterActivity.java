@@ -1,12 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.motm.activities;
 
-
 import android.app.Activity;
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -15,37 +10,22 @@ import com.motm.R;
 import com.motm.helpers.Factory;
 import com.motm.models.AccountManager;
 
-/**
- *
- * @author michael
- */
 public class RegisterActivity extends Activity
 {
-    // models
     private AccountManager accountManager;
-    
-    // view elements
     private EditText loginNameInput;
     private EditText passwordInput;
     private EditText nameInput;
     private EditText emailInput;
     private TextView registrationStatus;
-    
-    /**
-     * Called when the activity is first created.
-     */
+
     @Override
     public void onCreate(Bundle icicle)
     {
         super.onCreate(icicle);
-
-        // models
         accountManager = Factory.getAccountManager();
-        
-        // set view
         setContentView(R.layout.account_add);
         
-        // view elements
         loginNameInput       = (EditText)findViewById(R.id.registrationUsername);
         passwordInput        = (EditText)findViewById(R.id.registrationPassword);
         nameInput            = (EditText)findViewById(R.id.registrationName);
@@ -57,33 +37,26 @@ public class RegisterActivity extends Activity
     public void onResume()
     {
         super.onResume();
-        
-        // clear fields
         clearFields();
         clearStatus();
     }
 
-    private void returnToLoginActivity()
+    private void startLoginActivity()
     {
-        // login is previous, don't go forward go back
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
         finish();
     }
     
     private void setStatus(String message)
     {
-        // set text
     	registrationStatus.setText(message);
-        
-        // make visible
     	registrationStatus.setVisibility(View.VISIBLE);
     }
     
     private void clearStatus()
     {
-        // set text
     	registrationStatus.setText("");
-        
-        // hide
     	registrationStatus.setVisibility(View.INVISIBLE);
     }
     
@@ -95,9 +68,6 @@ public class RegisterActivity extends Activity
         emailInput.setText("");
     }
     
-    /*
-     *      Actions
-     */
     public void submitButtonPressed(View view)
     {
         String loginName = loginNameInput.getText().toString().trim();
@@ -105,29 +75,18 @@ public class RegisterActivity extends Activity
     	String name = nameInput.getText().toString().trim();
     	String email = emailInput.getText().toString().trim();
         
-        
-        // check valid login name
         if(loginName.isEmpty() || password.isEmpty() || name.isEmpty() || email.isEmpty()) {
-            // not all fields
             String message = getString(R.string.registrationRequiredFields);
             setStatus(message);
-            registrationStatus.setTextColor(Color.parseColor("#FF0000"));
-            
         } else {
-            // success
-            // create the account
         	if (!accountManager.createAccount(loginName, password, name, email)) {
 	            String message = getString(R.string.registrationUnsuccessful);
 	            setStatus(message);
-	            registrationStatus.setTextColor(Color.parseColor("#FF0000"));
         	} else {
-	            // display the message
 	            String message = getString(R.string.registrationSuccessful);
 	            setStatus(message);
-	            registrationStatus.setTextColor(Color.parseColor("#00FF00"));
+	            startLoginActivity();
         	}
-            // return to the login activity
-            returnToLoginActivity();
         }
     }
 }
