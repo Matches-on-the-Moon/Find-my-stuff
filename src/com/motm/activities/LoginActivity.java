@@ -43,13 +43,10 @@ public class LoginActivity extends Activity
     {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
-        finish();
     }
 
     private void startMainActivity()
     {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
         finish();
     }
 

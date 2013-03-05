@@ -15,6 +15,7 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        
         Account currentAccount = ((FMSApplication)getApplication()).getCurrentAccount();
 
         if(currentAccount == null) {
@@ -42,15 +43,17 @@ public class MainActivity extends Activity
     {
         Intent intent = new Intent(this, FindItemActivity.class);
         startActivity(intent);
-        finish();
     }
     
     private void startFindAccountActivity()
     {
         Intent intent = new Intent(this, FindAccountActivity.class);
         startActivity(intent);
-        finish();
     }
+    
+    /*
+     *  Actions
+     */
     
     public void findAccountButtonPressed(View view)
     {

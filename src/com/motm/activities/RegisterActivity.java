@@ -1,7 +1,6 @@
 package com.motm.activities;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -43,8 +42,6 @@ public class RegisterActivity extends Activity
 
     private void startLoginActivity()
     {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
         finish();
     }
     
