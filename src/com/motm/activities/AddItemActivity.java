@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.motm.R;
+import com.motm.application.FMSApplication;
 import com.motm.models.Item;
 import com.motm.models.ItemManager;
+import java.util.Date;
 
 public class AddItemActivity extends Activity
 {
@@ -75,7 +77,8 @@ public class AddItemActivity extends Activity
             String message = getString(R.string.registrationRequiredFields);
             setAddItemStatus(message);
         } else {
-        	if (!itemManager.createItem(itemName, itemLocation, itemReward, itemType, itemCategory, itemDescription)) {
+        	String loginName = ((FMSApplication)getApplication()).getCurrentAccount().getLoginName();
+        	if (!itemManager.createItem(loginName, new Date(), itemName, itemLocation, itemReward, itemType, itemCategory, itemDescription)) {
 	            String message = getString(R.string.submissionUnsuccessful);
 	            setAddItemStatus(message);
         	} else {

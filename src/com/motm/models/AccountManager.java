@@ -16,16 +16,11 @@ public class AccountManager
     
     public boolean createAccount(String loginName, String password, String name, String email)
     {
-        // check if there is a user with that login name
-        // the hashmap's key is the login name
-        if(accountHM.containsKey(loginName)){
-            // contains, so not unique
+        if(accountHM.containsKey(loginName)) {
             return false;
         }
-        
         account = Account.newAccount(loginName, password, name, email);
         accountHM.put(loginName, account);
-        
         return true;
     }
 
@@ -36,9 +31,9 @@ public class AccountManager
         if(account == null || account.getAccountState() == Account.State.Locked || !account.getPassword().equals(password)) {
         	if(account != null) {
 	        	account.setLoginAttempts();
-	        	if(account.getLoginAttempts() >= 3){
+	        	if(account.getLoginAttempts() >= 3) {
 	        		account.setAccountState(Account.State.Locked);
-                        }
+                }
         	}
             return null;
         }

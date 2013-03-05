@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class ItemManager
 {
-    public boolean createItem(int userID, Date date, String itemName, String itemLocation, String itemReward, String itemType, String itemCategory, String itemDescription)
+    public boolean createItem(String loginName, Date date, String itemName, String itemLocation, String itemReward, String itemType, String itemCategory, String itemDescription)
     {
     	return true;
     }
