@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.motm.R;
 import com.motm.application.FMSApplication;
-import com.motm.models.Item;
+import com.motm.helpers.Factory;
 import com.motm.models.ItemManager;
 import java.util.Date;
 
@@ -29,7 +29,7 @@ public class AddItemActivity extends Activity
         super.onCreate(icicle);
         setContentView(R.layout.item_add);
         
-        itemManager = new ItemManager();
+        itemManager = Factory.getItemManager();
         itemNameInput = (EditText)findViewById(R.id.itemNameInput);
         itemLocationInput = (EditText)findViewById(R.id.itemLocationInput);
         itemRewardInput = (EditText)findViewById(R.id.itemRewardInput);

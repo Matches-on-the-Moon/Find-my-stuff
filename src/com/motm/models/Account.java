@@ -77,8 +77,7 @@ public class Account
         return true;
     }
     
-    public boolean setLoginAttempts() {
-        loginAttempts++;
-        return true;
+    public void setLoginAttempts(int loginAttempts) {
+        this.loginAttempts = loginAttempts;
     }   
 }
