@@ -18,9 +18,11 @@
     <string name="email">Email</string>
     
     <string name="loginRequiredFields">Your login name and password are required</string>
-    <string name="passwordUnsuccessful">Username and/or password not found or locked.</string>
+    <string name="passwordUnsuccessful">Password incorrect.</string>
     <string name="passwordSuccessful">Login Success!</string>
+    <string name="accountNull">Login name does not exist.</string>
     <string name="addPictureMessage">Click above to change the picture!</string>
+    <string name="accountLocked">This account is locked.</string>
     
     <string name="registrationRequiredFields">All fields are required</string>
     <string name="registrationSuccessful">Registration Successful!</string>

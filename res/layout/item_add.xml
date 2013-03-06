@@ -135,6 +135,14 @@
     android:orientation="horizontal" >
 
     <Button
+        android:id="@+id/submitItemButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/cancelItemButton"
+        android:onClick="submitItemButtonPressed"
+        android:text="@string/submit" />
+    
+    <Button
         android:id="@+id/cancelItemButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -143,14 +151,6 @@
         android:layout_marginRight="78dp"
         android:onClick="cancelItemButtonPressed"
         android:text="Cancel" />
-
-    <Button
-        android:id="@+id/submitItemButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/cancelItemButton"
-        android:onClick="submitItemButtonPressed"
-        android:text="@string/submit" />
 
 </RelativeLayout>
 

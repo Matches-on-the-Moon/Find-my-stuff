@@ -31,9 +31,7 @@ public class AccountManager
         if(account == null || account.getAccountState() == Account.State.Locked || !account.getPassword().equals(password)) {
         	if(account != null) {
 	        	account.setLoginAttempts(account.getLoginAttempts() + 1);
-	        	if(account.getLoginAttempts() >= 3) {
-	        		account.setAccountState(Account.State.Locked);
-                        }
+	        	return account;
         	}
             return null;
         }
