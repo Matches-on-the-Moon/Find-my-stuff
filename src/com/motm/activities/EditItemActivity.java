@@ -1,12 +1,8 @@
 package com.motm.activities;
 
-import com.motm.R;
-import com.motm.R.layout;
-import com.motm.R.menu;
-
-import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
+import android.os.Bundle;
+import com.motm.R;
 
 public class EditItemActivity extends Activity {
 

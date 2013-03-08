@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
 import com.motm.R;
-import com.motm.models.Item;
 import com.motm.models.ItemManager;
 
 public class FindItemActivity extends Activity
