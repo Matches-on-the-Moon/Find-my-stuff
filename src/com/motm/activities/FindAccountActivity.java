@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
 import com.motm.R;
 
 public class FindAccountActivity extends Activity {
@@ -19,7 +18,8 @@ public class FindAccountActivity extends Activity {
         startViewAccountActivity();
     }
     
-    public void startViewAccountActivity() {
+    public void startViewAccountActivity() 
+    {
         Intent intent = new Intent(this, ViewAccountActivity.class);
         startActivity(intent);
     }

@@ -5,7 +5,7 @@ import java.util.Date;
 public class Item
 {
     
-    private String username; 
+    private String loginName; 
     private Date date;
     private String name;
     private String location;
@@ -14,31 +14,31 @@ public class Item
     private String category;
     private String description;
     
-    Item(String loginName, Date addDate, String itemName, String itemLocation, String itemReward, String itemType, String itemCategory, String itemDescription)
+    Item(String loginName, Date date, String name, String location, String reward, String type, String category, String description)
     {
-        username = loginName;
-        date = addDate;
-        name = itemName;
-        location = itemLocation;
-        reward = itemReward;
-        type = itemType;
-        category = itemCategory;
-        description = itemDescription;
+        this.loginName = loginName;
+        this.date = date;
+        this.name = name;
+        this.location = location;
+        this.reward = reward;
+        this.type = type;
+        this.category = category;
+        this.description = description;
     }
     
     
     /**
      * @return the username
      */
-    public String getUsername() {
-        return username;
+    public String getLoginName() {
+        return loginName;
     }
 
     /**
-     * @param username the username to set
+     * @param loginName the login name to set
      */
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
     /**
