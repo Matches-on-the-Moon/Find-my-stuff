@@ -11,6 +11,7 @@ public class AccountManager
     {
         if(accountHM == null){
             accountHM = new HashMap<String, Account>();
+            accountHM.put("admin", new Admin("admin", "admin", "administrator", "FMS@gatech.edu"));
         }
     }
     
@@ -19,7 +20,7 @@ public class AccountManager
         if(accountHM.containsKey(loginName)) {
             return false;
         }
-        account = Account.newAccount(loginName, password, name, email);
+        account = new Account(loginName, password, name, email);
         accountHM.put(loginName, account);
         return true;
     }

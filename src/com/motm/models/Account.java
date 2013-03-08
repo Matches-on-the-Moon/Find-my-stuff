@@ -23,9 +23,9 @@ public class Account
         this.loginAttempts = loginAttempts;
     }
     
-    public static Account newAccount(String loginName, String password, String name, String email)
+    public Account(String loginName, String password, String name, String email)
     {
-        return new Account(loginName, password, name, email, State.Unlocked, 0);
+        this(loginName, password, name, email, State.Unlocked, 0);
     }
     
     public String getName() {

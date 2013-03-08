@@ -104,7 +104,7 @@ public class LoginActivity extends Activity
     			accountManager.lockAccount(account.getLoginName());
     		}
     		String message = getString(R.string.passwordUnsuccessful);
-            setLoginStatus(message);
+    		setLoginStatus(message);
             loginStatus.setTextColor(Color.parseColor("#FF0000"));
             clearFields();
     	} else {
