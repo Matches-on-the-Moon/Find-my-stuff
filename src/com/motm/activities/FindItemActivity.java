@@ -21,7 +21,7 @@ public class FindItemActivity extends Activity
     public void onCreate(Bundle icicle)
     {
         super.onCreate(icicle);
-        setContentView(R.layout.item_main);
+        setContentView(R.layout.item_find);
         
         itemManager = new ItemManager();
         itemSearchView = (SearchView)findViewById(R.id.itemSearchView);
@@ -33,21 +33,18 @@ public class FindItemActivity extends Activity
     {
         Intent intent = new Intent(this, AddItemActivity.class);
         startActivity(intent);
-        finish();
     }
     
     private void startViewItemActivity()
     {
     	Intent intent = new Intent(this, ViewItemActivity.class);
     	startActivity(intent);
-        finish();
     }
 
     private void startMainActivity()
     {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-        finish();
     }
 
     public void addItemButtonPressed(View view)
@@ -56,6 +53,16 @@ public class FindItemActivity extends Activity
     }
     
     public void itemOneButtonPressed(View view) 
+    {
+    	startViewItemActivity();
+    }
+    
+    public void itemTwoButtonPressed(View view) 
+    {
+    	startViewItemActivity();
+    }
+    
+    public void itemThreeButtonPressed(View view) 
     {
     	startViewItemActivity();
     }

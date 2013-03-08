@@ -43,21 +43,18 @@ public class AddItemActivity extends Activity
     {
         Intent intent = new Intent(this, ViewItemActivity.class);
         startActivity(intent);
-        finish();
     }
     
     private void startFindItemActivity()
     {
     	Intent intent = new Intent(this, FindItemActivity.class);
     	startActivity(intent);
-        finish();
     }
 
     private void startMainActivity()
     {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-        finish();
     }
 
     public void itemPictureButtonPressed(View view) {

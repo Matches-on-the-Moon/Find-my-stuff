@@ -1,8 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:weightSum="3" 
+    android:layout_marginLeft="5dp">
 
+    <TextView
+        android:layout_width="match_parent"
+	    android:layout_height="30dp"
+        android:gravity="center"
+        android:text="@string/name" />
+
+    <ImageView
+        android:id="@+id/itemPictureButton"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:src="@drawable/question_mark" />
+
+	        <TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="30dp"
+	            android:padding="5dp"
+	            android:text="@string/status" />
+
+	        <TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="75dp"
+				android:padding="5dp"
+	            android:text="@string/description" />
+
+	        <TextView
+	            android:layout_width="match_parent"
+		        android:layout_height="30dp"
+				android:padding="5dp"
+	            android:text="@string/location" />
+
+	        <TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="30dp"
+				android:padding="5dp"
+	            android:text="@string/category" />
+
+	        <TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="30dp"
+				android:padding="5dp"
+	            android:text="@string/reward" />
+	        
+	        <TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="30dp"
+				android:padding="5dp"
+	            android:text="Date Entered" />
+
+        <Button
+            android:id="@+id/lostFoundButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+			android:layout_marginTop="10dp"
+            android:onClick="lostFoundButtonPressed"
+            android:text="I lost/found this item" />
+        
+        <Button
+            android:id="@+id/editItemButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="editItemButtonPressed"
+            android:text="Edit Item" 
+            android:visibility="gone"/>/>
+        
+
+        
 </LinearLayout>

@@ -1,8 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:weightSum="3" 
+    android:layout_marginLeft="5dp">
 
+    <TextView
+        android:id="@+id/loginName"
+        android:layout_width="match_parent"
+	    android:layout_height="30dp"
+        android:gravity="center"
+        android:text="@string/loginName" />
+
+    <ImageView
+        android:id="@+id/accountPictureButton"
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
+        android:src="@drawable/question_mark" />
+
+	        <TextView
+       	 		android:id="@+id/name"
+	            android:layout_width="match_parent"
+	            android:layout_height="30dp"
+	            android:padding="5dp"
+	            android:text="@string/name" />
+
+	        <TextView
+       	 		android:id="@+id/email"
+	            android:layout_width="match_parent"
+		        android:layout_height="30dp"
+				android:padding="5dp"
+	            android:text="@string/email" />
+	        
+        <Button
+            android:id="@+id/editAccountButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+			android:layout_marginTop="20dp"
+            android:onClick="editAccountButtonPressed"
+            android:text="Edit Account" 
+        	android:visibility="gone"/>
+        
 </LinearLayout>
