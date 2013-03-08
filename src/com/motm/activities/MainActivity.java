@@ -65,4 +65,9 @@ public class MainActivity extends Activity
         startFindItemActivity();
     }
     
+    public void logoutButtonPressed(View view) {
+    	((FMSApplication)getApplication()).setCurrentAccount(null);
+    	finish();
+    }
+    
 }
