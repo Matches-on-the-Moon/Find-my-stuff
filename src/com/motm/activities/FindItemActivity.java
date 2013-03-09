@@ -7,7 +7,8 @@ import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
 import com.motm.R;
-import com.motm.models.ItemManager;
+import com.motm.helpers.Factory;
+import com.motm.models.interfaces.ItemManager;
 
 public class FindItemActivity extends Activity
 {
@@ -22,7 +23,7 @@ public class FindItemActivity extends Activity
         super.onCreate(icicle);
         setContentView(R.layout.item_find);
         
-        itemManager = new ItemManager();
+        itemManager = Factory.getItemManager();
         itemSearchView = (SearchView)findViewById(R.id.itemSearchView);
         name = (TextView)findViewById(R.id.nameOneTextView);
         description = (TextView)findViewById(R.id.descriptionOneTextView);

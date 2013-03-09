@@ -7,7 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.motm.R;
 import com.motm.helpers.Factory;
-import com.motm.models.AccountManager;
+import com.motm.models.interfaces.AccountManager;
 
 public class RegisterActivity extends Activity
 {

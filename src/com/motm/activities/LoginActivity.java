@@ -11,7 +11,7 @@ import com.motm.R;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
 import com.motm.models.Account;
-import com.motm.models.AccountManager;
+import com.motm.models.interfaces.AccountManager;
 
 public class LoginActivity extends Activity
 {

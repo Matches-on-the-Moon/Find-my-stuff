@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.motm.R;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
-import com.motm.models.ItemManager;
+import com.motm.models.interfaces.ItemManager;
 import java.util.Date;
 
 public class AddItemActivity extends Activity
@@ -37,6 +37,14 @@ public class AddItemActivity extends Activity
         itemCategoryInput = (EditText)findViewById(R.id.itemCategoryInput);
         itemDescriptionInput = (EditText)findViewById(R.id.itemDescriptionInput);
         addItemStatus   = (TextView)findViewById(R.id.registrationStatus);
+    }
+    
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        clearFields();
+        clearAddItemStatus();
     }
 
     private void startViewItemActivity()
@@ -95,13 +103,6 @@ public class AddItemActivity extends Activity
     {
     	addItemStatus.setText(message);
     	addItemStatus.setVisibility(View.VISIBLE);
-    }
-    
-    public void onResume()
-    {
-        super.onResume();
-        clearFields();
-        clearAddItemStatus();
     }
     
     private void clearAddItemStatus()
