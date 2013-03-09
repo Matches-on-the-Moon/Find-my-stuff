@@ -85,13 +85,12 @@ public class AddItemActivity extends Activity
         	Integer accountID = ((FMSApplication)getApplication()).getCurrentAccount().getAccountId();
         	try {
                 itemManager.createItem(accountID, itemName, itemLocation, itemReward, itemType, itemCategory, itemDescription);
-                String message = getString(R.string.submissionSuccessful);
+                String message = getString(R.string.submissionUnsuccessful);
 	            setAddItemStatus(message);
 	            startViewItemActivity();
                 }
                 catch(Exception e){
-                    // create item failed
-                    String message = getString(R.string.submissionUnsuccessful);
+                    String message = getString(R.string.submissionSuccessful);
 		            setAddItemStatus(message);
 		            startFindItemActivity();
                 }

@@ -93,27 +93,26 @@ public class LoginActivity extends Activity
             setLoginStatus(message);
             loginStatus.setTextColor(Color.parseColor("#FF0000"));
             clearFields();
-        } else {
-        
-        Account account = accountManager.attemptLogin(loginName, password);
-        
-        if(account == null) {
-            // failure
-            String message = getString(R.string.loginUnsuccessful);
-            setLoginStatus(message);
-            loginStatus.setTextColor(Color.parseColor("#FF0000"));
-            clearFields();
-            
-    	} else {
-            // success
-            String message = getString(R.string.loginSuccessful);
-            setLoginStatus(message);
-            loginStatus.setTextColor(Color.parseColor("#00FF00"));
-            
-            ((FMSApplication)getApplication()).setCurrentAccount(account);
-
-            startMainActivity();
-    	}
+        } else {     
+	        Account account = accountManager.attemptLogin(loginName, password);
+	        
+	        if(account == null) {
+	            // failure
+	            String message = getString(R.string.loginUnsuccessful);
+	            setLoginStatus(message);
+	            loginStatus.setTextColor(Color.parseColor("#FF0000"));
+	            clearFields();
+	            
+	    	} else {
+	            // success
+	            String message = getString(R.string.loginSuccessful);
+	            setLoginStatus(message);
+	            loginStatus.setTextColor(Color.parseColor("#00FF00"));
+	            
+	            ((FMSApplication)getApplication()).setCurrentAccount(account);
+	
+	            startMainActivity();
+	    	}
         }
     }
 
