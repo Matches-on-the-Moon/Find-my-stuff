@@ -6,6 +6,7 @@ public class Account
         Locked, Unlocked
     }
     
+    private int id;
     private String name;
     private String loginName;
     private String password;
@@ -13,8 +14,9 @@ public class Account
     private String email;
     private int loginAttempts;
     
-    public Account(String loginName, String password, String name, String email, State accountState, int loginAttempts)
+    public Account(int id, String loginName, String password, String name, String email, State accountState, int loginAttempts)
     {
+        this.id = id;
         this.loginName = loginName;
         this.password = password;
         this.name = name;
@@ -25,7 +27,12 @@ public class Account
     
     public Account(String loginName, String password, String name, String email)
     {
-        this(loginName, password, name, email, State.Unlocked, 0);
+        this(0, loginName, password, name, email, State.Unlocked, 0);
+    }
+    
+    public int getUserId()
+    {
+        return id;
     }
     
     public String getName() {

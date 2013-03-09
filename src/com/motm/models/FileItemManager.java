@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class FileItemManager implements ItemManager
 {
-    public boolean createItem(String loginName, Date date, String itemName, String itemLocation, String itemReward, String itemType, String itemCategory, String itemDescription)
+    public boolean createItem(int ownerID, Date date, String itemName, String itemLocation, String itemReward, String itemType, String itemCategory, String itemDescription)
     {
     	return true;
     }
