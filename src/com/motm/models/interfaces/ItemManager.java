@@ -5,6 +5,7 @@
 package com.motm.models.interfaces;
 
 import com.motm.models.Item;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -18,18 +19,16 @@ public interface ItemManager
     
     public void deleteItem(Integer itemID);
 
-    public void editItem(Integer itemID);
+    public ArrayList<Item> findItemsByUserID(Integer userID);
 
-    public Item[] findItemsByUserID(Integer userID);
+    public ArrayList<Item> findItemsByLocation(String location);
 
-    public Item[] findItemsByLocation(String location);
+    public ArrayList<Item> findItemsByStatus(Item.Status status);
 
-    public Item[] findItemsByStatus(String status);
+    public ArrayList<Item> findItemsByCategory(String category);
 
-    public Item[] findItemsByCategory(String category);
+    public ArrayList<Item> findItemsByType(String type);
 
-    public Item[] findItemsByType(String type);
-
-    public Item[] findItemsByDate(Date date);
+    public ArrayList<Item> findItemsByDate(Date date);
 
 }

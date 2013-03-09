@@ -4,23 +4,29 @@ import java.util.Date;
 
 public class Item
 {
+    public enum Status {
+        Open, Resolved
+    }
+    
     private Integer id;
     private Integer ownerID; 
     private Date date;
     private String name;
     private String location;
+    private Status status;
     private String reward;
     private String type;
     private String category;
     private String description;
     
-    Item(Integer id, Integer ownerID, String name, String location, String reward, String type, String category, String description, Date date)
+    Item(Integer id, Integer ownerID, String name, String location, Status status, String reward, String type, String category, String description, Date date)
     {
         this.id = id;
         this.ownerID = ownerID;
         this.date = date;
         this.name = name;
         this.location = location;
+        this.status = status;
         this.reward = reward;
         this.type = type;
         this.category = category;
@@ -91,6 +97,20 @@ public class Item
      */
     public void setLocation(String location) {
         this.location = location;
+    }
+    
+    /**
+     * @return the status
+     */
+    public Status getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     /**
