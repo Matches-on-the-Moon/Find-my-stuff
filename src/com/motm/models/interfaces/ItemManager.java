@@ -1,17 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.motm.models.interfaces;
 
 import com.motm.models.Item;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- *
- * @author michael
- */
 public interface ItemManager
 {
     public void createItem(Integer ownerID, String name, String location, String reward, String type, String category, String description)

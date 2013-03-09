@@ -76,14 +76,19 @@ public class RegisterActivity extends Activity
             String message = getString(R.string.registrationRequiredFields);
             setStatus(message);
         } else {
-        	if (!accountManager.createAccount(loginName, password, name, email)) {
-	            String message = getString(R.string.registrationUnsuccessful);
-	            setStatus(message);
-        	} else {
-	            String message = getString(R.string.registrationSuccessful);
-	            setStatus(message);
-	            startLoginActivity();
-        	}
+        	try {
+				if (!accountManager.createAccount(loginName, password, name, email)) {
+				    String message = getString(R.string.registrationUnsuccessful);
+				    setStatus(message);
+				} else {
+				    String message = getString(R.string.registrationSuccessful);
+				    setStatus(message);
+				    startLoginActivity();
+				}
+			} catch (Exception e) {
+			    String message = getString(R.string.registrationException);
+			    setStatus(message);
+			}
         }
     }
 }

@@ -44,14 +44,14 @@ public class Item
     }
     
     /**
-     * @return the username
+     * @return the ownerID
      */
     public Integer getOwnerID() {
         return ownerID;
     }
 
     /**
-     * @param ownerId the account id to set
+     * @param ownerID the account id to set
      */
     public void setOwnerID(Integer ownerID) {
         this.ownerID = ownerID;

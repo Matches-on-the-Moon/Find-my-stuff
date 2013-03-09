@@ -84,15 +84,16 @@ public class AddItemActivity extends Activity
         } else {
         	Integer accountID = ((FMSApplication)getApplication()).getCurrentAccount().getAccountId();
         	try {
-                    itemManager.createItem(accountID, itemName, itemLocation, itemReward, itemType, itemCategory, itemDescription);
-                    String message = getString(R.string.submissionUnsuccessful);
+                itemManager.createItem(accountID, itemName, itemLocation, itemReward, itemType, itemCategory, itemDescription);
+                String message = getString(R.string.submissionSuccessful);
 	            setAddItemStatus(message);
+	            startViewItemActivity();
                 }
                 catch(Exception e){
                     // create item failed
-                    String message = getString(R.string.submissionSuccessful);
-	            setAddItemStatus(message);
-	            startViewItemActivity();
+                    String message = getString(R.string.submissionUnsuccessful);
+		            setAddItemStatus(message);
+		            startFindItemActivity();
                 }
         }
     }

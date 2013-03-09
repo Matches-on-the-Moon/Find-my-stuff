@@ -51,7 +51,7 @@ public class FileAccountManager implements AccountManager
         
         // find an account with the loginName
         for(Account _account : accountHM.values()){
-            if(_account.getLoginName().equals(loginName)){
+            if(_account.getLoginName().equals(loginName)) {
                 account = _account;
                 break;
             }
@@ -63,7 +63,7 @@ public class FileAccountManager implements AccountManager
         }
         
         // check to make sure the password matches
-        if(!account.getPassword().endsWith(password)){
+        if(!account.getPassword().equals(password)){
             // password doesn't match, increment the login attempts
             account.setLoginAttempts(account.getLoginAttempts() + 1);
             
@@ -94,7 +94,6 @@ public class FileAccountManager implements AccountManager
     public Account getAccount(Integer accountID)
     {
         Account account = accountHM.get(accountID);
-        
         return account;
     }
 
@@ -114,7 +113,7 @@ public class FileAccountManager implements AccountManager
 
     public boolean deleteAccount(Integer accountID)
     {
-    	Account account = accountHM.remove(accountID);
+    	accountHM.remove(accountID);
         return true;
     }
 

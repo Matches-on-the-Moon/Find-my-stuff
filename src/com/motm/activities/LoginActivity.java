@@ -93,7 +93,7 @@ public class LoginActivity extends Activity
             setLoginStatus(message);
             loginStatus.setTextColor(Color.parseColor("#FF0000"));
             clearFields();
-        }
+        } else {
         
         Account account = accountManager.attemptLogin(loginName, password);
         
@@ -114,6 +114,7 @@ public class LoginActivity extends Activity
 
             startMainActivity();
     	}
+        }
     }
 
     public void registerButtonPressed(View view)
