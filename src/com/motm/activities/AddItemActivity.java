@@ -82,15 +82,18 @@ public class AddItemActivity extends Activity
             String message = getString(R.string.registrationRequiredFields);
             setAddItemStatus(message);
         } else {
-        	int userID = ((FMSApplication)getApplication()).getCurrentAccount().getUserId();
-        	if (!itemManager.createItem(userID, new Date(), itemName, itemLocation, itemReward, itemType, itemCategory, itemDescription)) {
-	            String message = getString(R.string.submissionUnsuccessful);
+        	Integer accountID = ((FMSApplication)getApplication()).getCurrentAccount().getAccountId();
+        	try {
+                    itemManager.createItem(accountID, itemName, itemLocation, itemReward, itemType, itemCategory, itemDescription);
+                    String message = getString(R.string.submissionUnsuccessful);
 	            setAddItemStatus(message);
-        	} else {
-	            String message = getString(R.string.submissionSuccessful);
+                }
+                catch(Exception e){
+                    // create item failed
+                    String message = getString(R.string.submissionSuccessful);
 	            setAddItemStatus(message);
 	            startViewItemActivity();
-        	}
+                }
         }
     }
     

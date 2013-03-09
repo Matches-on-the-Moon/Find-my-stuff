@@ -87,28 +87,26 @@ public class LoginActivity extends Activity
             return;
         }
         
-        Account account = accountManager.getAccount(loginName, password);
-        
-        if(account == null) {
-            String message = getString(R.string.accountNull);
-            setLoginStatus(message);
-            loginStatus.setTextColor(Color.parseColor("#FF0000"));
-            clearFields();
-    	} else if (account.getAccountState() == Account.State.Locked) {
+        // check if the loginName is locked
+        if(accountManager.getAccountStateByLoginName(loginName) == Account.State.Locked){
             String message = getString(R.string.accountLocked);
             setLoginStatus(message);
             loginStatus.setTextColor(Color.parseColor("#FF0000"));
             clearFields();
-    	} else if (!account.getPassword().equals(password)) {
-    		if(account.getLoginAttempts() >= 3) {
-    			accountManager.lockAccount(account.getLoginName());
-    		}
-    		String message = getString(R.string.passwordUnsuccessful);
-    		setLoginStatus(message);
+        }
+        
+        Account account = accountManager.attemptLogin(loginName, password);
+        
+        if(account == null) {
+            // failure
+            String message = getString(R.string.loginUnsuccessful);
+            setLoginStatus(message);
             loginStatus.setTextColor(Color.parseColor("#FF0000"));
             clearFields();
+            
     	} else {
-            String message = getString(R.string.passwordSuccessful);
+            // success
+            String message = getString(R.string.loginSuccessful);
             setLoginStatus(message);
             loginStatus.setTextColor(Color.parseColor("#00FF00"));
             

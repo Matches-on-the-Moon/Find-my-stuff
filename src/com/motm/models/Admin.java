@@ -6,9 +6,4 @@ public class Admin extends Account
     {
         super(id, loginName, password, name, email, accountState, loginAttempts);
     }
-    
-    public Admin(String loginName, String password, String name, String email)
-    {
-    	super(loginName, password, name, email);
-    }
 }

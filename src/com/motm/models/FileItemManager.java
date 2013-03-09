@@ -1,26 +1,56 @@
 package com.motm.models;
 
 import com.motm.models.interfaces.ItemManager;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Set;
 
 public class FileItemManager implements ItemManager
 {
-    public boolean createItem(int ownerID, Date date, String itemName, String itemLocation, String itemReward, String itemType, String itemCategory, String itemDescription)
+    private HashMap<Integer, Item> items;
+    
+    /**
+     *
+     * @param ownerID
+     * @param name
+     * @param location
+     * @param reward
+     * @param type
+     * @param category
+     * @param description
+     * @param date
+     * @return
+     * @throws Exception
+     */
+    public void createItem(Integer ownerID, String name, String location, String reward, String type, String category, String description) throws Exception
     {
-    	return true;
+        // create a new, unique key
+        Set<Integer> itemIDs = items.keySet();
+        if(itemIDs.size() >= Integer.MAX_VALUE){
+            throw new Exception("Can't create a new item, the max amount of items have been created");
+        }
+        Integer id = Collections.max(itemIDs) + 1;
+        // keep incrementing the id until the set doesn't contain it
+        while(itemIDs.contains(id)){
+            id++;
+        }
+        
+        Item item = new Item(id, ownerID, name, location, reward, type, category, description, new Date());
+        items.put(id, item);
     }
     
-    public boolean deleteItem(int ItemID)
+    public void deleteItem(Integer itemID)
     {
-        return true;
+        
     }
     
-    public boolean editItem(int ItemID)
+    public void editItem(Integer itemID)
     {
-        return true;
+        
     }
     
-    public Item[] findItemsByUserID(int userID)
+    public Item[] findItemsByUserID(Integer userID)
     {
         Item[] items = {};
         return items;

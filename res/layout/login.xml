@@ -90,7 +90,7 @@
         android:layout_gravity="center_horizontal|top"
         android:layout_row="4"
         android:visibility="gone"
-        android:text="@string/passwordUnsuccessful"
+        android:text="@string/loginUnsuccessful"
         android:textColor="#FF0000" />
     
 </GridLayout>

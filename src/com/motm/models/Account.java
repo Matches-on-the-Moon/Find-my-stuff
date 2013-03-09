@@ -6,7 +6,7 @@ public class Account
         Locked, Unlocked
     }
     
-    private int id;
+    private Integer id;
     private String name;
     private String loginName;
     private String password;
@@ -14,7 +14,7 @@ public class Account
     private String email;
     private int loginAttempts;
     
-    public Account(int id, String loginName, String password, String name, String email, State accountState, int loginAttempts)
+    public Account(Integer id, String loginName, String password, String name, String email, State accountState, int loginAttempts)
     {
         this.id = id;
         this.loginName = loginName;
@@ -25,12 +25,7 @@ public class Account
         this.loginAttempts = loginAttempts;
     }
     
-    public Account(String loginName, String password, String name, String email)
-    {
-        this(0, loginName, password, name, email, State.Unlocked, 0);
-    }
-    
-    public int getUserId()
+    public int getAccountId()
     {
         return id;
     }
@@ -57,6 +52,13 @@ public class Account
     
     public int getLoginAttempts() {
         return loginAttempts;
+    }
+    
+    public boolean setAccountID(Integer id)
+    {
+        this.id = id;
+        
+        return true;
     }
     
     public boolean setName(String name) {

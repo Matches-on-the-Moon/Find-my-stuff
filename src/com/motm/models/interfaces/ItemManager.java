@@ -13,13 +13,14 @@ import java.util.Date;
  */
 public interface ItemManager
 {
-    public boolean createItem(int ownerID, Date date, String itemName, String itemLocation, String itemReward, String itemType, String itemCategory, String itemDescription);
+    public void createItem(Integer ownerID, String name, String location, String reward, String type, String category, String description)
+            throws Exception;
+    
+    public void deleteItem(Integer itemID);
 
-    public boolean deleteItem(int ItemID);
+    public void editItem(Integer itemID);
 
-    public boolean editItem(int ItemID);
-
-    public Item[] findItemsByUserID(int userID);
+    public Item[] findItemsByUserID(Integer userID);
 
     public Item[] findItemsByLocation(String location);
 

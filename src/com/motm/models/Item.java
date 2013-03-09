@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Item
 {
-    private int id;
-    private String ownerID; 
+    private Integer id;
+    private Integer ownerID; 
     private Date date;
     private String name;
     private String location;
@@ -14,7 +14,7 @@ public class Item
     private String category;
     private String description;
     
-    Item(int id, String ownerID, Date date, String name, String location, String reward, String type, String category, String description)
+    Item(Integer id, Integer ownerID, String name, String location, String reward, String type, String category, String description, Date date)
     {
         this.id = id;
         this.ownerID = ownerID;
@@ -27,13 +27,12 @@ public class Item
         this.description = description;
     }
     
-    
-    public int getItemID()
+    public Integer getItemID()
     {
         return id;
     }
     
-    public void setItemID(int id)
+    public void setItemID(Integer id)
     {
         this.id = id;
     }
@@ -41,14 +40,14 @@ public class Item
     /**
      * @return the username
      */
-    public String getOwnerID() {
+    public Integer getOwnerID() {
         return ownerID;
     }
 
     /**
-     * @param ownerId the login name to set
+     * @param ownerId the account id to set
      */
-    public void setOwnerID(String ownerID) {
+    public void setOwnerID(Integer ownerID) {
         this.ownerID = ownerID;
     }
 

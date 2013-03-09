@@ -12,17 +12,23 @@ import com.motm.models.Account;
  */
 public interface AccountManager
 {
-    public boolean createAccount(String loginName, String password, String name, String email);
+    public boolean createAccount(String loginName, String password, String name, String email) throws Exception;
 
-    public Account getAccount(String loginName, String password);
+    public Account attemptLogin(String loginName, String password);
+    
+    public Account getAccount(Integer accountID);
+    
+    public Account.State getAccountStateByLoginName(String loginName);
 
-    public boolean lockAccount(String loginName);
+    public boolean lockAccount(Integer accountID);
 
-    public boolean unlockAccount(String loginName);
+    public boolean unlockAccount(Integer accountID);
 
-    public boolean deleteAccount(String loginName);
+    public boolean deleteAccount(Integer accountID);
 
-    public boolean editAccountPassword(String loginName, String password);
+    public boolean editAccountPassword(Integer accountID, String password);
 
-    public boolean editAccountEmail(String loginName, String email);
+    public boolean editAccountEmail(Integer accountID, String email);
+    
+    public boolean isLoginNameUnique(String loginName);
 }
