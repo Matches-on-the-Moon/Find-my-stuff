@@ -1,13 +1,14 @@
 package com.motm.models;
 
+import com.motm.models.interfaces.AccountManager;
 import java.util.HashMap;
 
-public class AccountManager
+public class FileAccountManager implements AccountManager
 {	
     private static HashMap<String, Account> accountHM;
     private Account account;
 
-    public AccountManager()
+    public FileAccountManager()
     {
         if(accountHM == null){
             accountHM = new HashMap<String, Account>();

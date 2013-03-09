@@ -1,8 +1,9 @@
 package com.motm.models;
 
+import com.motm.models.interfaces.ItemManager;
 import java.util.Date;
 
-public class ItemManager
+public class FileItemManager implements ItemManager
 {
     public boolean createItem(String loginName, Date date, String itemName, String itemLocation, String itemReward, String itemType, String itemCategory, String itemDescription)
     {

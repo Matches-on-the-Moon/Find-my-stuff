@@ -1,18 +1,19 @@
 package com.motm.helpers;
 
-import com.motm.models.AccountManager;
-// import com.motm.models.DataManager;
-import com.motm.models.ItemManager;
+import com.motm.models.interfaces.AccountManager;
+import com.motm.models.interfaces.ItemManager;
+import com.motm.models.FileAccountManager;
+import com.motm.models.FileItemManager;
 
 public class Factory
 {
     public static AccountManager getAccountManager()
     {
-        return new AccountManager();
+        return new FileAccountManager();
     }
     
     public static ItemManager getItemManager()
     {
-        return new ItemManager();
+        return new FileItemManager();
     }
 }
