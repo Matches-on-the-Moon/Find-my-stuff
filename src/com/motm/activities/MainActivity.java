@@ -16,7 +16,7 @@ public class MainActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         
-        Account currentAccount = ((FMSApplication)getApplication()).getCurrentAccount();
+        Account currentAccount = FMSApplication.getInstance().getCurrentAccount();
 
         if(currentAccount == null) {
             startLoginActivity();
@@ -71,7 +71,7 @@ public class MainActivity extends Activity
     public void logoutButtonPressed(View view)
     {
         // logout user
-        ((FMSApplication)getApplication()).setCurrentAccount(null);
+    	FMSApplication.getInstance().setCurrentAccount(null);
 
         // start login
         startLoginActivity();
