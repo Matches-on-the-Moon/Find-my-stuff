@@ -67,6 +67,7 @@ public class MainActivity extends Activity
     
     public void logoutButtonPressed(View view) {
     	((FMSApplication)getApplication()).setCurrentAccount(null);
+    	startLoginActivity();
     	finish();
     }
     

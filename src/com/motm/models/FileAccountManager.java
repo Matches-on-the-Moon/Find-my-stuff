@@ -13,7 +13,8 @@ public class FileAccountManager implements AccountManager
     {
         if(accountHM == null){
             accountHM = new HashMap<Integer, Account>();
-            accountHM.put(0, new Admin(0, "admin", "admin", "administrator", "FMS@gatech.edu", Account.State.Unlocked, 0));
+            accountHM.put(0, new Admin(0, "admin", "admin", "administrator", "FMS_Admin@gatech.edu", Account.State.Unlocked, 0));
+            accountHM.put(1, new Account(1, "user", "user", "user", "FMS_User@gatech.edu", Account.State.Unlocked, 0));
         }
     }
     
@@ -81,7 +82,7 @@ public class FileAccountManager implements AccountManager
     
     public Account.State getAccountStateByLoginName(String loginName)
     {
-        for(Account account : accountHM.values()){
+        for(Account account : accountHM.values()) {
             if(account.getLoginName().equals(loginName)){
                 return account.getAccountState();
             }
@@ -90,11 +91,31 @@ public class FileAccountManager implements AccountManager
         // if the account is not found, say it's unlocked
         return Account.State.Unlocked;
     }
+    
+    public int getAccountIdByLoginName(String loginName) {
+        for(Account account : accountHM.values()) {
+            if(account.getLoginName().equals(loginName)){
+                return account.getAccountId();
+            }
+        }
+        
+        return 0; // just a place holder.
+    }
 
     public Account getAccount(Integer accountID)
     {
         Account account = accountHM.get(accountID);
         return account;
+    }
+    
+    public Account[] getAllAccounts() {
+    	Account[] accounts = new Account[accountHM.size()];
+    	int Id = 0;
+    	for(Account account : accountHM.values()) {
+    		accounts[Id] = account;
+    		Id++;
+    	}
+    	return accounts;
     }
 
     public boolean lockAccount(Integer accountID)
@@ -133,12 +154,17 @@ public class FileAccountManager implements AccountManager
     
     public boolean isLoginNameUnique(String loginName)
     {
-        for(Account account : accountHM.values()){
-            if(account.getLoginName().equals(loginName)){
+        for(Account account : accountHM.values()) {
+            if(account.getLoginName().equals(loginName))
                 return false;
-            }
         }
         
         return true;
+    }
+    
+    public boolean isAdmin(Integer accountID) {
+    	if (getAccount(accountID) instanceof Admin)
+    		return true;
+    	return false;
     }
 }

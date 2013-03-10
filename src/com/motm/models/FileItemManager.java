@@ -9,7 +9,14 @@ import java.util.Set;
 
 public class FileItemManager implements ItemManager
 {
-    private HashMap<Integer, Item> itemsHM;
+    private HashMap<Integer, Item> itemHM;
+    
+    public FileItemManager()
+    {
+        if(itemHM == null) {
+            itemHM = new HashMap<Integer, Item>();
+        }
+    }
     
     /**
      *
@@ -24,10 +31,10 @@ public class FileItemManager implements ItemManager
      * @return
      * @throws Exception
      */
-    public void createItem(Integer ownerID, String name, String location, String reward, String type, String category, String description) throws Exception
+    public Integer createItem(Integer ownerID, String name, String location, String reward, String type, String category, String description) throws Exception
     {
         // create a new, unique key
-        Set<Integer> itemIDs = itemsHM.keySet();
+        Set<Integer> itemIDs = itemHM.keySet();
         if(itemIDs.size() >= Integer.MAX_VALUE){
             throw new Exception("Can't create a new item, the max amount of items have been created");
         }
@@ -38,19 +45,20 @@ public class FileItemManager implements ItemManager
         }
         
         Item item = new Item(id, ownerID, name, location, Item.Status.Open, reward, type, category, description, new Date());
-        itemsHM.put(id, item);
+        itemHM.put(id, item);
+        return id;
     }
     
     public void deleteItem(Integer itemID)
     {
-        itemsHM.remove(itemID);
+        itemHM.remove(itemID);
     }
     
     public ArrayList<Item> findItemsByUserID(Integer userID)
     {
         ArrayList<Item> items = new ArrayList<Item>();
         
-        for(Item item : itemsHM.values()){
+        for(Item item : itemHM.values()){
             if(item.getOwnerID().equals(userID)){
                 items.add(item);
             }
@@ -63,7 +71,7 @@ public class FileItemManager implements ItemManager
     {
         ArrayList<Item> items = new ArrayList<Item>();
         
-        for(Item item : itemsHM.values()){
+        for(Item item : itemHM.values()){
             if(item.getLocation().equals(location)){
                 items.add(item);
             }
@@ -76,7 +84,7 @@ public class FileItemManager implements ItemManager
     {
         ArrayList<Item> items = new ArrayList<Item>();
         
-        for(Item item : itemsHM.values()){
+        for(Item item : itemHM.values()){
             if(item.getStatus().equals(status)){
                 items.add(item);
             }
@@ -89,7 +97,7 @@ public class FileItemManager implements ItemManager
     {
         ArrayList<Item> items = new ArrayList<Item>();
         
-        for(Item item : itemsHM.values()){
+        for(Item item : itemHM.values()){
             if(item.getCategory().equals(category)){
                 items.add(item);
             }
@@ -101,8 +109,7 @@ public class FileItemManager implements ItemManager
     public ArrayList<Item> findItemsByType(String type)
     {
         ArrayList<Item> items = new ArrayList<Item>();
-        
-        for(Item item : itemsHM.values()){
+        for(Item item : itemHM.values()){
             if(item.getType().equals(type)){
                 items.add(item);
             }
@@ -114,13 +121,26 @@ public class FileItemManager implements ItemManager
     public ArrayList<Item> findItemsByDate(Date date)
     {
         ArrayList<Item> items = new ArrayList<Item>();
-        
-        for(Item item : itemsHM.values()){
+        for(Item item : itemHM.values()){
             if(item.getDate().equals(date)){
                 items.add(item);
             }
         }
-        
         return items;
     }
+
+	public Item[] getAllItems() {
+    	Item[] items = new Item[itemHM.size()];
+    	int Id = 0;
+    	for(Item item : itemHM.values()) {
+    		items[Id] = item;
+    		Id++;
+    	}
+		return items;
+	}
+
+	public Item getItem(Integer itemId) {
+		Item item = itemHM.get(itemId);
+		return item;
+	}
 }

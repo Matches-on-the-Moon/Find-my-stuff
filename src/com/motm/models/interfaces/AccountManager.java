@@ -23,4 +23,10 @@ public interface AccountManager
     public boolean editAccountEmail(Integer accountID, String email);
     
     public boolean isLoginNameUnique(String loginName);
+
+	public int getAccountIdByLoginName(String text);
+
+	public boolean isAdmin(Integer accountID);
+
+	public Account[] getAllAccounts();
 }

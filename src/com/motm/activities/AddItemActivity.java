@@ -10,7 +10,6 @@ import com.motm.R;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
 import com.motm.models.interfaces.ItemManager;
-import java.util.Date;
 
 public class AddItemActivity extends Activity
 {
@@ -22,11 +21,12 @@ public class AddItemActivity extends Activity
     private EditText itemCategoryInput;
     private EditText itemDescriptionInput;
     private TextView addItemStatus;
+    private Integer targetItemId;
 
     @Override
-    public void onCreate(Bundle icicle)
+    public void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate(icicle);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.item_add);
         
         itemManager = Factory.getItemManager();
@@ -45,24 +45,6 @@ public class AddItemActivity extends Activity
         super.onResume();
         clearFields();
         clearAddItemStatus();
-    }
-
-    private void startViewItemActivity()
-    {
-        Intent intent = new Intent(this, ViewItemActivity.class);
-        startActivity(intent);
-    }
-    
-    private void startFindItemActivity()
-    {
-    	Intent intent = new Intent(this, FindItemActivity.class);
-    	startActivity(intent);
-    }
-
-    private void startMainActivity()
-    {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 
     public void itemPictureButtonPressed(View view) {
@@ -84,17 +66,29 @@ public class AddItemActivity extends Activity
         } else {
         	Integer accountID = ((FMSApplication)getApplication()).getCurrentAccount().getAccountId();
         	try {
-                itemManager.createItem(accountID, itemName, itemLocation, itemReward, itemType, itemCategory, itemDescription);
+        		targetItemId = itemManager.createItem(accountID, itemName, itemLocation, itemReward, itemType, itemCategory, itemDescription);
                 String message = getString(R.string.submissionUnsuccessful);
 	            setAddItemStatus(message);
-	            startViewItemActivity();
-                }
-                catch(Exception e){
+                } catch(Exception e) {
                     String message = getString(R.string.submissionSuccessful);
 		            setAddItemStatus(message);
-		            startFindItemActivity();
                 }
+        	startFindItemActivity();
         }
+    }
+    
+    private void startViewItemActivity()
+    {
+        Intent intent = new Intent(this, ViewItemActivity.class);
+        intent.putExtra("targetItem", targetItemId);
+        startActivity(intent);
+    }
+    
+    private void startFindItemActivity()
+    {
+    	Intent intent = new Intent(this, FindItemActivity.class);
+    	startActivity(intent);
+    	finish();
     }
     
     public void cancelItemButtonPressed(View view) 
