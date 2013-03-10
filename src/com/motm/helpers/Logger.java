@@ -7,7 +7,7 @@ public class Logger
     public static void d(String message)
     {
         if (message.isEmpty()){
-            message = "None";
+            message = "Empty message";
         }
         
         String tag = getCallingClassName();

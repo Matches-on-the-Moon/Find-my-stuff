@@ -2,8 +2,8 @@ package com.motm.activities;
 
 import java.util.ArrayList;
 
-import Adapters.ItemViewAdapter;
-import Adapters.RowItem;
+import com.motm.adapters.ItemViewAdapter;
+import com.motm.adapters.RowItem;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,7 +36,6 @@ public class FindItemActivity extends ListActivity
     {
         super.onResume();
         
-        // moved the onCreate stuff here until we can figure out how to stop it from duplicating the list every time or not updating at all.
         setContentView(R.layout.item_find);
         
         itemManager = Factory.getItemManager();

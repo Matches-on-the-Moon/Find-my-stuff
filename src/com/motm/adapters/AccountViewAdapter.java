@@ -1,4 +1,4 @@
-package Adapters;
+package com.motm.adapters;
 
 import java.util.List;
 import com.motm.R;

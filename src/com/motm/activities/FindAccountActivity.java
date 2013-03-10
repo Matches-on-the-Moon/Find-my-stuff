@@ -3,8 +3,8 @@ package com.motm.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import Adapters.AccountViewAdapter;
-import Adapters.RowAccount;
+import com.motm.adapters.AccountViewAdapter;
+import com.motm.adapters.RowAccount;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

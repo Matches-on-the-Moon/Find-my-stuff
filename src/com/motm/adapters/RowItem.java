@@ -1,4 +1,4 @@
-package Adapters;
+package com.motm.adapters;
 
 public class RowItem
 {
