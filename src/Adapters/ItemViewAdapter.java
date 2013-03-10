@@ -30,6 +30,7 @@ public class ItemViewAdapter extends ArrayAdapter<RowItem> {
         TextView itemIdView;
     }
  
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         RowItem rowItem = getItem(position);

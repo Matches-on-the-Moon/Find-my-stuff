@@ -2,11 +2,9 @@ package com.motm.activities;
 
 import java.util.ArrayList;
 
-import Adapters.AccountViewAdapter;
 import Adapters.ItemViewAdapter;
-import Adapters.RowAccount;
 import Adapters.RowItem;
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,14 +12,11 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import com.motm.R;
-import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
-import com.motm.models.Account;
 import com.motm.models.Item;
-import com.motm.models.interfaces.AccountManager;
 import com.motm.models.interfaces.ItemManager;
 
-public class FindItemActivity extends Activity
+public class FindItemActivity extends ListActivity
 {
     private ItemManager itemManager;
     private SearchView itemSearchView;
@@ -31,25 +26,37 @@ public class FindItemActivity extends Activity
     private ItemViewAdapter adapter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
     }
     
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
+        
         // moved the onCreate stuff here until we can figure out how to stop it from duplicating the list every time or not updating at all.
         setContentView(R.layout.item_find);
-        rowItems = new ArrayList<RowItem>();
+        
         itemManager = Factory.getItemManager();
-        adapter = new ItemViewAdapter(this, R.layout.account_find_list_rows, rowItems);
+        
+        rowItems = new ArrayList<RowItem>();
+        adapter = new ItemViewAdapter(this, R.layout.item_find_list_rows, rowItems);
         listView = (ListView)findViewById(R.id.list);
         listView.setAdapter(adapter);
+        
         updateRows();
     }
 
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id)
+    {
+        
+    }
     
-    public void updateRows() {
+    public void updateRows()
+    {
     	// quick and dirty, fix later
         ArrayList<Item> items = itemManager.getAllItems();
         int Id = 0;
