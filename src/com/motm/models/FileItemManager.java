@@ -23,7 +23,7 @@ public class FileItemManager implements ItemManager
     public FileItemManager()
     {
         itemsHM = new HashMap<Integer, Item>();
-        
+        itemsHM.put(0, new Item(0, 0, "item", "Atlanta", Item.Status.Open, "$0", "FOUND", "Keepsake", "ES GUD YALL", new Date()));
         loadData();
     }
     

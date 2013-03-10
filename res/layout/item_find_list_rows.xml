@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="5dip" 
-    android:onClick="accountButtonClicked">
+    android:onClick="itemButtonClicked">
  
     <!--  ListRow Left side Thumbnail image -->
     <LinearLayout android:id="@+id/thumbnail"

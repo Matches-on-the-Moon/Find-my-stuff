@@ -45,8 +45,12 @@ public class ViewItemActivity extends Activity {
         targetItemId = this.getIntent().getExtras().getInt("targetItem");
         setFields();
 
-        Account currentAccount = ((FMSApplication)getApplication()).getCurrentAccount();
-        if (currentAccount.getAccountId() == itemManager.getItem(targetItemId).getOwnerID())
+        Account currentAccount = FMSApplication.getInstance().getCurrentAccount();
+        int targetOwnerId = -1;
+        if (itemManager.getItem(targetItemId) != null) {
+        	targetOwnerId = itemManager.getItem(targetItemId).getOwnerID();
+        }
+        if (currentAccount.getAccountId() == targetOwnerId)
         	setButtonDisplay(true);
     }
     

@@ -34,7 +34,7 @@ public class ViewAccountActivity extends Activity {
         targetAccountId = getIntent().getExtras().getInt("targetAccount");
         setFields();
 
-        Account currentAccount = ((FMSApplication)getApplication()).getCurrentAccount();
+        Account currentAccount = FMSApplication.getInstance().getCurrentAccount();
         if (currentAccount.getAccountId() == targetAccountId || accountManager.isAdmin(currentAccount.getAccountId()))
         	setButtonDisplay();
     }

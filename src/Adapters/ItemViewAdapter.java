@@ -37,20 +37,20 @@ public class ItemViewAdapter extends ArrayAdapter<RowItem> {
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.account_find_list_rows, null);
+        	convertView = mInflater.inflate(R.layout.item_find_list_rows, null);
             holder = new ViewHolder();
-            holder.nameView = (TextView) convertView.findViewById(R.id.loginName);
-            holder.descriptionView = (TextView) convertView.findViewById(R.id.email);
+            holder.nameView = (TextView) convertView.findViewById(R.id.name);
+            holder.descriptionView = (TextView) convertView.findViewById(R.id.description);
             holder.typeView = (TextView) convertView.findViewById(R.id.type);
             holder.itemIdView = (TextView) convertView.findViewById(R.id.itemId);
-            holder.imageView = (ImageView) convertView.findViewById(R.id.accountImage);
+            holder.imageView = (ImageView) convertView.findViewById(R.id.itemImage);
             convertView.setTag(holder);
         } else
             holder = (ViewHolder) convertView.getTag();
         	holder.nameView.setText(rowItem.getName()); 
         	holder.descriptionView.setText(rowItem.getDescription()); 
         	holder.typeView.setText(rowItem.getType());
-        	holder.itemIdView.setText(rowItem.getItemId());
+        	holder.itemIdView.setText(""+rowItem.getItemId());
         	holder.imageView.setImageResource(R.drawable.question_mark); //rowItem.getImageId()
         	return convertView;
     }

@@ -112,7 +112,7 @@ public class LoginActivity extends Activity
 	            setLoginStatus(message);
 	            loginStatus.setTextColor(Color.parseColor("#00FF00"));
 	            
-	            ((FMSApplication)getApplication()).setCurrentAccount(account);
+	            FMSApplication.getInstance().setCurrentAccount(account);
 	
 	            startMainActivity();
 	    	}

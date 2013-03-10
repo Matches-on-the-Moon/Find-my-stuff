@@ -45,7 +45,7 @@ public class AccountViewAdapter extends ArrayAdapter<RowAccount> {
             holder = (ViewHolder) convertView.getTag();
         	holder.nameView.setText(rowAccount.getLoginName()); 
         	holder.emailView.setText(rowAccount.getEmail()); 
-        	holder.imageView.setImageResource(R.drawable.question_mark); //rowItem.getImageId()
+        	holder.imageView.setImageResource(R.drawable.question_mark); //rowAccount.getImageId()
         	return convertView;
     }
 }

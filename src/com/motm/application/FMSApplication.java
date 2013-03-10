@@ -8,14 +8,22 @@ public class FMSApplication extends Application
 {
     private static Context context;
     private Account currentAccount;
+    private static FMSApplication fmsApplication;
+
     
     @Override
     public void onCreate()
     {
         super.onCreate();
-        
         FMSApplication.context = getApplicationContext();
+        fmsApplication = this;
     }
+    
+    public static FMSApplication getInstance()
+    {
+    	return fmsApplication;
+    }
+
     
     public Account getCurrentAccount()
     {

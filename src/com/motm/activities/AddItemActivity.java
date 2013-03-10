@@ -64,16 +64,17 @@ public class AddItemActivity extends Activity
             String message = getString(R.string.registrationRequiredFields);
             setAddItemStatus(message);
         } else {
-        	Integer accountID = ((FMSApplication)getApplication()).getCurrentAccount().getAccountId();
+        	Integer accountID = FMSApplication.getInstance().getCurrentAccount().getAccountId();
         	try {
         		targetItemId = itemManager.createItem(accountID, itemName, itemLocation, itemReward, itemType, itemCategory, itemDescription);
-                String message = getString(R.string.submissionUnsuccessful);
+        		String message = getString(R.string.submissionSuccessful);
 	            setAddItemStatus(message);
+	            startViewItemActivity();
                 } catch(Exception e) {
-                    String message = getString(R.string.submissionSuccessful);
+                	String message = getString(R.string.submissionUnsuccessful);
 		            setAddItemStatus(message);
+		            startFindItemActivity();
                 }
-        	startFindItemActivity();
         }
     }
     
@@ -82,6 +83,7 @@ public class AddItemActivity extends Activity
         Intent intent = new Intent(this, ViewItemActivity.class);
         intent.putExtra("targetItem", targetItemId);
         startActivity(intent);
+        finish();
     }
     
     private void startFindItemActivity()

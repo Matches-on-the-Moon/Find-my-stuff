@@ -38,7 +38,7 @@ public class EditAccountActivity extends Activity {
         accountManager = Factory.getAccountManager();
 		targetAccountID = getIntent().getExtras().getInt("targetAccount");
 		loginName.setText(accountManager.getAccount(targetAccountID).getLoginName());
-		Account currentAccount = ((FMSApplication)getApplication()).getCurrentAccount();
+		Account currentAccount = FMSApplication.getInstance().getCurrentAccount();
         if (accountManager.isAdmin(currentAccount.getAccountId()))
         	setButtonDisplay();
 	}
