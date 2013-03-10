@@ -6,6 +6,10 @@ public class Logger
 {
     public static void d(String message)
     {
+        if (message.isEmpty()){
+            message = "None";
+        }
+        
         String tag = getCallingClassName();
         Log.d(tag, message);
     }
