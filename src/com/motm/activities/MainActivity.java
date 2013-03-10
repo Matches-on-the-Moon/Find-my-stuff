@@ -34,8 +34,11 @@ public class MainActivity extends Activity
 
     private void startLoginActivity()
     {
+        // start login
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+        
+        // finish main, to prevent back
         finish();
     }
 
@@ -65,9 +68,17 @@ public class MainActivity extends Activity
         startFindItemActivity();
     }
     
-    public void logoutButtonPressed(View view) {
-    	((FMSApplication)getApplication()).setCurrentAccount(null);
-    	finish();
+    public void logoutButtonPressed(View view)
+    {
+    	// log user out
+        ((FMSApplication)getApplication()).setCurrentAccount(null);
+        
+        // start the login activity
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    	
+        // quit the main activity
+        finish();
     }
     
 }

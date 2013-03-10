@@ -24,8 +24,11 @@ public class LoginActivity extends Activity
     public void onCreate(Bundle icicle)
     {
         super.onCreate(icicle);
+        
         setContentView(R.layout.login);
+        
         accountManager = Factory.getAccountManager();
+        
         loginNameInput = (EditText)findViewById(R.id.loginNameInput);
         passwordInput  = (EditText)findViewById(R.id.passwordInput);
         loginStatus = (TextView)findViewById(R.id.loginStatus);

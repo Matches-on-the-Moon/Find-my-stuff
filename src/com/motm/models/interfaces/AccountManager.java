@@ -1,10 +1,11 @@
 package com.motm.models.interfaces;
 
+import com.motm.helpers.FMSException;
 import com.motm.models.Account;
 
 public interface AccountManager
 {
-    public boolean createAccount(String loginName, String password, String name, String email) throws Exception;
+    public boolean createAccount(String loginName, String password, String name, String email) throws FMSException;
 
     public Account attemptLogin(String loginName, String password);
     

@@ -6,7 +6,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.motm.R;
+import com.motm.helpers.FMSException;
 import com.motm.helpers.Factory;
+import com.motm.helpers.Logger;
 import com.motm.models.interfaces.AccountManager;
 
 public class RegisterActivity extends Activity
@@ -22,7 +24,9 @@ public class RegisterActivity extends Activity
     public void onCreate(Bundle icicle)
     {
         super.onCreate(icicle);
+        
         accountManager = Factory.getAccountManager();
+        
         setContentView(R.layout.account_add);
         
         loginNameInput       = (EditText)findViewById(R.id.registrationUsername);
@@ -78,14 +82,18 @@ public class RegisterActivity extends Activity
         } else {
         	try {
 				if (!accountManager.createAccount(loginName, password, name, email)) {
+                    // failure
 				    String message = getString(R.string.registrationUnsuccessful);
 				    setStatus(message);
 				} else {
+                    // success
 				    String message = getString(R.string.registrationSuccessful);
 				    setStatus(message);
 				    startLoginActivity();
 				}
-			} catch (Exception e) {
+			}
+            catch (FMSException e) {
+                Logger.d(e.getLocalizedMessage()+", "+e.getMessage()+", "+e.getClass()+", "+e.getCause());
 			    String message = getString(R.string.registrationException);
 			    setStatus(message);
 			}

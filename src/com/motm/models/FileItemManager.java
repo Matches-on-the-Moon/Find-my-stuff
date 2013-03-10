@@ -1,6 +1,13 @@
 package com.motm.models;
 
+import android.content.Context;
+import com.motm.application.FMSApplication;
+import com.motm.helpers.Logger;
 import com.motm.models.interfaces.ItemManager;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -9,7 +16,16 @@ import java.util.Set;
 
 public class FileItemManager implements ItemManager
 {
+    private static final String FILENAME = "itemsHM";
+    
     private HashMap<Integer, Item> itemsHM;
+    
+    public FileItemManager()
+    {
+        itemsHM = new HashMap<Integer, Item>();
+        
+        loadData();
+    }
     
     /**
      *
@@ -31,7 +47,10 @@ public class FileItemManager implements ItemManager
         if(itemIDs.size() >= Integer.MAX_VALUE){
             throw new Exception("Can't create a new item, the max amount of items have been created");
         }
-        Integer id = Collections.max(itemIDs) + 1;
+        Integer id = 1;
+        if(itemIDs.size() > 0){
+            id = Collections.max(itemIDs) + 1;
+        }
         // keep incrementing the id until the set doesn't contain it
         while(itemIDs.contains(id)){
             id++;
@@ -39,11 +58,15 @@ public class FileItemManager implements ItemManager
         
         Item item = new Item(id, ownerID, name, location, Item.Status.Open, reward, type, category, description, new Date());
         itemsHM.put(id, item);
+        
+        saveData();
     }
     
     public void deleteItem(Integer itemID)
     {
         itemsHM.remove(itemID);
+        
+        saveData();
     }
     
     public ArrayList<Item> findItemsByUserID(Integer userID)
@@ -122,5 +145,36 @@ public class FileItemManager implements ItemManager
         }
         
         return items;
+    }
+    
+    /*
+     *  File Operations
+     */
+    private void saveData()
+    {
+        try {
+            FileOutputStream fs = FMSApplication.getAppContext().openFileOutput(FILENAME, Context.MODE_PRIVATE);
+            ObjectOutputStream s = new ObjectOutputStream(fs);
+            s.writeObject(itemsHM);
+            s.close();
+        }
+        catch (Exception e) {
+            Logger.d(e.getMessage());
+        }
+    }
+    
+    private void loadData()
+    {
+        try {
+            FileInputStream fs = FMSApplication.getAppContext().openFileInput(FILENAME);
+            ObjectInputStream s = new ObjectInputStream(fs);
+            HashMap<Integer, Item> items = (HashMap<Integer, Item>)s.readObject();
+            s.close();
+            
+            itemsHM = items;
+        }
+        catch (Exception e) {
+            Logger.d(e.getMessage());
+        }
     }
 }
