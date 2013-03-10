@@ -5,35 +5,64 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
 import com.motm.R;
 import com.motm.application.FMSApplication;
+import com.motm.helpers.Factory;
 import com.motm.models.Account;
+import com.motm.models.Item;
+import com.motm.models.interfaces.ItemManager;
 
 public class ViewItemActivity extends Activity {
 	
-	private Button lostFoundButton;
-	private Button editItemButton;
+	private Integer targetItemId;
+	private ItemManager itemManager;
+	private TextView name;
+	private TextView description;
+	private TextView type;
+	//private TextView status;
+	private TextView location;
+	private TextView reward;
+	private TextView category;
+	private TextView date;
 	
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
-        setContentView(R.layout.item_view);
-        lostFoundButton = (Button)findViewById(R.id.lostFoundButton);
-        editItemButton = (Button)findViewById(R.id.editItemButton);
-        setButtonDisplay();
+    public void onCreate(Bundle savedInstanceState) 
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.item_view); 
         
+        name = (TextView)findViewById(R.id.name);
+        type = (TextView)findViewById(R.id.type);
+        description = (TextView)findViewById(R.id.description);
+        //status = (TextView)findViewById(R.id.status);
+        location = (TextView)findViewById(R.id.location);
+        reward = (TextView)findViewById(R.id.reward);
+        category = (TextView)findViewById(R.id.category);
+        date = (TextView)findViewById(R.id.date);
+        itemManager = Factory.getItemManager();
+        targetItemId = this.getIntent().getExtras().getInt("targetItem");
+        setFields();
+
+        Account currentAccount = ((FMSApplication)getApplication()).getCurrentAccount();
+        if (currentAccount.getAccountId() == itemManager.getItem(targetItemId).getOwnerID())
+        	setButtonDisplay(true);
     }
     
     private void startViewAccountActivity()
     {
         Intent intent = new Intent(this, ViewAccountActivity.class);
+        intent.putExtra("targetAccount", itemManager.getItem(targetItemId).getOwnerID());
         startActivity(intent);
     }
     
     private void startEditItemActivity()
     {
         Intent intent = new Intent(this, EditItemActivity.class);
+        intent.putExtra("targetItem", targetItemId);
         startActivity(intent);
+        finish();
     }
     
     public void editItemButtonPressed(View view)
@@ -46,15 +75,29 @@ public class ViewItemActivity extends Activity {
         startViewAccountActivity();
     }
     
-    private void setFields() {
-    	//sets the currently blank fields to ' + ": " + itemInformation; '
+    private void setFields() 
+    {
+    	Item item = itemManager.getItem(targetItemId);
+    	if (item != null) {
+	    	description.setText("Description: " + item.getDescription());
+	    	name.setText("Name: " + item.getName());
+	    	type.setText("Email: " + item.getType());
+	    	location.setText("Location: " + item.getLocation());
+	    	reward.setText("Reward: " + item.getReward());
+	    	category.setText("Category: " + item.getCategory());
+	    	date.setText("Date Entered: " + item.getDate());
+    	}
     }
     
-    private void setButtonDisplay()
+    private void setButtonDisplay(boolean set)
     {
-        Account currentAccount = ((FMSApplication)getApplication()).getCurrentAccount();
-        // if currentAccount != ownersAccount
-    	lostFoundButton.setVisibility(View.VISIBLE);
-    	// else editItemButton.setVisibility(View.VISIBLE);
+        if(set=true) {
+        	Button editItemButton = (Button)findViewById(R.id.editItemButton);
+        	editItemButton.setVisibility(View.VISIBLE);
+        } else {
+        	Button lostFoundButton = (Button)findViewById(R.id.lostFoundButton);
+    		lostFoundButton.setVisibility(View.VISIBLE);
+        }
+
     }
 }

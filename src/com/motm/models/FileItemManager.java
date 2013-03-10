@@ -40,10 +40,10 @@ public class FileItemManager implements ItemManager
      * @return
      * @throws Exception
      */
-    public void createItem(Integer ownerID, String name, String location, String reward, String type, String category, String description) throws Exception
+    public Integer createItem(Integer ownerID, String name, String location, String reward, String type, String category, String description) throws Exception
     {
         // create a new, unique key
-        Set<Integer> itemIDs = itemsHM.keySet();
+        Set<Integer> itemIDs = itemHM.keySet();
         if(itemIDs.size() >= Integer.MAX_VALUE){
             throw new Exception("Can't create a new item, the max amount of items have been created");
         }
@@ -73,7 +73,7 @@ public class FileItemManager implements ItemManager
     {
         ArrayList<Item> items = new ArrayList<Item>();
         
-        for(Item item : itemsHM.values()){
+        for(Item item : itemHM.values()){
             if(item.getOwnerID().equals(userID)){
                 items.add(item);
             }
@@ -86,7 +86,7 @@ public class FileItemManager implements ItemManager
     {
         ArrayList<Item> items = new ArrayList<Item>();
         
-        for(Item item : itemsHM.values()){
+        for(Item item : itemHM.values()){
             if(item.getLocation().equals(location)){
                 items.add(item);
             }
@@ -99,7 +99,7 @@ public class FileItemManager implements ItemManager
     {
         ArrayList<Item> items = new ArrayList<Item>();
         
-        for(Item item : itemsHM.values()){
+        for(Item item : itemHM.values()){
             if(item.getStatus().equals(status)){
                 items.add(item);
             }
@@ -112,7 +112,7 @@ public class FileItemManager implements ItemManager
     {
         ArrayList<Item> items = new ArrayList<Item>();
         
-        for(Item item : itemsHM.values()){
+        for(Item item : itemHM.values()){
             if(item.getCategory().equals(category)){
                 items.add(item);
             }
@@ -124,8 +124,7 @@ public class FileItemManager implements ItemManager
     public ArrayList<Item> findItemsByType(String type)
     {
         ArrayList<Item> items = new ArrayList<Item>();
-        
-        for(Item item : itemsHM.values()){
+        for(Item item : itemHM.values()){
             if(item.getType().equals(type)){
                 items.add(item);
             }
@@ -137,13 +136,11 @@ public class FileItemManager implements ItemManager
     public ArrayList<Item> findItemsByDate(Date date)
     {
         ArrayList<Item> items = new ArrayList<Item>();
-        
-        for(Item item : itemsHM.values()){
+        for(Item item : itemHM.values()){
             if(item.getDate().equals(date)){
                 items.add(item);
             }
         }
-        
         return items;
     }
     

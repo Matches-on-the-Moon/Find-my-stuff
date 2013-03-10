@@ -9,12 +9,12 @@
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     
     <application
-        android:name=".application.FMSApplication"
+        android:name="com.motm.application.FMSApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.motm.activities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,31 +23,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.LoginActivity"
+            android:name="com.motm.activities.LoginActivity"
             android:label="@string/loginActivityLabel" />
         <activity
-            android:name=".activities.RegisterActivity"
+            android:name="com.motm.activities.RegisterActivity"
             android:label="@string/registerActivityLabel" />
         <activity
-            android:name=".activities.FindItemActivity"
+            android:name="com.motm.activities.FindItemActivity"
             android:label="@string/findItemActivityLabel" />
         <activity
-            android:name=".activities.AddItemActivity"
+            android:name="com.motm.activities.AddItemActivity"
             android:label="@string/addItemActivityLabel" />
         <activity
-            android:name=".activities.ViewItemActivity"
+            android:name="com.motm.activities.ViewItemActivity"
             android:label="View an account" />
         <activity
-            android:name=".activities.FindAccountActivity"
+            android:name="com.motm.activities.FindAccountActivity"
             android:label="Find an account" />
         <activity
-            android:name=".activities.ViewAccountActivity"
+            android:name="com.motm.activities.ViewAccountActivity"
             android:label="View an account" />
         <activity
-            android:name=".activities.EditAccountActivity"
+            android:name="com.motm.activities.EditAccountActivity"
             android:label="Edit an account." />
         <activity
-            android:name=".activities.EditItemActivity"
+            android:name="com.motm.activities.EditItemActivity"
             android:label="Edit an item." />
     </application>
 
