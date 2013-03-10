@@ -23,7 +23,7 @@ public interface ItemManager
 
     public ArrayList<Item> findItemsByDate(Date date);
 
-	public Item[] getAllItems();
+	public ArrayList<Item> getAllItems();
 
 	public Item getItem(Integer itemId);
 

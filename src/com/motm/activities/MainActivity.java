@@ -68,10 +68,13 @@ public class MainActivity extends Activity
         startFindItemActivity();
     }
     
-    public void logoutButtonPressed(View view) {
-    	((FMSApplication)getApplication()).setCurrentAccount(null);
-    	startLoginActivity();
-    	finish();
+    public void logoutButtonPressed(View view)
+    {
+        // logout user
+        ((FMSApplication)getApplication()).setCurrentAccount(null);
+
+        // start login
+        startLoginActivity();
     }
     
 }

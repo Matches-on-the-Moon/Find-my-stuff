@@ -54,10 +54,12 @@ public class EditAccountActivity extends Activity {
     {
     	String password = passwordInput.getText().toString().trim();
     	String email = emailInput.getText().toString().trim();
-    	if(!password.isEmpty())
+    	if(!password.isEmpty()){
     		accountManager.editAccountPassword(targetAccountID, password);
-    	if (!email.isEmpty())
+        }
+    	if (!email.isEmpty()){
     		accountManager.editAccountEmail(targetAccountID, email);
+        }
     	startViewAccountActivity();
     	finish();
     }

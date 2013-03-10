@@ -51,7 +51,7 @@ public class FindItemActivity extends Activity
     
     public void updateRows() {
     	// quick and dirty, fix later
-        Item[] items = itemManager.getAllItems();
+        ArrayList<Item> items = itemManager.getAllItems();
         int Id = 0;
     	for(Item item : items) {
     		RowItem rowItem = new RowItem(0, item.getName(), item.getDescription(), item.getType(), Id);

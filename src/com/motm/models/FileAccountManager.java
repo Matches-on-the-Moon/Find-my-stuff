@@ -196,6 +196,15 @@ public class FileAccountManager implements AccountManager
         return true;
     }
     
+    public boolean isAdmin(Integer accountID)
+    {
+    	if (getAccount(accountID) instanceof Admin){
+    		return true;
+        }
+        
+    	return false;
+    }
+    
     /*
      *  File Operations
      */
