@@ -10,9 +10,4 @@ public class Admin extends Account implements Serializable
     {
         super(id, loginName, password, name, email, accountState, loginAttempts);
     }
-    
-    public Admin(Account account) {
-    	super(account.getAccountId(), account.getLoginName(), account.getPassword(), 
-    			account.getName(), account.getEmail(), account.getAccountState(), account.getLoginAttempts());
-    }
 }

@@ -191,8 +191,12 @@ public class FileAccountManager implements AccountManager
 
     public boolean promoteAccount(Integer targetAccountID) 
     {
-    	Admin admin = new Admin(getAccount(targetAccountID));
-    	deleteAccount(targetAccountID);
+        Account account = getAccount(targetAccountID);
+        
+    	Admin admin = new Admin(account.getAccountId(), account.getLoginName(), account.getPassword(), 
+    			account.getName(), account.getEmail(), account.getAccountState(), account.getLoginAttempts());
+    	
+        deleteAccount(targetAccountID);
     	accountHM.put(targetAccountID, admin);
     	return true;
     }
