@@ -42,9 +42,13 @@ public class FileAccountManager implements AccountManager
         loadData();
     }
     
-    /*
+    /**
      *  Creates a new account
      *  For the FileAccountManager, it needs to also choose a unique id for the Account
+     *  @param loginName loginName
+	 *  @param password password
+	 *  @param name name
+	 *  @param email email
      */
     public boolean createAccount(String loginName, String password, String name, String email) throws FMSException
     {
@@ -75,7 +79,11 @@ public class FileAccountManager implements AccountManager
         saveData();
         return true;
     }
-    
+    /**
+     * Attempt login
+     * @param loginName 
+	 * @param password 
+     */
     public Account attemptLogin(String loginName, String password)
     {
         Account account = null;
@@ -109,7 +117,11 @@ public class FileAccountManager implements AccountManager
         
         return account;
     }
-    
+    /**
+     * Get account information for a user
+     * @param loginName 
+     * @return account state
+     */
     public Account.State getAccountStateByLoginName(String loginName)
     {
         for(Account account : accountHM.values()) {
@@ -121,7 +133,10 @@ public class FileAccountManager implements AccountManager
         // if the account is not found, say it's unlocked
         return Account.State.Unlocked;
     }
-    
+    /**
+     * Get the account for loginName
+     * @param loginName
+     */
     public int getAccountIdByLoginName(String loginName) {
         for(Account account : accountHM.values()) {
             if(account.getLoginName().equals(loginName)){
@@ -131,13 +146,19 @@ public class FileAccountManager implements AccountManager
         
         return 0; // just a place holder.
     }
-
+	/**
+	 * Retrieve account
+	 * @param accountID id of account
+	 */
     public Account getAccount(Integer accountID)
     {
         return accountHM.get(accountID);
         
     }
-    
+    /**
+     * Get all accounts
+     * @return all accounts
+     */
     public Account[] getAllAccounts() {
     	Account[] accounts = new Account[accountHM.size()];
     	int Id = 0;
@@ -148,6 +169,11 @@ public class FileAccountManager implements AccountManager
     	return accounts;
     }
 
+    /**
+     * Lock a user's account
+     * @param accountID id
+     * @return true
+     */
     public boolean lockAccount(Integer accountID)
     {
     	accountHM.get(accountID).setAccountState(Account.State.Locked);
@@ -157,6 +183,11 @@ public class FileAccountManager implements AccountManager
         return true;
     }
 
+    /**
+     * Unlock account
+     * @param accountID id of account
+     * @return true
+     */
     public boolean unlockAccount(Integer accountID)
     {
     	accountHM.get(accountID).setAccountState(Account.State.Unlocked);
@@ -165,7 +196,11 @@ public class FileAccountManager implements AccountManager
         
         return true;
     }
-
+    /**
+     * Delete account
+     * @param accountID id
+     * @return true
+     */
     public boolean deleteAccount(Integer accountID)
     {
     	accountHM.remove(accountID);
@@ -174,7 +209,12 @@ public class FileAccountManager implements AccountManager
         
         return true;
     }
-
+    /**
+     * Edit password
+     * @param accountID
+     * @param password
+     * @return true
+     */
     public boolean editAccountPassword(Integer accountID, String password)
     {
     	accountHM.get(accountID).setPassword(password);
@@ -183,7 +223,12 @@ public class FileAccountManager implements AccountManager
         
         return true;
     }
-    
+    /**
+     * Edit email
+     * @param accountID
+     * @param email
+     * @return true
+     */
     public boolean editAccountEmail(Integer accountID, String email)
     {
     	accountHM.get(accountID).setEmail(email);
@@ -192,7 +237,11 @@ public class FileAccountManager implements AccountManager
         
     	return true;
     }
-
+    /**
+     * Promote account to Admin
+     * @param targetAccountID
+     * @return true
+     */
     public boolean promoteAccount(Integer targetAccountID) 
     {
         Account account = getAccount(targetAccountID);
@@ -204,7 +253,11 @@ public class FileAccountManager implements AccountManager
     	accountHM.put(targetAccountID, admin);
     	return true;
     }
-    
+    /**
+     * Checks if a login name is unique
+     * @param loginName
+     * return true if unique false otherwise
+     */
     public boolean isLoginNameUnique(String loginName)
     {
         for(Account account : accountHM.values()) {
@@ -214,7 +267,11 @@ public class FileAccountManager implements AccountManager
         
         return true;
     }
-    
+    /**
+     * Tests if an account is an admin
+     * @param accountID 
+     * return true if admin false otherwise
+     */
     public boolean isAdmin(Integer accountID)
     {
     	if (getAccount(accountID) instanceof Admin){
@@ -224,8 +281,8 @@ public class FileAccountManager implements AccountManager
     	return false;
     }
     
-    /*
-     *  File Operations
+    /**
+     * Save accounts
      */
     private void saveData()
     {
@@ -239,7 +296,9 @@ public class FileAccountManager implements AccountManager
             Logger.d(e.getMessage());
         }
     }
-    
+    /**
+     * Load accounts
+     */
     private void loadData()
     {
         try {

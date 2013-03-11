@@ -45,12 +45,18 @@ public class Item implements Serializable
         this.category = category;
         this.description = description;
     }
-    
+    /**
+     * 
+     * @return the item id
+     */
     public Integer getItemID()
     {
         return id;
     }
-    
+    /**
+     * Set item id
+     * @param id new id
+     */
     public void setItemID(Integer id)
     {
         this.id = id;

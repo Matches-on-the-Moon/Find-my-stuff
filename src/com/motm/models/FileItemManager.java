@@ -46,15 +46,14 @@ public class FileItemManager implements ItemManager
     
     /**
      *
-     * @param ownerID
-     * @param name
-     * @param location
-     * @param reward
-     * @param type
-     * @param category
-     * @param description
-     * @param date
-     * @return
+     * @param ownerID owner of item
+     * @param name name of item
+     * @param location location of item
+     * @param reward reward for item
+     * @param type type of item
+     * @param category category of item
+     * @param description description of item
+     * @return item id
      * @throws Exception
      */
     public Integer createItem(Integer ownerID, String name, String location, String reward, Item.Type type, String category, String description) throws Exception
@@ -81,13 +80,21 @@ public class FileItemManager implements ItemManager
         return id;
     }
     
+    /**
+     * Deletes an item
+     * @param itemID id of item to delete
+     */
     public void deleteItem(Integer itemID)
     {
         itemsHM.remove(itemID);
         
         saveData();
     }
-    
+    /**
+     * Gets the items for a user
+     * @param userID id of user
+     * @return list of items for the user
+     */
     public ArrayList<Item> findItemsByUserID(Integer userID)
     {
         ArrayList<Item> items = new ArrayList<Item>();
@@ -100,7 +107,11 @@ public class FileItemManager implements ItemManager
         
         return items;
     }
-    
+    /**
+     * Find all the items for a location
+     * @param location location to search for items
+     * @return list of items with the specified location
+     */
     public ArrayList<Item> findItemsByLocation(String location)
     {
         ArrayList<Item> items = new ArrayList<Item>();
@@ -113,7 +124,11 @@ public class FileItemManager implements ItemManager
         
         return items;
     }
-    
+    /**
+     * Look for items based on status
+     * @param status status of the types of items 
+     * @return list of items with the specified status
+     */
     public ArrayList<Item> findItemsByStatus(Item.Status status)
     {
         ArrayList<Item> items = new ArrayList<Item>();
@@ -126,7 +141,11 @@ public class FileItemManager implements ItemManager
         
         return items;
     }
-    
+    /**
+     * Lookup items by category
+     * @param category category of items to look for
+     * @return list of items with specified category
+     */
     public ArrayList<Item> findItemsByCategory(String category)
     {
         ArrayList<Item> items = new ArrayList<Item>();
@@ -139,7 +158,11 @@ public class FileItemManager implements ItemManager
         
         return items;
     }
-    
+    /**
+     * Lookup items by type
+     * @param type type of items to look for
+     * @return list of items with specified type
+     */
     public ArrayList<Item> findItemsByType(Item.Type type)
     {
         ArrayList<Item> items = new ArrayList<Item>();
@@ -151,7 +174,11 @@ public class FileItemManager implements ItemManager
         
         return items;
     }
-    
+    /**
+     * Lookup items by date
+     * @param date date of items to look for
+     * @return list of items with specified date
+     */
     public ArrayList<Item> findItemsByDate(Date date)
     {
         ArrayList<Item> items = new ArrayList<Item>();
@@ -162,14 +189,21 @@ public class FileItemManager implements ItemManager
         }
         return items;
     }
-    
+    /**
+     * Get all items
+     * @return list of all items
+     */
     public ArrayList<Item> getAllItems()
     {
     	ArrayList<Item> items = new ArrayList<Item>(itemsHM.values());
         
 		return items;
 	}
-
+	/**
+	 * Lookup an item by id
+	 * @param itemId id of the the item
+	 * @return item with specified id
+	 */
 	public Item getItem(Integer itemId)
     {
 		Item item = itemsHM.get(itemId);
@@ -177,8 +211,8 @@ public class FileItemManager implements ItemManager
 		return item;
 	}
     
-    /*
-     *  File Operations
+    /**
+     * Save FileItemManager information to file
      */
     private void saveData()
     {
@@ -192,7 +226,9 @@ public class FileItemManager implements ItemManager
             Logger.d(e.getMessage());
         }
     }
-    
+    /**
+     * Load FileItemManager information from file
+     */
     private void loadData()
     {
         try {
