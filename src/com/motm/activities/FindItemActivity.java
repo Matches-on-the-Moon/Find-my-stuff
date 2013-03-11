@@ -21,6 +21,7 @@ public class FindItemActivity extends ListActivity
     private SearchView itemSearchView;
     private int targetItemId;
     private ItemViewAdapter adapter;
+    private ArrayList<Item> rowItems;
     
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -38,7 +39,7 @@ public class FindItemActivity extends ListActivity
         super.onResume();
         
         // update the list
-        ArrayList<Item> rowItems = itemManager.getAllItems();
+        rowItems = itemManager.getAllItems();
         adapter = new ItemViewAdapter(this, R.layout.item_find_list_rows, rowItems);
         setListAdapter(adapter);
     }
@@ -46,7 +47,9 @@ public class FindItemActivity extends ListActivity
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id)
     {
+        Item item = rowItems.get(position);
         
+    	startViewItemActivity(item.getItemID());
     }
  
     public void addItemButtonPressed(View view) 
@@ -60,16 +63,10 @@ public class FindItemActivity extends ListActivity
         startActivity(intent);
     }
     
-    public void itemButtonClicked(View view) 
-    {
-    	targetItemId = Integer.parseInt((((TextView)(view.findViewById(R.id.itemId))).getText().toString()));
-    	startViewItemActivity();
-    }
-    
-    private void startViewItemActivity()
+    private void startViewItemActivity(Integer itemID)
     {
         Intent intent = new Intent(this, ViewItemActivity.class);
-        intent.putExtra("targetItem", targetItemId);
+        intent.putExtra("targetItemId", itemID);
         startActivity(intent);
     }
     

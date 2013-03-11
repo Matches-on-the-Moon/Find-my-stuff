@@ -1,7 +1,6 @@
 package com.motm.activities;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -76,24 +75,14 @@ public class AddItemActivity extends Activity
         		Integer targetItemId = itemManager.createItem(accountID, itemName, itemLocation, itemReward, itemType, itemCategory, itemDescription);
         		String message = getString(R.string.submissionSuccessful);
 	            setAddItemStatus(message);
-                
-	            startViewItemActivity(targetItemId);
+                // show the item list
+                startFindItemActivity();
             }
             catch(Exception e) {
                 String message = getString(R.string.submissionUnsuccessful);
                 setAddItemStatus(message);
-                startFindItemActivity();
             }
         }
-    }
-    
-    private void startViewItemActivity(Integer targetItemId)
-    {
-        Intent intent = new Intent(this, ViewItemActivity.class);
-        intent.putExtra("targetItemId", targetItemId);
-        startActivity(intent);
-        
-        finish();
     }
     
     private void startFindItemActivity()

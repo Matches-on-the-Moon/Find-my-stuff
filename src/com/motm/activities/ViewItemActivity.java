@@ -5,14 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.motm.R;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
-import com.motm.helpers.ItemHelper;
-import com.motm.helpers.Logger;
 import com.motm.models.Account;
 import com.motm.models.Item;
 import com.motm.models.interfaces.ItemManager;
@@ -48,7 +44,7 @@ public class ViewItemActivity extends Activity {
         category = (TextView)findViewById(R.id.category);
         date = (TextView)findViewById(R.id.date);
         
-        targetItemId = this.getIntent().getExtras().getInt("targetItem");
+        targetItemId = this.getIntent().getExtras().getInt("targetItemId");
         setFields();
         
         Account currentAccount = FMSApplication.getInstance().getCurrentAccount();
@@ -90,15 +86,17 @@ public class ViewItemActivity extends Activity {
     {
     	Item item = itemManager.getItem(targetItemId);
         
-    	if (item != null) {
-	    	description.setText("Description: " + item.getDescription());
-	    	name.setText("Name: " + item.getName());
-	    	type.setText("Type: " + item.getType().toString());
-	    	location.setText("Location: " + item.getLocation());
-	    	reward.setText("Reward: " + item.getReward());
-	    	category.setText("Category: " + item.getCategory());
-	    	date.setText("Date Entered: " + item.getDate());
-    	}
+    	if (item == null) {
+            return;
+        }
+        
+        description.setText("Description: " + item.getDescription());
+        name.setText("Name: " + item.getName());
+        type.setText("Type: " + item.getType().toString());
+        location.setText("Location: " + item.getLocation());
+        reward.setText("Reward: " + item.getReward());
+        category.setText("Category: " + item.getCategory());
+        date.setText("Date Entered: " + item.getDate());
     }
     
     private void setButtonDisplay(boolean set)
