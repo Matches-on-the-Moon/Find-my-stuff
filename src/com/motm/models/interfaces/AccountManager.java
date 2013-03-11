@@ -30,4 +30,6 @@ public interface AccountManager
 	public boolean isAdmin(Integer accountID);
 
 	public Account[] getAllAccounts();
+
+	public boolean promoteAccount(Integer targetAccountID);
 }

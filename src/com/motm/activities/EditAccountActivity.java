@@ -66,15 +66,15 @@ public class EditAccountActivity extends Activity {
     
     public void promoteButtonPressed(View view)
     {
-    	// finds the account, promotes it to Admin
-    	message = "Account promoted.";
-    	editStatus.setText(message);
-    	editStatus.setVisibility(View.VISIBLE);
+    	if(accountManager.promoteAccount(targetAccountID)) {
+	    	message = "Account promoted.";
+	    	editStatus.setText(message);
+	    	editStatus.setVisibility(View.VISIBLE);
+    	}
     }
     
     public void lockButtonPressed(View view) 
     {
-
     	if(accountManager.lockAccount(targetAccountID)) {
 	        message = "Account locked.";
 	    	editStatus.setText(message);

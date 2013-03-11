@@ -123,8 +123,8 @@ public class FileAccountManager implements AccountManager
 
     public Account getAccount(Integer accountID)
     {
-        Account account = accountHM.get(accountID);
-        return account;
+        return accountHM.get(accountID);
+        
     }
     
     public Account[] getAllAccounts() {
@@ -139,8 +139,7 @@ public class FileAccountManager implements AccountManager
 
     public boolean lockAccount(Integer accountID)
     {
-    	Account account = accountHM.get(accountID);
-    	account.setAccountState(Account.State.Locked);
+    	accountHM.get(accountID).setAccountState(Account.State.Locked);
         
         saveData();
         
@@ -149,8 +148,7 @@ public class FileAccountManager implements AccountManager
 
     public boolean unlockAccount(Integer accountID)
     {
-    	Account account = accountHM.get(accountID);
-    	account.setAccountState(Account.State.Unlocked);
+    	accountHM.get(accountID).setAccountState(Account.State.Unlocked);
         
         saveData();
         
@@ -168,8 +166,7 @@ public class FileAccountManager implements AccountManager
 
     public boolean editAccountPassword(Integer accountID, String password)
     {
-    	Account account = accountHM.get(accountID);
-    	account.setPassword(password);
+    	accountHM.get(accountID).setPassword(password);
         
         saveData();
         
@@ -178,11 +175,18 @@ public class FileAccountManager implements AccountManager
     
     public boolean editAccountEmail(Integer accountID, String email)
     {
-    	Account account = accountHM.get(accountID);
-    	account.setEmail(email);
+    	accountHM.get(accountID).setEmail(email);
         
         saveData();
         
+    	return true;
+    }
+
+    public boolean promoteAccount(Integer targetAccountID) 
+    {
+    	Admin admin = new Admin(getAccount(targetAccountID));
+    	deleteAccount(targetAccountID);
+    	accountHM.put(targetAccountID, admin);
     	return true;
     }
     
