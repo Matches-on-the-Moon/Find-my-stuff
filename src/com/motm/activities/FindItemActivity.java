@@ -23,6 +23,9 @@ public class FindItemActivity extends ListActivity
     private ItemViewAdapter adapter;
     private ArrayList<Item> rowItems;
     
+    /* (non-Javadoc)
+     * @see android.app.Activity#onCreate(android.os.Bundle)
+     */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -33,6 +36,9 @@ public class FindItemActivity extends ListActivity
         itemManager = Factory.getItemManager();
     }
     
+    /* (non-Javadoc)
+     * @see android.app.Activity#onResume()
+     */
     @Override
     protected void onResume()
     {
@@ -44,6 +50,9 @@ public class FindItemActivity extends ListActivity
         setListAdapter(adapter);
     }
 
+    /* (non-Javadoc)
+     * @see android.app.ListActivity#onListItemClick(android.widget.ListView, android.view.View, int, long)
+     */
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id)
     {
@@ -52,17 +61,26 @@ public class FindItemActivity extends ListActivity
     	startViewItemActivity(item.getItemID());
     }
  
+    /**
+     * @param view
+     */
     public void addItemButtonPressed(View view) 
     {
     	startAddItemActivity();
     }
     
+    /**
+     * 
+     */
     public void startAddItemActivity() 
     {
         Intent intent = new Intent(this, AddItemActivity.class);
         startActivity(intent);
     }
     
+    /**
+     * @param itemID
+     */
     private void startViewItemActivity(Integer itemID)
     {
         Intent intent = new Intent(this, ViewItemActivity.class);
@@ -70,11 +88,17 @@ public class FindItemActivity extends ListActivity
         startActivity(intent);
     }
     
+    /**
+     * 
+     */
     public void listOnScroll () 
     {
     	//soon to be added
     }
 
+    /**
+     * @param view
+     */
     public void addRow(View view) 
     {
     	// soon to be added

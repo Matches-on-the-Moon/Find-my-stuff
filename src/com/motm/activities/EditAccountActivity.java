@@ -24,6 +24,9 @@ public class EditAccountActivity extends Activity {
 	private TextView loginName;
 	private String message;
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,6 +46,9 @@ public class EditAccountActivity extends Activity {
         	setButtonDisplay();
 	}
 	
+    /**
+     * 
+     */
     private void startViewAccountActivity()
     {
         Intent intent = new Intent(this, ViewAccountActivity.class);
@@ -50,6 +56,9 @@ public class EditAccountActivity extends Activity {
         startActivity(intent);
     }
     
+    /**
+     * @param view
+     */
     public void submitButtonPressed(View view)
     {
     	String password = passwordInput.getText().toString().trim();
@@ -64,6 +73,9 @@ public class EditAccountActivity extends Activity {
     	finish();
     }
     
+    /**
+     * @param view
+     */
     public void promoteButtonPressed(View view)
     {
     	if(accountManager.promoteAccount(targetAccountID)) {
@@ -73,6 +85,9 @@ public class EditAccountActivity extends Activity {
     	}
     }
     
+    /**
+     * @param view
+     */
     public void lockButtonPressed(View view) 
     {
     	if(accountManager.lockAccount(targetAccountID)) {
@@ -82,6 +97,9 @@ public class EditAccountActivity extends Activity {
     	}
     }
     
+    /**
+     * @param view
+     */
     public void unlockButtonPressed(View view)
     {
     	if(accountManager.unlockAccount(targetAccountID)) {
@@ -91,6 +109,9 @@ public class EditAccountActivity extends Activity {
     	}
     }
     
+    /**
+     * @param view
+     */
     public void deleteButtonPressed(View view)
     {
     	if(accountManager.deleteAccount(targetAccountID)) {
@@ -101,20 +122,32 @@ public class EditAccountActivity extends Activity {
 
     }
     
+    /**
+     * @param view
+     */
     public void editPasswordButtonPressed(View view) 
     {
     	passwordInput.setVisibility(View.VISIBLE);
     }
     
+    /**
+     * @param view
+     */
     public void editEmailButtonPressed(View view) 
     {
     	emailInput.setVisibility(View.VISIBLE);
     }
     
+    /**
+     * @param view
+     */
     public void editItemPictureButtonPressed(View view) {
     	// do stuff
     }
     
+    /**
+     * 
+     */
     private void setButtonDisplay()
     {
     	Button deleteButton = (Button)findViewById(R.id.deleteButton);

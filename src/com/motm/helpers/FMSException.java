@@ -12,6 +12,9 @@ public class FMSException extends Exception
 {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * @param message error message
+     */
     public FMSException(String message)
     {
         super(message);

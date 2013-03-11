@@ -11,6 +11,9 @@ public class FMSApplication extends Application
     private static FMSApplication fmsApplication;
 
     
+    /* (non-Javadoc)
+     * @see android.app.Application#onCreate()
+     */
     @Override
     public void onCreate()
     {
@@ -19,22 +22,34 @@ public class FMSApplication extends Application
         fmsApplication = this;
     }
     
+    /**
+     * @return
+     */
     public static FMSApplication getInstance()
     {
     	return fmsApplication;
     }
 
     
+    /**
+     * @return
+     */
     public Account getCurrentAccount()
     {
         return currentAccount;
     }
     
+    /**
+     * @param account
+     */
     public void setCurrentAccount(Account account)
     {
         currentAccount = account;
     }
     
+    /**
+     * @return
+     */
     public static Context getAppContext()
     {
         return FMSApplication.context;

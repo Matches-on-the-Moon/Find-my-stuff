@@ -24,6 +24,9 @@ public class AddItemActivity extends Activity
     private EditText itemDescriptionInput;
     private TextView addItemStatus;
 
+    /* (non-Javadoc)
+     * @see android.app.Activity#onCreate(android.os.Bundle)
+     */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -43,6 +46,9 @@ public class AddItemActivity extends Activity
         itemTypeInput.setAdapter(ItemHelper.getItemTypeAdapter(this));
     }
     
+    /* (non-Javadoc)
+     * @see android.app.Activity#onResume()
+     */
     @Override
     public void onResume()
     {
@@ -51,11 +57,19 @@ public class AddItemActivity extends Activity
         clearAddItemStatus();
     }
 
+    /**
+     * To add picture
+     * @param view
+     */
     public void itemPictureButtonPressed(View view)
     {
     	//steps to add a picture
     }
     
+    /**
+     * Submits an item
+     * @param view
+     */
     public void submitItemButtonPressed(View view)
     {
         String itemName = itemNameInput.getText().toString().trim();
@@ -85,29 +99,45 @@ public class AddItemActivity extends Activity
         }
     }
     
+    /**
+     * 
+     */
     private void startFindItemActivity()
     {
         // go back to find item
     	finish();
     }
     
+    /**
+     * @param view
+     */
     public void cancelItemButtonPressed(View view) 
     {
     	startFindItemActivity();
     }
     
+    /**
+     * Set status message
+     * @param message
+     */
     private void setAddItemStatus(String message)
     {
     	addItemStatus.setText(message);
     	addItemStatus.setVisibility(View.VISIBLE);
     }
     
+    /**
+     * Clear status
+     */
     private void clearAddItemStatus()
     {
     	addItemStatus.setText("");
     	addItemStatus.setVisibility(View.INVISIBLE);
     }
     
+    /**
+     * Clear fields
+     */
     private void clearFields()
     {
         itemNameInput.setText("");

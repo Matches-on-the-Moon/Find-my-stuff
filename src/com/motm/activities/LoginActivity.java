@@ -20,6 +20,9 @@ public class LoginActivity extends Activity
     private EditText passwordInput;
     private TextView loginStatus;
 
+    /* (non-Javadoc)
+     * @see android.app.Activity#onCreate(android.os.Bundle)
+     */
     @Override
     public void onCreate(Bundle icicle)
     {
@@ -34,6 +37,9 @@ public class LoginActivity extends Activity
         loginStatus = (TextView)findViewById(R.id.loginStatus);
     }
     
+    /* (non-Javadoc)
+     * @see android.app.Activity#onResume()
+     */
     @Override
     public void onResume()
     {
@@ -42,12 +48,18 @@ public class LoginActivity extends Activity
         clearLoginStatus();
     }
 
+    /**
+     * 
+     */
     private void startRegisterActivity()
     {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * 
+     */
     private void startMainActivity()
     {
         // start main
@@ -58,24 +70,36 @@ public class LoginActivity extends Activity
         finish();
     }
 
+    /**
+     * @param message
+     */
     private void setLoginStatus(String message)
     {
         loginStatus.setText(message);
         loginStatus.setVisibility(View.VISIBLE);
     }
     
+    /**
+     * 
+     */
     private void clearLoginStatus()
     {
         loginStatus.setText("");
         loginStatus.setVisibility(View.INVISIBLE);
     }
     
+    /**
+     * 
+     */
     private void clearFields()
     {
         loginNameInput.setText("");
         passwordInput.setText("");
     }
 
+    /**
+     * @param view
+     */
     public void loginButtonPressed(View view)
     {
     	String loginName;
@@ -119,6 +143,9 @@ public class LoginActivity extends Activity
         }
     }
 
+    /**
+     * @param view
+     */
     public void registerButtonPressed(View view)
     {
         startRegisterActivity();

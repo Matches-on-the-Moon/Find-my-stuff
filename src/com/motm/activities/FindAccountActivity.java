@@ -26,11 +26,17 @@ public class FindAccountActivity extends Activity {
 	private int targetAccountID;
     private AccountViewAdapter adapter;
 	
+    /* (non-Javadoc)
+     * @see android.app.Activity#onCreate(android.os.Bundle)
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
     
+    /* (non-Javadoc)
+     * @see android.app.Activity#onResume()
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -44,6 +50,9 @@ public class FindAccountActivity extends Activity {
         updateRows();
     }
     
+    /**
+     * 
+     */
     public void updateRows() {
     	// quick and dirty, fix later
         Account[] accounts = accountManager.getAllAccounts();
@@ -54,6 +63,9 @@ public class FindAccountActivity extends Activity {
     	}
     }
     
+    /**
+     * @param view
+     */
     public void viewAccountButtonPressed(View view) 
     {
     	String currentLoginName = FMSApplication.getInstance().getCurrentAccount().getLoginName();
@@ -61,6 +73,9 @@ public class FindAccountActivity extends Activity {
         startViewAccountActivity();
     }
     
+    /**
+     * 
+     */
     public void startViewAccountActivity() 
     {
         Intent intent = new Intent(this, ViewAccountActivity.class);
@@ -68,17 +83,26 @@ public class FindAccountActivity extends Activity {
         startActivity(intent);
     }
     
+    /**
+     * @param view
+     */
     public void accountButtonClicked(View view) 
     {
     	targetAccountID = accountManager.getAccountIdByLoginName(((TextView)(view.findViewById(R.id.loginName))).getText().toString());
     	startViewAccountActivity();
     }
     
+    /**
+     * 
+     */
     public void listOnScroll () 
     {
     	//soon to be added
     }
 
+    /**
+     * @param view
+     */
     public void addRow(View view) 
     {
     	// soon to be added

@@ -4,6 +4,9 @@ import android.util.Log;
 
 public class Logger
 {
+    /**Log message
+     * @param message 
+     */
     public static void d(String message)
     {
         if (message.isEmpty()){
@@ -14,6 +17,9 @@ public class Logger
         Log.d(tag, message);
     }
     
+    /**
+     * @return class name
+     */
     private static String getCallingClassName()
     {
         StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();

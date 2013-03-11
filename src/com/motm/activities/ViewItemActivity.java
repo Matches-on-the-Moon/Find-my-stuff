@@ -26,6 +26,9 @@ public class ViewItemActivity extends Activity {
 	private TextView category;
 	private TextView date;
 	
+    /* (non-Javadoc)
+     * @see android.app.Activity#onCreate(android.os.Bundle)
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) 
     {
@@ -57,6 +60,9 @@ public class ViewItemActivity extends Activity {
         }
     }
     
+    /**
+     * 
+     */
     private void startViewAccountActivity()
     {
         Intent intent = new Intent(this, ViewAccountActivity.class);
@@ -64,6 +70,9 @@ public class ViewItemActivity extends Activity {
         startActivity(intent);
     }
     
+    /**
+     * 
+     */
     private void startEditItemActivity()
     {
         Intent intent = new Intent(this, EditItemActivity.class);
@@ -72,16 +81,25 @@ public class ViewItemActivity extends Activity {
         finish();
     }
     
+    /**
+     * @param view
+     */
     public void editItemButtonPressed(View view)
     {
     	startEditItemActivity();
     }
     
+    /**
+     * @param view
+     */
     public void lostFoundButtonPressed(View view)
     {
         startViewAccountActivity();
     }
     
+    /**
+     * 
+     */
     private void setFields() 
     {
     	Item item = itemManager.getItem(targetItemId);
@@ -99,6 +117,9 @@ public class ViewItemActivity extends Activity {
         date.setText("Date Entered: " + item.getDate());
     }
     
+    /**
+     * @param set
+     */
     private void setButtonDisplay(boolean set)
     {
         if(set=true) {

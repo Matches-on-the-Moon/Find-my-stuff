@@ -22,6 +22,9 @@ public class ViewAccountActivity extends Activity {
 	private TextView email;
 	private TextView loginName;
 	
+    /* (non-Javadoc)
+     * @see android.app.Activity#onCreate(android.os.Bundle)
+     */
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -39,6 +42,9 @@ public class ViewAccountActivity extends Activity {
         	setButtonDisplay();
     }
     
+    /**
+     * 
+     */
     private void startEditAccountActivity()
     {
         Intent intent = new Intent(this, EditAccountActivity.class);
@@ -47,11 +53,17 @@ public class ViewAccountActivity extends Activity {
         finish();
     }
     
+    /**
+     * @param view
+     */
     public void editAccountButtonPressed(View view)
     {
     	startEditAccountActivity();
     }
     
+    /**
+     * 
+     */
     private void setFields() {
     	Account account = accountManager.getAccount(targetAccountId);
     	loginName.setText(account.getLoginName());
@@ -59,6 +71,9 @@ public class ViewAccountActivity extends Activity {
     	email.setText("Email: " + account.getEmail());
     }
     
+    /**
+     * 
+     */
     private void setButtonDisplay()
     {
     	Button editAccountButton = (Button)findViewById(R.id.editAccountButton);

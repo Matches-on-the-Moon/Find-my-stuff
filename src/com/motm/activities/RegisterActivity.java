@@ -20,6 +20,9 @@ public class RegisterActivity extends Activity
     private EditText emailInput;
     private TextView registrationStatus;
 
+    /* (non-Javadoc)
+     * @see android.app.Activity#onCreate(android.os.Bundle)
+     */
     @Override
     public void onCreate(Bundle icicle)
     {
@@ -36,6 +39,9 @@ public class RegisterActivity extends Activity
         registrationStatus   = (TextView)findViewById(R.id.registrationStatus);
    }
     
+    /* (non-Javadoc)
+     * @see android.app.Activity#onResume()
+     */
     @Override
     public void onResume()
     {
@@ -44,23 +50,35 @@ public class RegisterActivity extends Activity
         clearStatus();
     }
 
+    /**
+     * 
+     */
     private void startLoginActivity()
     {
         finish();
     }
     
+    /**
+     * @param message
+     */
     private void setStatus(String message)
     {
     	registrationStatus.setText(message);
     	registrationStatus.setVisibility(View.VISIBLE);
     }
     
+    /**
+     * 
+     */
     private void clearStatus()
     {
     	registrationStatus.setText("");
     	registrationStatus.setVisibility(View.INVISIBLE);
     }
     
+    /**
+     * 
+     */
     private void clearFields()
     {
         loginNameInput.setText("");
@@ -69,6 +87,9 @@ public class RegisterActivity extends Activity
         emailInput.setText("");
     }
     
+    /**
+     * @param view
+     */
     public void submitButtonPressed(View view)
     {
         String loginName = loginNameInput.getText().toString().trim();

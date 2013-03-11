@@ -16,18 +16,30 @@ public class AccountViewAdapter extends ArrayAdapter<RowAccount> {
  
     Context context;
  
+    /**
+     * @param context
+     * @param resourceId
+     * @param rowAccounts
+     */
     public AccountViewAdapter(Context context, int resourceId,
             List<RowAccount> rowAccounts) {
         super(context, resourceId, rowAccounts);
         this.context = context;
     }
  
+    /**
+     * @author Holly
+     *
+     */
     private class ViewHolder {
         ImageView imageView;
         TextView nameView;
         TextView emailView;
     }
  
+    /* (non-Javadoc)
+     * @see android.widget.ArrayAdapter#getView(int, android.view.View, android.view.ViewGroup)
+     */
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         RowAccount rowAccount = getItem(position);

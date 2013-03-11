@@ -17,12 +17,20 @@ public class ItemViewAdapter extends ArrayAdapter<Item>
 { 
     Context context;
  
+    /**
+     * @param context
+     * @param resourceId
+     * @param items
+     */
     public ItemViewAdapter(Context context, int resourceId, List<Item> items)
     {
         super(context, resourceId, items);
         this.context = context;
     }
  
+    /**
+     *
+     */
     private class ViewHolder {
         ImageView imageView;
         TextView nameView;
@@ -31,6 +39,9 @@ public class ItemViewAdapter extends ArrayAdapter<Item>
         TextView itemIdView;
     }
  
+    /* (non-Javadoc)
+     * @see android.widget.ArrayAdapter#getView(int, android.view.View, android.view.ViewGroup)
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {

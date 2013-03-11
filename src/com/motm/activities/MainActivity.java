@@ -11,6 +11,9 @@ import com.motm.models.Account;
 
 public class MainActivity extends Activity
 {
+    /* (non-Javadoc)
+     * @see android.app.Activity#onCreate(android.os.Bundle)
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -25,6 +28,9 @@ public class MainActivity extends Activity
         setContentView(R.layout.main);
     }
 
+    /* (non-Javadoc)
+     * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -32,6 +38,9 @@ public class MainActivity extends Activity
         return true;
     }
 
+    /**
+     * 
+     */
     private void startLoginActivity()
     {
         // start login
@@ -42,12 +51,18 @@ public class MainActivity extends Activity
         finish();
     }
 
+    /**
+     * 
+     */
     private void startFindItemActivity()
     {
         Intent intent = new Intent(this, FindItemActivity.class);
         startActivity(intent);
     }
     
+    /**
+     * 
+     */
     private void startFindAccountActivity()
     {
         Intent intent = new Intent(this, FindAccountActivity.class);
@@ -58,16 +73,25 @@ public class MainActivity extends Activity
      *  Actions
      */
     
+    /**
+     * @param view
+     */
     public void findAccountButtonPressed(View view)
     {
         startFindAccountActivity();
     }
     
+    /**
+     * @param view
+     */
     public void findItemButtonPressed(View view)
     {
         startFindItemActivity();
     }
     
+    /**
+     * @param view
+     */
     public void logoutButtonPressed(View view)
     {
         // logout user

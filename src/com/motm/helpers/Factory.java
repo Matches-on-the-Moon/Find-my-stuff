@@ -7,11 +7,17 @@ import com.motm.models.FileItemManager;
 
 public class Factory
 {
+    /**
+     * @return AccountManager
+     */
     public static AccountManager getAccountManager()
     {
         return new FileAccountManager();
     }
     
+    /**
+     * @return ItemManager
+     */
     public static ItemManager getItemManager()
     {
         return new FileItemManager();
