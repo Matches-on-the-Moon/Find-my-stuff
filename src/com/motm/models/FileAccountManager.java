@@ -8,6 +8,7 @@ import com.motm.models.interfaces.AccountManager;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Collections;
@@ -24,11 +25,17 @@ public class FileAccountManager implements AccountManager
     {
         if(accountHM == null){
             accountHM = new HashMap<Integer, Account>();
-            accountHM.put(0, new Admin(0, "admin", "admin", "administrator", "FMS_Admin@gatech.edu", Account.State.Unlocked, 0));
-            accountHM.put(1, new Account(1, "user", "user", "user", "FMS_User@gatech.edu", Account.State.Unlocked, 0));
         }
         
         loadData();
+        
+        // temp initial values
+        if(accountHM.isEmpty()){
+            accountHM.put(0, new Admin(0, "admin", "admin", "administrator", "FMS_Admin@gatech.edu", Account.State.Unlocked, 0));
+            accountHM.put(1, new Account(1, "user", "user", "user", "FMS_User@gatech.edu", Account.State.Unlocked, 0));
+            accountHM.put(2, new Account(2, "a", "a", "a", "a@a.com", Account.State.Unlocked, 0));
+            saveData();
+        }
     }
     
     /*
@@ -236,10 +243,13 @@ public class FileAccountManager implements AccountManager
             accountHM = accounts;
         }
         catch (FileNotFoundException e){
-            accountHM = new HashMap<Integer, Account>();
+            // ignore
+        }
+        catch (InvalidClassException e){
+            // ignore
         }
         catch (Exception e) {
-            Logger.d(e.getMessage());
+            Logger.d("Could not load Accout Manager data: "+e.getMessage());
         }
     }
 }

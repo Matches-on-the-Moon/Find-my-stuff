@@ -1,11 +1,24 @@
 package com.motm.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Item
+public class Item implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+    
     public enum Status {
-        Open, Resolved
+        Open, Resolved;
+    }
+    
+    public enum Type {
+        Lost, Found;
+        
+        @Override
+        public String toString()
+        {
+            return this.name();
+        }
     }
     
     private Integer id;
@@ -15,11 +28,11 @@ public class Item
     private String location;
     private Status status;
     private String reward;
-    private String type;
+    private Type type;
     private String category;
     private String description;
     
-    Item(Integer id, Integer ownerID, String name, String location, Status status, String reward, String type, String category, String description, Date date)
+    Item(Integer id, Integer ownerID, String name, String location, Status status, String reward, Type type, String category, String description, Date date)
     {
         this.id = id;
         this.ownerID = ownerID;
@@ -130,14 +143,14 @@ public class Item
     /**
      * @return the type
      */
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
     /**
      * @param type the type to set
      */
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 

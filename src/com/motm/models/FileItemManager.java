@@ -5,7 +5,9 @@ import com.motm.application.FMSApplication;
 import com.motm.helpers.Logger;
 import com.motm.models.interfaces.ItemManager;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -18,13 +20,22 @@ public class FileItemManager implements ItemManager
 {
     private static final String FILENAME = "itemsHM";
     
-    private HashMap<Integer, Item> itemsHM;
+    private static HashMap<Integer, Item> itemsHM;
     
     public FileItemManager()
     {
-        itemsHM = new HashMap<Integer, Item>();
-        itemsHM.put(0, new Item(0, 0, "item", "Atlanta", Item.Status.Open, "$0", "FOUND", "Keepsake", "ES GUD YALL", new Date()));
+        if(itemsHM == null){
+            itemsHM = new HashMap<Integer, Item>();
+        }
+        
         loadData();
+        
+        // temp data
+        if(itemsHM.isEmpty()){
+            itemsHM.put(0, new Item(0, 0, "item", "Atlanta", Item.Status.Open, "$0", Item.Type.Found, "Keepsake", "ES GUD YALL", new Date()));
+            itemsHM.put(1, new Item(1, 1, "name", "location", Item.Status.Open, "$0", Item.Type.Lost, "Category", "Description", new Date()));
+            saveData();
+        }
     }
     
     /**
@@ -40,7 +51,7 @@ public class FileItemManager implements ItemManager
      * @return
      * @throws Exception
      */
-    public Integer createItem(Integer ownerID, String name, String location, String reward, String type, String category, String description) throws Exception
+    public Integer createItem(Integer ownerID, String name, String location, String reward, Item.Type type, String category, String description) throws Exception
     {
         // create a new, unique key
         Set<Integer> itemIDs = itemsHM.keySet();
@@ -123,7 +134,7 @@ public class FileItemManager implements ItemManager
         return items;
     }
     
-    public ArrayList<Item> findItemsByType(String type)
+    public ArrayList<Item> findItemsByType(Item.Type type)
     {
         ArrayList<Item> items = new ArrayList<Item>();
         for(Item item : itemsHM.values()){
@@ -186,8 +197,14 @@ public class FileItemManager implements ItemManager
             
             itemsHM = items;
         }
+        catch (FileNotFoundException e){
+            // ignore
+        }
+        catch (InvalidClassException e){
+            // ignore
+        }
         catch (Exception e) {
-            Logger.d(e.getMessage());
+            Logger.d("Could not load item data: "+e.getMessage());
         }
     }
 }

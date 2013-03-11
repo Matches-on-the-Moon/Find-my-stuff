@@ -3,7 +3,6 @@ package com.motm.activities;
 import java.util.ArrayList;
 
 import com.motm.adapters.ItemViewAdapter;
-import com.motm.adapters.RowItem;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,15 +19,17 @@ public class FindItemActivity extends ListActivity
 {
     private ItemManager itemManager;
     private SearchView itemSearchView;
-    private ArrayList<RowItem> rowItems;
-    private ListView listView;
     private int targetItemId;
     private ItemViewAdapter adapter;
-
+    
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        
+        setContentView(R.layout.item_find);
+        
+        itemManager = Factory.getItemManager();
     }
     
     @Override
@@ -36,16 +37,10 @@ public class FindItemActivity extends ListActivity
     {
         super.onResume();
         
-        setContentView(R.layout.item_find);
-        
-        itemManager = Factory.getItemManager();
-        
-        rowItems = new ArrayList<RowItem>();
+        // update the list
+        ArrayList<Item> rowItems = itemManager.getAllItems();
         adapter = new ItemViewAdapter(this, R.layout.item_find_list_rows, rowItems);
-        listView = (ListView)findViewById(R.id.list);
-        listView.setAdapter(adapter);
-        
-        updateRows();
+        setListAdapter(adapter);
     }
 
     @Override
@@ -53,18 +48,7 @@ public class FindItemActivity extends ListActivity
     {
         
     }
-    
-    public void updateRows()
-    {
-    	// quick and dirty, fix later
-        ArrayList<Item> items = itemManager.getAllItems();
-        int Id = 0;
-    	for(Item item : items) {
-    		RowItem rowItem = new RowItem(0, item.getName(), item.getDescription(), item.getType(), Id);
-    		rowItems.add(rowItem);
-    	}
-    }
-    
+ 
     public void addItemButtonPressed(View view) 
     {
     	startAddItemActivity();

@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.motm.R;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
+import com.motm.helpers.ItemHelper;
+import com.motm.helpers.Logger;
 import com.motm.models.Account;
 import com.motm.models.Item;
 import com.motm.models.interfaces.ItemManager;
@@ -31,7 +34,10 @@ public class ViewItemActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
+        
         setContentView(R.layout.item_view); 
+        
+        itemManager = Factory.getItemManager();
         
         name = (TextView)findViewById(R.id.name);
         type = (TextView)findViewById(R.id.type);
@@ -41,17 +47,18 @@ public class ViewItemActivity extends Activity {
         reward = (TextView)findViewById(R.id.reward);
         category = (TextView)findViewById(R.id.category);
         date = (TextView)findViewById(R.id.date);
-        itemManager = Factory.getItemManager();
+        
         targetItemId = this.getIntent().getExtras().getInt("targetItem");
         setFields();
-
+        
         Account currentAccount = FMSApplication.getInstance().getCurrentAccount();
         int targetOwnerId = -1;
         if (itemManager.getItem(targetItemId) != null) {
         	targetOwnerId = itemManager.getItem(targetItemId).getOwnerID();
         }
-        if (currentAccount.getAccountId() == targetOwnerId)
+        if (currentAccount.getAccountId() == targetOwnerId){
         	setButtonDisplay(true);
+        }
     }
     
     private void startViewAccountActivity()
@@ -82,10 +89,11 @@ public class ViewItemActivity extends Activity {
     private void setFields() 
     {
     	Item item = itemManager.getItem(targetItemId);
+        
     	if (item != null) {
 	    	description.setText("Description: " + item.getDescription());
 	    	name.setText("Name: " + item.getName());
-	    	type.setText("Email: " + item.getType());
+	    	type.setText("Type: " + item.getType().toString());
 	    	location.setText("Location: " + item.getLocation());
 	    	reward.setText("Reward: " + item.getReward());
 	    	category.setText("Category: " + item.getCategory());

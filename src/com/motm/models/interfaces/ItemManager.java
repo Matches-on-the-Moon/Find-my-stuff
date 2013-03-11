@@ -6,7 +6,7 @@ import java.util.Date;
 
 public interface ItemManager
 {
-    public Integer createItem(Integer ownerID, String name, String location, String reward, String type, String category, String description)
+    public Integer createItem(Integer ownerID, String name, String location, String reward, Item.Type type, String category, String description)
             throws Exception;
     
     public void deleteItem(Integer itemID);
@@ -19,7 +19,7 @@ public interface ItemManager
 
     public ArrayList<Item> findItemsByCategory(String category);
 
-    public ArrayList<Item> findItemsByType(String type);
+    public ArrayList<Item> findItemsByType(Item.Type type);
 
     public ArrayList<Item> findItemsByDate(Date date);
 

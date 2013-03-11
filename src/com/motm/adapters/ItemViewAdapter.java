@@ -11,14 +11,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.motm.models.Item;
  
-public class ItemViewAdapter extends ArrayAdapter<RowItem> {
- 
+public class ItemViewAdapter extends ArrayAdapter<Item>
+{ 
     Context context;
  
-    public ItemViewAdapter(Context context, int resourceId,
-            List<RowItem> rowItems) {
-        super(context, resourceId, rowItems);
+    public ItemViewAdapter(Context context, int resourceId, List<Item> items)
+    {
+        super(context, resourceId, items);
         this.context = context;
     }
  
@@ -31,12 +32,12 @@ public class ItemViewAdapter extends ArrayAdapter<RowItem> {
     }
  
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent)
+    {
         ViewHolder holder = null;
-        RowItem rowItem = getItem(position);
+        Item item = getItem(position);
  
-        LayoutInflater mInflater = (LayoutInflater) context
-                .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
         	convertView = mInflater.inflate(R.layout.item_find_list_rows, null);
             holder = new ViewHolder();
@@ -48,10 +49,10 @@ public class ItemViewAdapter extends ArrayAdapter<RowItem> {
             convertView.setTag(holder);
         } else
             holder = (ViewHolder) convertView.getTag();
-        	holder.nameView.setText(rowItem.getName()); 
-        	holder.descriptionView.setText(rowItem.getDescription()); 
-        	holder.typeView.setText(rowItem.getType());
-        	holder.itemIdView.setText(""+rowItem.getItemId());
+        	holder.nameView.setText(item.getName()); 
+        	holder.descriptionView.setText(item.getDescription()); 
+        	holder.typeView.setText(item.getType().toString());
+        	holder.itemIdView.setText(item.getItemID().toString());
         	holder.imageView.setImageResource(R.drawable.question_mark); //rowItem.getImageId()
         	return convertView;
     }

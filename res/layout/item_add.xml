@@ -97,14 +97,12 @@
         android:inputType="text"
         android:textSize="13sp" />
     
-    <EditText
+    <Spinner
         android:id="@+id/itemTypeInput"
         android:layout_column="3"
 		android:layout_width="230dp"
         android:layout_row="3"
         android:ems="10"
-        android:hint="Lost or Found"
-        android:inputType="text" 
         android:textSize="13sp" />
 
     <EditText
