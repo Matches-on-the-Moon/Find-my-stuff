@@ -1,6 +1,7 @@
 package com.motm.models;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.Logger;
 import com.motm.models.interfaces.ItemManager;
@@ -28,14 +29,19 @@ public class FileItemManager implements ItemManager
             itemsHM = new HashMap<Integer, Item>();
         }
         
-        loadData();
-        
-        // temp data
-        if(itemsHM.isEmpty()){
+        // first run
+        SharedPreferences preferences = FMSApplication.getAppContext().getSharedPreferences(FILENAME, 0);
+        if(preferences.getBoolean("firstRun", true)){
+            preferences.edit().putBoolean("firstRun", false);
             itemsHM.put(0, new Item(0, 0, "item", "Atlanta", Item.Status.Open, "$0", Item.Type.Found, "Keepsake", "ES GUD YALL", new Date()));
             itemsHM.put(1, new Item(1, 1, "name", "location", Item.Status.Open, "$0", Item.Type.Lost, "Category", "Description", new Date()));
             saveData();
+            return;
         }
+        
+        loadData();
+        
+        
     }
     
     /**

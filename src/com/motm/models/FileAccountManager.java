@@ -1,6 +1,7 @@
 package com.motm.models;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.FMSException;
 import com.motm.helpers.Logger;
@@ -27,15 +28,18 @@ public class FileAccountManager implements AccountManager
             accountHM = new HashMap<Integer, Account>();
         }
         
-        loadData();
-        
-        // temp initial values
-        if(accountHM.isEmpty()){
+        // first run
+        SharedPreferences preferences = FMSApplication.getAppContext().getSharedPreferences(FILENAME, 0);
+        if(preferences.getBoolean("firstRun", true)){
+            preferences.edit().putBoolean("firstRun", false);
             accountHM.put(0, new Admin(0, "admin", "admin", "administrator", "FMS_Admin@gatech.edu", Account.State.Unlocked, 0));
             accountHM.put(1, new Account(1, "user", "user", "user", "FMS_User@gatech.edu", Account.State.Unlocked, 0));
             accountHM.put(2, new Account(2, "a", "a", "a", "a@a.com", Account.State.Unlocked, 0));
             saveData();
+            return;
         }
+        
+        loadData();
     }
     
     /*
@@ -91,7 +95,7 @@ public class FileAccountManager implements AccountManager
         
         // check to make sure the password matches
         if(!account.getPassword().equals(password)){
-            // password doesn't match, increment the login attempts
+            // password doesn't match, increament the login attempts
             account.setLoginAttempts(account.getLoginAttempts() + 1);
             
             // if the attempts are >= 3 then lock the account
