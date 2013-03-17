@@ -68,8 +68,7 @@ public class FindAccountActivity extends Activity {
      */
     public void viewAccountButtonPressed(View view) 
     {
-    	String currentLoginName = FMSApplication.getInstance().getCurrentAccount().getLoginName();
-    	targetAccountID = accountManager.getAccountIdByLoginName(currentLoginName);
+    	targetAccountID = FMSApplication.getInstance().getCurrentAccount().getAccountId();
         startViewAccountActivity();
     }
     

@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
 import com.motm.R;
 import com.motm.application.FMSApplication;
 import com.motm.models.Account;
@@ -37,6 +40,35 @@ public class MainActivity extends Activity
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+    
+    /**
+     * Event Handling for Individual menu item selected
+     * Identify single menu item by it's id
+     * */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+ 
+        switch (item.getItemId())
+        {
+        case R.id.viewAccount:
+            Intent intent = new Intent(this, ViewAccountActivity.class);
+            Integer targetAccountID = FMSApplication.getInstance().getCurrentAccount().getAccountId();
+            intent.putExtra("targetAccount", targetAccountID);
+            startActivity(intent);
+            Toast.makeText(MainActivity.this, "\"Viewing your account.\"", Toast.LENGTH_SHORT).show();
+            return true;
+ 
+        case R.id.logoutButton:
+            Toast.makeText(MainActivity.this, "\"See you next time!\"", Toast.LENGTH_SHORT).show();
+            FMSApplication.getInstance().setCurrentAccount(null);
+            startLoginActivity();
+            return true;
+ 
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }    
 
     /**
      * 
@@ -76,7 +108,7 @@ public class MainActivity extends Activity
     /**
      * @param view
      */
-    public void findAccountButtonPressed(View view)
+    public void browseAccountsButtonPressed(View view)
     {
         startFindAccountActivity();
     }
@@ -84,7 +116,7 @@ public class MainActivity extends Activity
     /**
      * @param view
      */
-    public void findItemButtonPressed(View view)
+    public void browseItemsButtonPressed(View view)
     {
         startFindItemActivity();
     }
@@ -92,13 +124,14 @@ public class MainActivity extends Activity
     /**
      * @param view
      */
-    public void logoutButtonPressed(View view)
+    public void itemFoundButtonPressed()
     {
-        // logout user
-    	FMSApplication.getInstance().setCurrentAccount(null);
-
-        // start login
-        startLoginActivity();
     }
     
+    /**
+     * @param view
+     */
+    public void itemLostButtonPressed()
+    {
+    }
 }

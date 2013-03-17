@@ -7,40 +7,76 @@
         android:weightSum="3" 
         xmlns:android="http://schemas.android.com/apk/res/android">
     
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/fmsImage"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:text="@string/welcome"
-        android:textSize="24sp" />
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1.50"
+        android:src="@drawable/a" />
+    
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <Button
+        android:id="@+id/itemFoundButton"
+        android:layout_width="100dp"
+        android:layout_height="85dp"
+        android:layout_marginLeft="55dp"
+        android:background="@drawable/button_type_0"
+        android:onClick="itemFoundButtonPressed"
+        android:text="Found an item?" 
+		android:textColor="#000000"
+        android:shadowColor="#D3D3D3"
+        android:shadowDx="3"
+        android:shadowDy="-3"
+        android:shadowRadius="1.5"/>
+
+    <Button
+        android:id="@+id/itemLostButton"
+        android:layout_width="100dp"
+        android:layout_height="85dp"
+        android:onClick="itemLostButtonPressed"
+        android:text="Lost an item?" 
+        android:background="@drawable/button_type_0"
+		android:textColor="#000000"
+        android:shadowColor="#D3D3D3"
+        android:shadowDx="3"
+        android:shadowDy="-3"
+        android:shadowRadius="1.5"/>
+
+</LinearLayout>
     
     <Button
-        android:id="@+id/findItemButton"
+        android:id="@+id/browseItemsButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
-        android:onClick="findItemButtonPressed"
-        android:text="View Items" 
-        android:layout_marginTop="20dp"/>
+        android:onClick="browseItemsButtonPressed"
+        android:background="@drawable/button_type_0"
+        android:layout_marginTop="5dp"
+        android:text="Browse items."
+		android:textColor="#000000"
+        android:shadowColor="#D3D3D3"
+        android:shadowDx="3"
+        android:shadowDy="-3"
+        android:shadowRadius="1.5"/>
     
     <Button
-        android:id="@+id/findAccountButton"
+        android:id="@+id/browseAccountsButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
-        android:onClick="findAccountButtonPressed"
-        android:text="View Accounts"
-        android:layout_marginTop="20dp"/>
-    
-    <Button
-        android:id="@+id/logoutButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
-        android:onClick="logoutButtonPressed"
-        android:text="Logout"
-        android:layout_marginTop="20dp"/>
+        android:onClick="browseAccountsButtonPressed"
+        android:text="Browse accounts."
+        android:background="@drawable/button_type_0"
+        android:layout_marginTop="5dp"
+        android:textColor="#000000"
+        android:shadowColor="#D3D3D3"
+        android:shadowDx="3"
+        android:shadowDy="-3"
+        android:shadowRadius="1.5"/>
     
         
 </LinearLayout>

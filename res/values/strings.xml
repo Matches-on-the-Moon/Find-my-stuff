@@ -33,5 +33,7 @@
     <string name="category">Category</string>
     <string name="submissionUnsuccessful">Failed to add this item.</string>
     <string name="submissionSuccessful">Thank you for your submission.</string>
+    <string name="logout">Logout</string>
+    <string name="mainMenu">Main menu</string>
 
 </resources>

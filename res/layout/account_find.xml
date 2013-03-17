@@ -33,7 +33,13 @@
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="center_horizontal|top"
 	        android:onClick="viewAccountButtonPressed"
-	        android:text="View Account" />
+	        android:text="View Account" 
+	        android:background="@drawable/button_type_0"
+			android:textColor="#000000"
+	        android:shadowColor="#D3D3D3"
+	        android:shadowDx="3"
+	        android:shadowDy="-3"
+	        android:shadowRadius="1.5"/>
     	
 	</LinearLayout>
 

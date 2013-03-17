@@ -1,5 +1,6 @@
 package com.motm.activities;
 
+import com.motm.R;
 import com.motm.models.Account;
 import com.motm.models.interfaces.AccountManager;
 import android.app.Activity;
@@ -9,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import com.motm.R;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
 

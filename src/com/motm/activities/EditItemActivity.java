@@ -1,8 +1,9 @@
 package com.motm.activities;
 
+import com.motm.R;
+
 import android.app.Activity;
 import android.os.Bundle;
-import com.motm.R;
 
 public class EditItemActivity extends Activity {
 
