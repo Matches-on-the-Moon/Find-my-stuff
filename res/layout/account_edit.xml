@@ -31,10 +31,6 @@
     android:layout_height="wrap_content"
     android:columnCount="5"
     android:useDefaultMargins="true" >
-
-<!--  Sets the name string next to the appropriate input box -->
-
-<!--  Sets the email string next to the appropriate input box -->
     
     <Button
        	android:id="@+id/editPassword"
@@ -46,8 +42,6 @@
         android:textSize="14sp"
 	    android:onClick="editPasswordButtonPressed"/>
 
-<!--  Sets up the nameInput box --> 
-
     <EditText
         android:id="@+id/editEmailInput"
         android:layout_column="1"
@@ -56,8 +50,6 @@
         android:ems="10"
         android:inputType="textEmailAddress"
         android:visibility="gone"/>
-
-    <!--  Sets up the passwordInput box -->  
     
     <EditText
         android:id="@+id/editPasswordInput"
@@ -82,8 +74,8 @@
 	        
         <Button
             android:id="@+id/submitButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
             android:layout_gravity="center"
 			android:layout_marginTop="10dp"
             android:onClick="submitButtonPressed"
@@ -105,22 +97,12 @@
 	    android:layout_height="wrap_content"
 	    android:layout_marginLeft="40dp"
 	    android:orientation="horizontal" 
-	    android:layout_marginTop="5dp"
-	    style="?android:attr/buttonBarStyle">
-
-	        <Button
-	            android:id="@+id/promoteButton"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_gravity="center"
-	            android:onClick="promoteButtonPressed"
-	            android:text="Promote" 
-       		 	android:textSize="14sp"
-	        	android:visibility="gone"/>
+	    android:layout_marginTop="5dp">
+	        
 	        <Button
 	            android:id="@+id/lockButton"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
+        		android:layout_width="80dp"
+        		android:layout_height="50dp"
 	            android:layout_gravity="center"
 	            android:onClick="lockButtonPressed"
 	            android:text="Lock" 
@@ -128,23 +110,34 @@
 	        	android:visibility="gone"/>
 	        <Button
 	            android:id="@+id/unlockButton"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
+        		android:layout_width="80dp"
+        		android:layout_height="50dp"
 	            android:layout_gravity="center"
 	            android:onClick="unlockButtonPressed"
 	            android:text="Unlock" 
 	            android:textSize="14sp"
 	        	android:visibility="gone"/>
 	        
-   </LinearLayout>     
-   
 	        <Button
 	            android:id="@+id/deleteButton"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
+        		android:layout_width="80dp"
+        		android:layout_height="50dp"
 	            android:layout_gravity="center"
 	            android:onClick="deleteButtonPressed"
             	android:text="Delete" 
             	android:textSize="14sp"
 	        	android:visibility="gone"/>
+	        
+   </LinearLayout>     
+   
+	        <Button
+	            android:id="@+id/promoteButton"
+       			android:layout_width="80dp"
+        		android:layout_height="50dp"
+	            android:layout_gravity="center"
+	            android:onClick="promoteButtonPressed"
+	            android:text="Promote" 
+       		 	android:textSize="14sp"
+	        	android:visibility="gone"/>
+
 </LinearLayout>

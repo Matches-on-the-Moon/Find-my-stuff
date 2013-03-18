@@ -103,7 +103,7 @@ public class FileAccountManager implements AccountManager
         
         // check to make sure the password matches
         if(!account.getPassword().equals(password)){
-            // password doesn't match, increament the login attempts
+            // password doesn't match, increment the login attempts
             account.setLoginAttempts(account.getLoginAttempts() + 1);
             
             // if the attempts are >= 3 then lock the account
@@ -204,7 +204,6 @@ public class FileAccountManager implements AccountManager
     public boolean deleteAccount(Integer accountID)
     {
     	accountHM.remove(accountID);
-        
         saveData();
         
         return true;

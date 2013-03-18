@@ -41,8 +41,7 @@ public class EditAccountActivity extends Activity {
         accountManager = Factory.getAccountManager();
 		targetAccountID = getIntent().getExtras().getInt("targetAccount");
 		loginName.setText(accountManager.getAccount(targetAccountID).getLoginName());
-		Account currentAccount = FMSApplication.getInstance().getCurrentAccount();
-        if (accountManager.isAdmin(currentAccount.getAccountId()))
+        if (accountManager.isAdmin(FMSApplication.getInstance().getCurrentAccount().getAccountId()))
         	setButtonDisplay();
 	}
 	
@@ -54,6 +53,23 @@ public class EditAccountActivity extends Activity {
         Intent intent = new Intent(this, ViewAccountActivity.class);
         intent.putExtra("targetAccount", targetAccountID);
         startActivity(intent);
+    }
+    
+    private void startFindAccountActivity()
+    {
+        Intent intent = new Intent(this, FindAccountActivity.class);
+        startActivity(intent);
+    }
+    
+    /**
+     * 
+     */
+    private void startMainActivity()
+    {
+        // start main
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
     
     /**
@@ -118,8 +134,15 @@ public class EditAccountActivity extends Activity {
     		message = "Account deleted.";
         	editStatus.setText(message);
         	editStatus.setVisibility(View.VISIBLE);
+        	if(FMSApplication.getInstance().getCurrentAccount().getAccountId() != targetAccountID) {
+        		startFindAccountActivity();
+        		finish();
+        	} else {
+                FMSApplication.getInstance().setCurrentAccount(null);
+                startMainActivity();
+        		finish();
+        	}
     	}
-
     }
     
     /**
@@ -151,14 +174,14 @@ public class EditAccountActivity extends Activity {
     private void setButtonDisplay()
     {
     	Button deleteButton = (Button)findViewById(R.id.deleteButton);
-    	Button promoteButton = (Button)findViewById(R.id.promoteButton);
     	Button unlockButton = (Button)findViewById(R.id.unlockButton);
     	Button lockButton = (Button)findViewById(R.id.lockButton);
-    	
-        deleteButton.setVisibility(View.VISIBLE);
+    	Button promoteButton = (Button)findViewById(R.id.promoteButton);
         lockButton.setVisibility(View.VISIBLE);
-        promoteButton.setVisibility(View.VISIBLE);
         unlockButton.setVisibility(View.VISIBLE);
+        deleteButton.setVisibility(View.VISIBLE);
+    	if(!accountManager.isAdmin(targetAccountID)) 
+            promoteButton.setVisibility(View.VISIBLE);
     }
 
 }
