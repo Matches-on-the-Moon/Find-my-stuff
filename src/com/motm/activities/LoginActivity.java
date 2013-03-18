@@ -2,11 +2,13 @@ package com.motm.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
+
 import com.motm.R;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
@@ -18,7 +20,6 @@ public class LoginActivity extends Activity
     private AccountManager accountManager;
     private EditText loginNameInput;
     private EditText passwordInput;
-    private TextView loginStatus;
 
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -34,7 +35,6 @@ public class LoginActivity extends Activity
         
         loginNameInput = (EditText)findViewById(R.id.loginNameInput);
         passwordInput  = (EditText)findViewById(R.id.passwordInput);
-        loginStatus = (TextView)findViewById(R.id.loginStatus);
     }
     
     /* (non-Javadoc)
@@ -45,7 +45,13 @@ public class LoginActivity extends Activity
     {
         super.onResume();
         clearFields();
-        clearLoginStatus();
+    }
+    
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        Window window = getWindow();
+        window.setFormat(PixelFormat.RGBA_8888);
     }
 
     /**
@@ -75,17 +81,7 @@ public class LoginActivity extends Activity
      */
     private void setLoginStatus(String message)
     {
-        loginStatus.setText(message);
-        loginStatus.setVisibility(View.VISIBLE);
-    }
-    
-    /**
-     * 
-     */
-    private void clearLoginStatus()
-    {
-        loginStatus.setText("");
-        loginStatus.setVisibility(View.INVISIBLE);
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
     
     /**
@@ -109,7 +105,6 @@ public class LoginActivity extends Activity
     	
         if(loginName.isEmpty() || password.isEmpty()) {
             String message = getString(R.string.loginRequiredFields);
-            loginStatus.setTextColor(Color.parseColor("#FF0000"));
             setLoginStatus(message);
             return;
         }
@@ -118,7 +113,6 @@ public class LoginActivity extends Activity
         if(accountManager.getAccountStateByLoginName(loginName) == Account.State.Locked){
             String message = getString(R.string.accountLocked);
             setLoginStatus(message);
-            loginStatus.setTextColor(Color.parseColor("#FF0000"));
             clearFields();
         } else {     
 	        Account account = accountManager.attemptLogin(loginName, password);
@@ -127,14 +121,12 @@ public class LoginActivity extends Activity
 	            // failure
 	            String message = getString(R.string.loginUnsuccessful);
 	            setLoginStatus(message);
-	            loginStatus.setTextColor(Color.parseColor("#FF0000"));
 	            clearFields();
 	            
 	    	} else {
 	            // success
 	            String message = getString(R.string.loginSuccessful);
 	            setLoginStatus(message);
-	            loginStatus.setTextColor(Color.parseColor("#00FF00"));
 	            
 	            FMSApplication.getInstance().setCurrentAccount(account);
 	

@@ -15,7 +15,7 @@ import com.motm.helpers.Factory;
 import com.motm.models.Item;
 import com.motm.models.interfaces.ItemManager;
 
-public class FindItemActivity extends ListActivity
+public class FoundItemActivity extends ListActivity
 {
     private ItemManager itemManager;
     private SearchView itemSearchView;
@@ -74,7 +74,7 @@ public class FindItemActivity extends ListActivity
      */
     public void startAddItemActivity() 
     {
-        Intent intent = new Intent(this, AddItemActivity.class);
+        Intent intent = new Intent(this, LostItemActivity.class);
         startActivity(intent);
     }
     

@@ -21,16 +21,17 @@
 	
 	    <SearchView
 	        android:id="@+id/itemSearchView"
-	    	android:layout_width="250dp"
-	    	android:layout_height="match_parent"
-			android:inputType="text" />
+	        android:layout_width="225dp"
+	        android:layout_height="match_parent"
+	        android:layout_weight="3"
+	        android:inputType="text" />
     	
 		<!--  Sets up the add item button -->  
     
 	    <Button
 	        android:id="@+id/addItemButton"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
+        	android:layout_width="80dp"
+       		android:layout_height="50dp"
 	        android:layout_gravity="center_horizontal|top"
 	        android:onClick="addItemButtonPressed"
 	        android:text="@string/addItem" />

@@ -12,14 +12,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_column="0"
-        android:layout_columnSpan="4"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
-        android:layout_row="0"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         android:text="@string/welcome"
-        android:textSize="24sp" 
-        android:layout_marginBottom="15dp"/>
+        android:textSize="24sp" />
     
 <GridLayout 
     android:id="@+id/GridLayout1"
@@ -73,47 +70,30 @@
     
     <Button
         android:id="@+id/loginButton"
+        android:layout_height="50dp"
         android:layout_width="80dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         android:layout_column="2"
         android:layout_gravity="center_horizontal|top"
         android:layout_row="3"
         android:text="@string/login" 
-        android:onClick="loginButtonPressed" 
-        android:background="@drawable/button_type_0"
-		android:textColor="#000000"
-        android:shadowColor="#D3D3D3"
-        android:shadowDx="3"
-        android:shadowDy="-3"
-        android:shadowRadius="1.5"/>
+        android:onClick="loginButtonPressed"/>
 
 <!--  Sets up the registerButton -->     
     
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="80dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="6dp"
         android:layout_column="3"
         android:layout_gravity="left|top"
         android:layout_row="3"
         android:text="@string/register" 
         android:onClick="registerButtonPressed" 
-        android:background="@drawable/button_type_0"
-		android:textColor="#000000"
-        android:shadowColor="#D3D3D3"
-        android:shadowDx="3"
-        android:shadowDy="-3"
-        android:shadowRadius="1.5"/>
-
-<!--  Sets up the text view for an unsuccessful password -->     
-    
-    <TextView
-        android:id="@+id/loginStatus"
-        android:layout_column="0"
-        android:layout_columnSpan="4"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_row="4"
-        android:visibility="gone"
-        android:text="@string/loginUnsuccessful"
-        android:textColor="#FF0000" />
+		android:layout_height="50dp"
+        android:layout_width="80dp"/>
     
 </GridLayout>
 </LinearLayout>

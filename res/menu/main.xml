@@ -1,9 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/viewAccount" 
-        android:background="@drawable/button_type_0"
-        android:title="View Account"/>
+        android:title="View Account">
+	    <shape android:shape="rectangle">
+			<gradient android:angle="270" 
+				android:endColor="#48555b" 
+				android:startColor="#fcf4bd"/>
+			<stroke android:color="#19222d" 
+				android:width="1dp"/>
+		    <corners android:bottomRightRadius="8dip"
+		        android:bottomLeftRadius="8dip"  
+		        android:topRightRadius="8dip"
+		        android:topLeftRadius="8dip"/>
+		</shape>
+	</item>
     <item android:id="@+id/logoutButton" 
-        android:background="@drawable/button_type_0"
-        android:title="@string/logout"/>
+        android:title="@string/logout">
+	    <shape android:shape="rectangle">
+			<gradient android:angle="270" 
+				android:endColor="#48555b" 
+				android:startColor="#fcf4bd"/>
+			<stroke android:color="#19222d" 
+				android:width="1dp"/>
+		    <corners android:bottomRightRadius="8dip"
+		        android:bottomLeftRadius="8dip"  
+		        android:topRightRadius="8dip"
+		        android:topLeftRadius="8dip"/>
+		</shape>
+	</item>
 </menu>

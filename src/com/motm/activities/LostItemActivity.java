@@ -4,23 +4,20 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.motm.R;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
-import com.motm.helpers.ItemHelper;
 import com.motm.models.Item;
 import com.motm.models.interfaces.ItemManager;
 
-public class AddItemActivity extends Activity
+public class LostItemActivity extends Activity
 {
     private ItemManager itemManager;
     private EditText itemNameInput;
     private EditText itemLocationInput;
     private EditText itemRewardInput;
-    private Spinner itemTypeInput;
     private EditText itemCategoryInput;
     private EditText itemDescriptionInput;
     private TextView addItemStatus;
@@ -32,19 +29,15 @@ public class AddItemActivity extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.item_add);
+        setContentView(R.layout.item_add_lost);
         
         itemManager = Factory.getItemManager();
         itemNameInput = (EditText)findViewById(R.id.itemNameInput);
         itemLocationInput = (EditText)findViewById(R.id.itemLocationInput);
         itemRewardInput = (EditText)findViewById(R.id.itemRewardInput);
-        itemTypeInput = (Spinner)findViewById(R.id.itemTypeInput);
         itemCategoryInput = (EditText)findViewById(R.id.itemCategoryInput);
         itemDescriptionInput = (EditText)findViewById(R.id.itemDescriptionInput);
         addItemStatus   = (TextView)findViewById(R.id.registrationStatus);
-        
-        // set the spinner options
-        itemTypeInput.setAdapter(ItemHelper.getItemTypeAdapter(this));
     }
     
     /* (non-Javadoc)
@@ -76,7 +69,7 @@ public class AddItemActivity extends Activity
         String itemName = itemNameInput.getText().toString().trim();
     	String itemLocation = itemLocationInput.getText().toString().trim();
     	String itemReward = itemRewardInput.getText().toString().trim();
-    	Item.Type itemType = Item.Type.valueOf(itemTypeInput.getSelectedItem().toString());
+    	Item.Type itemType = Item.Type.valueOf("Lost");
     	String itemCategory = itemCategoryInput.getText().toString().trim();
     	String itemDescription = itemDescriptionInput.getText().toString().trim();
         
@@ -144,7 +137,6 @@ public class AddItemActivity extends Activity
         itemNameInput.setText("");
         itemLocationInput.setText("");
         itemRewardInput.setText("");
-        itemTypeInput.setSelection(0);
         itemCategoryInput.setText("");
         itemDescriptionInput.setText("");
     }

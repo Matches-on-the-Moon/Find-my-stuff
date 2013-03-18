@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
+
 import com.motm.R;
 import com.motm.helpers.FMSException;
 import com.motm.helpers.Factory;
@@ -18,7 +19,6 @@ public class RegisterActivity extends Activity
     private EditText passwordInput;
     private EditText nameInput;
     private EditText emailInput;
-    private TextView registrationStatus;
 
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -36,7 +36,6 @@ public class RegisterActivity extends Activity
         passwordInput        = (EditText)findViewById(R.id.registrationPassword);
         nameInput            = (EditText)findViewById(R.id.registrationName);
         emailInput           = (EditText)findViewById(R.id.registrationEmail);
-        registrationStatus   = (TextView)findViewById(R.id.registrationStatus);
    }
     
     /* (non-Javadoc)
@@ -47,7 +46,6 @@ public class RegisterActivity extends Activity
     {
         super.onResume();
         clearFields();
-        clearStatus();
     }
 
     /**
@@ -63,17 +61,7 @@ public class RegisterActivity extends Activity
      */
     private void setStatus(String message)
     {
-    	registrationStatus.setText(message);
-    	registrationStatus.setVisibility(View.VISIBLE);
-    }
-    
-    /**
-     * 
-     */
-    private void clearStatus()
-    {
-    	registrationStatus.setText("");
-    	registrationStatus.setVisibility(View.INVISIBLE);
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
     
     /**
@@ -119,5 +107,10 @@ public class RegisterActivity extends Activity
 			    setStatus(message);
 			}
         }
+    }
+    
+    public void cancelButtonPressed(View view)
+    {
+    	finish();
     }
 }

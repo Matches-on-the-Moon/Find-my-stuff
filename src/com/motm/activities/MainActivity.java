@@ -56,11 +56,11 @@ public class MainActivity extends Activity
             Integer targetAccountID = FMSApplication.getInstance().getCurrentAccount().getAccountId();
             intent.putExtra("targetAccount", targetAccountID);
             startActivity(intent);
-            Toast.makeText(MainActivity.this, "\"Viewing your account.\"", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "\"Viewing your account.\"", Toast.LENGTH_SHORT).show();
             return true;
  
         case R.id.logoutButton:
-            Toast.makeText(MainActivity.this, "\"See you next time!\"", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "\"See you next time!\"", Toast.LENGTH_SHORT).show();
             FMSApplication.getInstance().setCurrentAccount(null);
             startLoginActivity();
             return true;
@@ -88,7 +88,7 @@ public class MainActivity extends Activity
      */
     private void startFindItemActivity()
     {
-        Intent intent = new Intent(this, FindItemActivity.class);
+        Intent intent = new Intent(this, FoundItemActivity.class);
         startActivity(intent);
     }
     

@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/fmsImage"
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="250dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="5dp"
         android:layout_weight="1.50"
@@ -18,65 +18,42 @@
     
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal" >
+    android:layout_height="85dp"
+    android:orientation="horizontal" 
+    >
 
     <Button
         android:id="@+id/itemFoundButton"
         android:layout_width="100dp"
-        android:layout_height="85dp"
+        android:layout_height="match_parent"
         android:layout_marginLeft="55dp"
-        android:background="@drawable/button_type_0"
         android:onClick="itemFoundButtonPressed"
-        android:text="Found an item?" 
-		android:textColor="#000000"
-        android:shadowColor="#D3D3D3"
-        android:shadowDx="3"
-        android:shadowDy="-3"
-        android:shadowRadius="1.5"/>
+        android:text="Found an &#10;item?" />
 
     <Button
         android:id="@+id/itemLostButton"
         android:layout_width="100dp"
-        android:layout_height="85dp"
+        android:layout_height="match_parent"
         android:onClick="itemLostButtonPressed"
-        android:text="Lost an item?" 
-        android:background="@drawable/button_type_0"
-		android:textColor="#000000"
-        android:shadowColor="#D3D3D3"
-        android:shadowDx="3"
-        android:shadowDy="-3"
-        android:shadowRadius="1.5"/>
+        android:text="Lost an &#10;item?"/>
 
 </LinearLayout>
     
     <Button
         android:id="@+id/browseItemsButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:onClick="browseItemsButtonPressed"
-        android:background="@drawable/button_type_0"
         android:layout_marginTop="5dp"
-        android:text="Browse items."
-		android:textColor="#000000"
-        android:shadowColor="#D3D3D3"
-        android:shadowDx="3"
-        android:shadowDy="-3"
-        android:shadowRadius="1.5"/>
+        android:text="Browse items."/>
     
     <Button
         android:id="@+id/browseAccountsButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:onClick="browseAccountsButtonPressed"
         android:text="Browse accounts."
-        android:background="@drawable/button_type_0"
-        android:layout_marginTop="5dp"
-        android:textColor="#000000"
-        android:shadowColor="#D3D3D3"
-        android:shadowDx="3"
-        android:shadowDy="-3"
-        android:shadowRadius="1.5"/>
+        android:layout_marginTop="5dp"/>
     
         
 </LinearLayout>

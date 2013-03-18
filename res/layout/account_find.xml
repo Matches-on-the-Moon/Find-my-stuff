@@ -23,23 +23,18 @@
 	        android:id="@+id/itemSearchView"
 	    	android:layout_width="225dp"
 	    	android:layout_height="match_parent"
+	    	android:layout_weight="3"
 			android:inputType="text" />
     	
 		<!--  Sets up the view account button -->  
     
 	    <Button
 	        android:id="@+id/viewAccountButton"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
+        	android:layout_width="80dp"
+       		android:layout_height="50dp"
 	        android:layout_gravity="center_horizontal|top"
 	        android:onClick="viewAccountButtonPressed"
-	        android:text="View Account" 
-	        android:background="@drawable/button_type_0"
-			android:textColor="#000000"
-	        android:shadowColor="#D3D3D3"
-	        android:shadowDx="3"
-	        android:shadowDy="-3"
-	        android:shadowRadius="1.5"/>
+	        android:text="View Account" />
     	
 	</LinearLayout>
 
