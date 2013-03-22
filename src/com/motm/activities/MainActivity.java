@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
 import com.motm.R;
 import com.motm.application.FMSApplication;
 import com.motm.models.Account;
@@ -88,7 +87,7 @@ public class MainActivity extends Activity
      */
     private void startFindItemActivity()
     {
-        Intent intent = new Intent(this, FoundItemActivity.class);
+        Intent intent = new Intent(this, FindItemActivity.class);
         startActivity(intent);
     }
     
@@ -98,6 +97,13 @@ public class MainActivity extends Activity
     private void startFindAccountActivity()
     {
         Intent intent = new Intent(this, FindAccountActivity.class);
+        startActivity(intent);
+    }
+    
+    private void startRegisterItemActivity(String type)
+    {
+        Intent intent = new Intent(this, RegisterItemActivity.class);
+        intent.putExtra("itemType", type);
         startActivity(intent);
     }
     
@@ -124,14 +130,16 @@ public class MainActivity extends Activity
     /**
      * @param view
      */
-    public void itemFoundButtonPressed()
+    public void itemFoundButtonPressed(View view)
     {
+        startRegisterItemActivity("Found");
     }
     
     /**
      * @param view
      */
-    public void itemLostButtonPressed()
+    public void itemLostButtonPressed(View view)
     {
+        startRegisterItemActivity("Lost");
     }
 }

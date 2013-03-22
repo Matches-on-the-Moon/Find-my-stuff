@@ -1,5 +1,7 @@
 package com.motm.models.interfaces;
 
+import java.util.ArrayList;
+
 import com.motm.helpers.FMSException;
 import com.motm.models.Account;
 
@@ -29,7 +31,7 @@ public interface AccountManager
 
 	public boolean isAdmin(Integer accountID);
 
-	public Account[] getAllAccounts();
+	public ArrayList<Account> getAllAccounts();
 
 	public boolean promoteAccount(Integer targetAccountID);
 }

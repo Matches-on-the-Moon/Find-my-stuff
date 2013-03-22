@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.motm.R;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
@@ -59,7 +58,7 @@ public class LoginActivity extends Activity
      */
     private void startRegisterActivity()
     {
-        Intent intent = new Intent(this, RegisterActivity.class);
+        Intent intent = new Intent(this, RegisterAccountActivity.class);
         startActivity(intent);
     }
 

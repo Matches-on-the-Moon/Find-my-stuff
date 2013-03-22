@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
@@ -159,14 +160,10 @@ public class FileAccountManager implements AccountManager
      * Get all accounts
      * @return all accounts
      */
-    public Account[] getAllAccounts() {
-    	Account[] accounts = new Account[accountHM.size()];
-    	int Id = 0;
-    	for(Account account : accountHM.values()) {
-    		accounts[Id] = account;
-    		Id++;
-    	}
-    	return accounts;
+    public ArrayList<Account> getAllAccounts() {
+    	ArrayList<Account> accounts = new ArrayList<Account>(accountHM.values());
+        
+		return accounts;
     }
 
     /**

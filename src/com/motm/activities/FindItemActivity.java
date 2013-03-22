@@ -1,25 +1,22 @@
 package com.motm.activities;
 
-import java.util.ArrayList;
-
-import com.motm.adapters.ItemViewAdapter;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.TextView;
 import com.motm.R;
+import com.motm.adapters.ItemViewAdapter;
 import com.motm.helpers.Factory;
 import com.motm.models.Item;
 import com.motm.models.interfaces.ItemManager;
+import java.util.ArrayList;
 
-public class FoundItemActivity extends ListActivity
+public class FindItemActivity extends ListActivity
 {
     private ItemManager itemManager;
     private SearchView itemSearchView;
-    private int targetItemId;
     private ItemViewAdapter adapter;
     private ArrayList<Item> rowItems;
     
@@ -60,23 +57,7 @@ public class FoundItemActivity extends ListActivity
         
     	startViewItemActivity(item.getItemID());
     }
- 
-    /**
-     * @param view
-     */
-    public void addItemButtonPressed(View view) 
-    {
-    	startAddItemActivity();
-    }
     
-    /**
-     * 
-     */
-    public void startAddItemActivity() 
-    {
-        Intent intent = new Intent(this, LostItemActivity.class);
-        startActivity(intent);
-    }
     
     /**
      * @param itemID
@@ -86,21 +67,5 @@ public class FoundItemActivity extends ListActivity
         Intent intent = new Intent(this, ViewItemActivity.class);
         intent.putExtra("targetItemId", itemID);
         startActivity(intent);
-    }
-    
-    /**
-     * 
-     */
-    public void listOnScroll () 
-    {
-    	//soon to be added
-    }
-
-    /**
-     * @param view
-     */
-    public void addRow(View view) 
-    {
-    	// soon to be added
     }
 }

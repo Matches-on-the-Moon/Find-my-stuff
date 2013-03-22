@@ -1,26 +1,23 @@
 package com.motm.activities;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.motm.adapters.AccountViewAdapter;
-import com.motm.adapters.RowAccount;
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.motm.R;
+import com.motm.adapters.AccountViewAdapter;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
 import com.motm.models.Account;
 import com.motm.models.interfaces.AccountManager;
+import java.util.ArrayList;
+import java.util.List;
 
-public class FindAccountActivity extends Activity {
+public class FindAccountActivity extends ListActivity {
 	
-	private ListView listView;
-	private List<RowAccount> rowAccounts;
+	private ArrayList<Account> rowAccounts;
 	private AccountManager accountManager;
 	private int targetAccountID;
     private AccountViewAdapter adapter;
@@ -31,6 +28,8 @@ public class FindAccountActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.account_find);  
+        accountManager = Factory.getAccountManager();
     }
     
     /* (non-Javadoc)
@@ -40,27 +39,11 @@ public class FindAccountActivity extends Activity {
     protected void onResume() {
         super.onResume();
         // moved the onCreate stuff here until we can figure out how to stop it from duplicating the list every time or not updating at all.
-        setContentView(R.layout.account_find);  
-        rowAccounts = new ArrayList<RowAccount>();
-        accountManager = (AccountManager)Factory.getAccountManager();
+        rowAccounts = accountManager.getAllAccounts();
         adapter = new AccountViewAdapter(this, R.layout.account_find_list_rows, rowAccounts);
-        listView = (ListView)findViewById(R.id.list);
-        listView.setAdapter(adapter);
-        updateRows();
+        setListAdapter(adapter);
     }
     
-    /**
-     * 
-     */
-    public void updateRows() {
-    	// quick and dirty, fix later
-        Account[] accounts = accountManager.getAllAccounts();
-        int Id = 0;
-    	for(Account account : accounts) {
-    		RowAccount rowAccount = new RowAccount(Id, account.getName(), account.getEmail());
-    		rowAccounts.add(rowAccount);
-    	}
-    }
     
     /**
      * @param view

@@ -12,7 +12,7 @@ import com.motm.helpers.Factory;
 import com.motm.helpers.Logger;
 import com.motm.models.interfaces.AccountManager;
 
-public class RegisterActivity extends Activity
+public class RegisterAccountActivity extends Activity
 {
     private AccountManager accountManager;
     private EditText loginNameInput;

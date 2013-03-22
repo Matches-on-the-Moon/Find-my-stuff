@@ -1,8 +1,5 @@
 package com.motm.activities;
 
-import com.motm.R;
-import com.motm.models.Account;
-import com.motm.models.interfaces.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+import com.motm.R;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
+import com.motm.models.interfaces.AccountManager;
 
 
 public class EditAccountActivity extends Activity {
@@ -34,7 +34,6 @@ public class EditAccountActivity extends Activity {
 		
         passwordInput        = (EditText)findViewById(R.id.editPasswordInput);
         emailInput           = (EditText)findViewById(R.id.editEmailInput);
-        editStatus			 = (TextView)findViewById(R.id.editStatus);
         loginName			 = (TextView)findViewById(R.id.loginName);
         
 		// find and set the targeted account
@@ -96,8 +95,7 @@ public class EditAccountActivity extends Activity {
     {
     	if(accountManager.promoteAccount(targetAccountID)) {
 	    	message = "Account promoted.";
-	    	editStatus.setText(message);
-	    	editStatus.setVisibility(View.VISIBLE);
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     	}
     }
     
@@ -108,8 +106,7 @@ public class EditAccountActivity extends Activity {
     {
     	if(accountManager.lockAccount(targetAccountID)) {
 	        message = "Account locked.";
-	    	editStatus.setText(message);
-	    	editStatus.setVisibility(View.VISIBLE);
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     	}
     }
     
@@ -120,8 +117,7 @@ public class EditAccountActivity extends Activity {
     {
     	if(accountManager.unlockAccount(targetAccountID)) {
         	message = "Account unlocked.";
-        	editStatus.setText(message);
-        	editStatus.setVisibility(View.VISIBLE);
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     	}
     }
     
@@ -132,8 +128,7 @@ public class EditAccountActivity extends Activity {
     {
     	if(accountManager.deleteAccount(targetAccountID)) {
     		message = "Account deleted.";
-        	editStatus.setText(message);
-        	editStatus.setVisibility(View.VISIBLE);
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
         	if(FMSApplication.getInstance().getCurrentAccount().getAccountId() != targetAccountID) {
         		startFindAccountActivity();
         		finish();

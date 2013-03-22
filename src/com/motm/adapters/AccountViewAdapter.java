@@ -2,6 +2,7 @@ package com.motm.adapters;
 
 import java.util.List;
 import com.motm.R;
+import com.motm.models.Account;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,7 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
  
-public class AccountViewAdapter extends ArrayAdapter<RowAccount> {
+public class AccountViewAdapter extends ArrayAdapter<Account> {
  
     Context context;
  
@@ -22,8 +23,8 @@ public class AccountViewAdapter extends ArrayAdapter<RowAccount> {
      * @param rowAccounts
      */
     public AccountViewAdapter(Context context, int resourceId,
-            List<RowAccount> rowAccounts) {
-        super(context, resourceId, rowAccounts);
+            List<Account> accounts) {
+        super(context, resourceId, accounts);
         this.context = context;
     }
  
@@ -42,7 +43,7 @@ public class AccountViewAdapter extends ArrayAdapter<RowAccount> {
      */
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
-        RowAccount rowAccount = getItem(position);
+        Account account = getItem(position);
  
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -55,8 +56,8 @@ public class AccountViewAdapter extends ArrayAdapter<RowAccount> {
             convertView.setTag(holder);
         } else
             holder = (ViewHolder) convertView.getTag();
-        	holder.nameView.setText(rowAccount.getLoginName()); 
-        	holder.emailView.setText(rowAccount.getEmail()); 
+        	holder.nameView.setText(account.getLoginName()); 
+        	holder.emailView.setText(account.getEmail()); 
         	holder.imageView.setImageResource(R.drawable.question_mark); //rowAccount.getImageId()
         	return convertView;
     }

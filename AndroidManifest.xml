@@ -28,14 +28,11 @@
             android:name="com.motm.activities.LoginActivity"
             android:label="@string/loginActivityLabel" />
         <activity
-            android:name="com.motm.activities.RegisterActivity"
+            android:name="com.motm.activities.RegisterAccountActivity"
             android:label="@string/registerActivityLabel" />
         <activity
-            android:name="com.motm.activities.FoundItemActivity"
+            android:name="com.motm.activities.FindItemActivity"
             android:label="@string/findItemActivityLabel" />
-        <activity
-            android:name="com.motm.activities.LostItemActivity"
-            android:label="@string/addItemActivityLabel" />
         <activity
             android:name="com.motm.activities.ViewItemActivity"
             android:label="View an account" />
@@ -51,10 +48,7 @@
         <activity
             android:name="com.motm.activities.EditItemActivity"
             android:label="Edit an item." />
-        <activity
-            android:name="com.motm.FoundItemActivity"
-            android:label="@string/title_activity_found_item" >
-        </activity>
+        <activity android:name="com.motm.activities.RegisterItemActivity" android:label="Add an item."></activity>
     </application>
 
 </manifest>
