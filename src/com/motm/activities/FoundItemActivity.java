@@ -74,7 +74,7 @@ public class FoundItemActivity extends ListActivity
      */
     public void startAddItemActivity() 
     {
-        Intent intent = new Intent(this, LostItemActivity.class);
+        Intent intent = new Intent(this, AddItemActivity.class);
         startActivity(intent);
     }
     
