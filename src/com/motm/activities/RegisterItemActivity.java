@@ -29,7 +29,7 @@ public class RegisterItemActivity extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.item_add_lost);
+        setContentView(R.layout.item_add);
         
         itemManager = Factory.getItemManager();
         itemNameInput = (EditText)findViewById(R.id.itemNameInput);

@@ -133,8 +133,8 @@ public class MainActivity extends Activity
     public void itemFoundButtonPressed(View view)
     {
         // start find item and start add item, set to found items
-        Intent intent = new Intent(this, FoundItemActivity.class);
-        intent.putExtra("performAction", FoundItemActivity.PERFROM_ACTION_ADD_FOUND_ITEM);
+        Intent intent = new Intent(this, FindItemActivity.class);
+        intent.putExtra("performAction", FindItemActivity.PERFROM_ACTION_ADD_FOUND_ITEM);
         startActivity(intent);
     }
     
@@ -144,8 +144,8 @@ public class MainActivity extends Activity
     public void itemLostButtonPressed(View view)
     {
         // start find item and start add item, set to found items
-        Intent intent = new Intent(this, FoundItemActivity.class);
-        intent.putExtra("performAction", FoundItemActivity.PERFROM_ACTION_ADD_LOST_ITEM);
+        Intent intent = new Intent(this, FindItemActivity.class);
+        intent.putExtra("performAction", FindItemActivity.PERFROM_ACTION_ADD_LOST_ITEM);
         startActivity(intent);
     }
 }
