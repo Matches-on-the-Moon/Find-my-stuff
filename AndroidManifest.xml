@@ -34,6 +34,9 @@
             android:name="com.motm.activities.FindItemActivity"
             android:label="@string/findItemActivityLabel" />
         <activity
+            android:name="com.motm.activities.AddItemActivity"
+            android:label="@string/addItemActivityLabel" />
+        <activity
             android:name="com.motm.activities.ViewItemActivity"
             android:label="View an account" />
         <activity

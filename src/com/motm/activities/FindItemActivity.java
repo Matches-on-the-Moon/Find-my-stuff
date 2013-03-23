@@ -15,6 +15,9 @@ import java.util.ArrayList;
 
 public class FindItemActivity extends ListActivity
 {
+    public static final String PERFROM_ACTION_ADD_FOUND_ITEM  = "addFoundItem";
+    public static final String PERFROM_ACTION_ADD_LOST_ITEM  = "addLostItem";
+
     private ItemManager itemManager;
     private SearchView itemSearchView;
     private ItemViewAdapter adapter;
@@ -31,6 +34,19 @@ public class FindItemActivity extends ListActivity
         setContentView(R.layout.item_find);
         
         itemManager = Factory.getItemManager();
+        
+        // main activity can tell FoundItem to open Add item
+        String performAction = getIntent().getStringExtra("performAction");
+        if(performAction != null){
+            if(performAction.equals(PERFROM_ACTION_ADD_FOUND_ITEM)){
+                // open add item, set to found
+                startAddItemActivityWithType(Item.Type.Found);
+                
+            } else if(performAction.equals(PERFROM_ACTION_ADD_LOST_ITEM)){
+                // open add item, set to lost
+                startAddItemActivityWithType(Item.Type.Lost);
+            }
+        }
     }
     
     /* (non-Javadoc)
@@ -58,6 +74,24 @@ public class FindItemActivity extends ListActivity
     	startViewItemActivity(item.getItemID());
     }
     
+    /**
+     * 
+     */
+    public void startAddItemActivity() 
+    {
+        Intent intent = new Intent(this, AddItemActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * 
+     */
+    public void startAddItemActivityWithType(Item.Type type) 
+    {
+        Intent intent = new Intent(this, AddItemActivity.class);
+        intent.putExtra("type", type.toString());
+        startActivity(intent);
+    }
     
     /**
      * @param itemID
