@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 public class FindItemActivity extends ListActivity
 {
-    public static final String PERFROM_ACTION_ADD_FOUND_ITEM  = "addFoundItem";
-    public static final String PERFROM_ACTION_ADD_LOST_ITEM  = "addLostItem";
+    public static final String PERFORM_ACTION_ADD_FOUND_ITEM  = "addFoundItem";
+    public static final String PERFORM_ACTION_ADD_LOST_ITEM  = "addLostItem";
 
     private ItemManager itemManager;
     private SearchView itemSearchView;
@@ -38,11 +38,11 @@ public class FindItemActivity extends ListActivity
         // main activity can tell FoundItem to open Add item
         String performAction = getIntent().getStringExtra("performAction");
         if(performAction != null){
-            if(performAction.equals(PERFROM_ACTION_ADD_FOUND_ITEM)){
+            if(performAction.equals(PERFORM_ACTION_ADD_FOUND_ITEM)){
                 // open add item, set to found
                 startAddItemActivityWithType(Item.Type.Found);
                 
-            } else if(performAction.equals(PERFROM_ACTION_ADD_LOST_ITEM)){
+            } else if(performAction.equals(PERFORM_ACTION_ADD_LOST_ITEM)){
                 // open add item, set to lost
                 startAddItemActivityWithType(Item.Type.Lost);
             }

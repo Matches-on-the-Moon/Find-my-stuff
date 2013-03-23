@@ -134,7 +134,7 @@ public class MainActivity extends Activity
     {
         // start find item and start add item, set to found items
         Intent intent = new Intent(this, FindItemActivity.class);
-        intent.putExtra("performAction", FindItemActivity.PERFROM_ACTION_ADD_FOUND_ITEM);
+        intent.putExtra("performAction", FindItemActivity.PERFORM_ACTION_ADD_FOUND_ITEM);
         startActivity(intent);
     }
     
@@ -145,7 +145,7 @@ public class MainActivity extends Activity
     {
         // start find item and start add item, set to found items
         Intent intent = new Intent(this, FindItemActivity.class);
-        intent.putExtra("performAction", FindItemActivity.PERFROM_ACTION_ADD_LOST_ITEM);
+        intent.putExtra("performAction", FindItemActivity.PERFORM_ACTION_ADD_LOST_ITEM);
         startActivity(intent);
     }
 }
