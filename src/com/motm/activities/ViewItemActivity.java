@@ -48,16 +48,18 @@ public class ViewItemActivity extends Activity {
         date = (TextView)findViewById(R.id.date);
         
         targetItemId = this.getIntent().getExtras().getInt("targetItemId");
-        setFields();
+    	Item item = itemManager.getItem(targetItemId);
+        setFields(item);
         
         Account currentAccount = FMSApplication.getInstance().getCurrentAccount();
         int targetOwnerId = -1;
         if (itemManager.getItem(targetItemId) != null) {
         	targetOwnerId = itemManager.getItem(targetItemId).getOwnerID();
         }
-        if (currentAccount.getAccountId() == targetOwnerId){
-        	setButtonDisplay(true);
-        }
+        if (currentAccount.getAccountId() == targetOwnerId)
+        	setButtonDisplay(true, item);
+        else 
+        	setButtonDisplay(false, item);
     }
     
     /**
@@ -100,9 +102,8 @@ public class ViewItemActivity extends Activity {
     /**
      * 
      */
-    private void setFields() 
+    private void setFields(Item item) 
     {
-    	Item item = itemManager.getItem(targetItemId);
         
     	if (item == null) {
             return;
@@ -120,13 +121,17 @@ public class ViewItemActivity extends Activity {
     /**
      * @param set
      */
-    private void setButtonDisplay(boolean set)
+    private void setButtonDisplay(boolean isOwner, Item item)
     {
-        if(set=true) {
+        if(isOwner == true) {
         	Button editItemButton = (Button)findViewById(R.id.editItemButton);
         	editItemButton.setVisibility(View.VISIBLE);
         } else {
         	Button lostFoundButton = (Button)findViewById(R.id.lostFoundButton);
+        	if(item.getType() == Item.Type.Found)
+        		lostFoundButton.setText("I lost this item.");
+        	else
+        		lostFoundButton.setText("I found this item.");
     		lostFoundButton.setVisibility(View.VISIBLE);
         }
 

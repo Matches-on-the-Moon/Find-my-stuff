@@ -6,12 +6,6 @@
     android:weightSum="3" 
     android:layout_marginLeft="5dp">
 
-    <TextView
-        android:layout_width="match_parent"
-	    android:layout_height="30dp"
-        android:gravity="center"
-        android:text="@string/name" />
-
     <ImageView
         android:id="@+id/itemPictureButton"
         android:layout_width="match_parent"
@@ -74,7 +68,8 @@
             android:layout_gravity="center"
 			android:layout_marginTop="5dp"
             android:onClick="lostFoundButtonPressed"
-            android:text="I lost/found this item" />
+            android:text="I lost/found this item"
+            android:visibility="gone"/>
         
         <Button
             android:id="@+id/editItemButton"
