@@ -19,7 +19,6 @@ public class FindItemActivity extends ListActivity
     public static final String PERFORM_ACTION_ADD_LOST_ITEM  = "addLostItem";
 
     private ItemManager itemManager;
-    private SearchView itemSearchView;
     private ItemViewAdapter adapter;
     private ArrayList<Item> rowItems;
     
@@ -79,7 +78,7 @@ public class FindItemActivity extends ListActivity
      */
     public void startAddItemActivity() 
     {
-        Intent intent = new Intent(this, AddItemActivity.class);
+        Intent intent = new Intent(this, RegisterItemActivity.class);
         startActivity(intent);
     }
 
@@ -88,7 +87,7 @@ public class FindItemActivity extends ListActivity
      */
     public void startAddItemActivityWithType(Item.Type type) 
     {
-        Intent intent = new Intent(this, AddItemActivity.class);
+        Intent intent = new Intent(this, RegisterItemActivity.class);
         intent.putExtra("type", type.toString());
         startActivity(intent);
     }

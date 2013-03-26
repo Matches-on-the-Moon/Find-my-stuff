@@ -21,6 +21,7 @@ public class RegisterItemActivity extends Activity
     private EditText itemCategoryInput;
     private EditText itemDescriptionInput;
     private TextView addItemStatus;
+    private Item.Type itemType;
 
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -38,6 +39,15 @@ public class RegisterItemActivity extends Activity
         itemCategoryInput = (EditText)findViewById(R.id.itemCategoryInput);
         itemDescriptionInput = (EditText)findViewById(R.id.itemDescriptionInput);
         addItemStatus   = (TextView)findViewById(R.id.registrationStatus);
+        
+        // get the item type that started this intent
+        String typeString = getIntent().getStringExtra("type");
+        if(typeString == null){
+            // default: lost
+            itemType = Item.Type.Lost;
+        } else {
+            itemType = Item.Type.valueOf(typeString);
+        }
     }
     
     /* (non-Javadoc)
@@ -69,7 +79,6 @@ public class RegisterItemActivity extends Activity
         String itemName = itemNameInput.getText().toString().trim();
     	String itemLocation = itemLocationInput.getText().toString().trim();
     	String itemReward = itemRewardInput.getText().toString().trim();
-    	Item.Type itemType = Item.Type.valueOf(this.getIntent().getExtras().getString("itemType"));
     	String itemCategory = itemCategoryInput.getText().toString().trim();
     	String itemDescription = itemDescriptionInput.getText().toString().trim();
         

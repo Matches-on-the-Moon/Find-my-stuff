@@ -73,19 +73,4 @@ public class FindAccountActivity extends ListActivity {
     	startViewAccountActivity();
     }
     
-    /**
-     * 
-     */
-    public void listOnScroll () 
-    {
-    	//soon to be added
-    }
-
-    /**
-     * @param view
-     */
-    public void addRow(View view) 
-    {
-    	// soon to be added
-    }
 }
