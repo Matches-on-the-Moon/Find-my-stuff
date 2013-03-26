@@ -30,7 +30,7 @@ public class RegisterAccountActivity extends Activity
         
         accountManager = Factory.getAccountManager();
         
-        setContentView(R.layout.account_add);
+        setContentView(R.layout.account_register);
         
         loginNameInput       = (EditText)findViewById(R.id.registrationUsername);
         passwordInput        = (EditText)findViewById(R.id.registrationPassword);

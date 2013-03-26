@@ -4,8 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
-
+import android.widget.Toast;
 import com.motm.R;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
@@ -20,7 +19,6 @@ public class RegisterItemActivity extends Activity
     private EditText itemRewardInput;
     private EditText itemCategoryInput;
     private EditText itemDescriptionInput;
-    private TextView addItemStatus;
     private Item.Type itemType;
 
     /* (non-Javadoc)
@@ -30,7 +28,7 @@ public class RegisterItemActivity extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.item_add);
+        setContentView(R.layout.item_register);
         
         itemManager = Factory.getItemManager();
         itemNameInput = (EditText)findViewById(R.id.itemNameInput);
@@ -38,7 +36,6 @@ public class RegisterItemActivity extends Activity
         itemRewardInput = (EditText)findViewById(R.id.itemRewardInput);
         itemCategoryInput = (EditText)findViewById(R.id.itemCategoryInput);
         itemDescriptionInput = (EditText)findViewById(R.id.itemDescriptionInput);
-        addItemStatus   = (TextView)findViewById(R.id.registrationStatus);
         
         // get the item type that started this intent
         String typeString = getIntent().getStringExtra("type");
@@ -58,7 +55,6 @@ public class RegisterItemActivity extends Activity
     {
         super.onResume();
         clearFields();
-        clearAddItemStatus();
     }
 
     /**
@@ -125,17 +121,7 @@ public class RegisterItemActivity extends Activity
      */
     private void setAddItemStatus(String message)
     {
-    	addItemStatus.setText(message);
-    	addItemStatus.setVisibility(View.VISIBLE);
-    }
-    
-    /**
-     * Clear status
-     */
-    private void clearAddItemStatus()
-    {
-    	addItemStatus.setText("");
-    	addItemStatus.setVisibility(View.INVISIBLE);
+    	Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
     
     /**
