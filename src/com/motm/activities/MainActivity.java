@@ -100,17 +100,6 @@ public class MainActivity extends Activity
         startActivity(intent);
     }
     
-    private void startRegisterItemActivity(String type)
-    {
-        Intent intent = new Intent(this, RegisterItemActivity.class);
-        intent.putExtra("itemType", type);
-        startActivity(intent);
-    }
-    
-    /*
-     *  Actions
-     */
-    
     /**
      * @param view
      */
