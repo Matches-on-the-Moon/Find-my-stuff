@@ -4,7 +4,6 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 import com.motm.R;
 import com.motm.adapters.AccountViewAdapter;
@@ -13,7 +12,6 @@ import com.motm.helpers.Factory;
 import com.motm.models.Account;
 import com.motm.models.interfaces.AccountManager;
 import java.util.ArrayList;
-import java.util.List;
 
 public class FindAccountActivity extends ListActivity {
 	

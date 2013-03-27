@@ -37,5 +37,6 @@
     <string name="mainMenu">Main menu</string>
     <string name="title_activity_found_item">FoundItemActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="accountIsAdmin">You are an Admin</string>
 
 </resources>

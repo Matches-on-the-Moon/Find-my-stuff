@@ -30,9 +30,9 @@ public class FileAccountManager implements AccountManager
         }
         
         // first run
-        SharedPreferences preferences = FMSApplication.getAppContext().getSharedPreferences(FILENAME, 0);
+        SharedPreferences preferences = FMSApplication.getAppContext().getSharedPreferences(FILENAME, Context.MODE_PRIVATE);
         if(preferences.getBoolean("firstRun", true)){
-            preferences.edit().putBoolean("firstRun", false);
+            preferences.edit().putBoolean("firstRun", false).commit();
             accountHM.put(0, new Admin(0, "admin", "admin", "administrator", "FMS_Admin@gatech.edu", Account.State.Unlocked, 0));
             accountHM.put(1, new Account(1, "user", "user", "user", "FMS_User@gatech.edu", Account.State.Unlocked, 0));
             accountHM.put(2, new Account(2, "a", "a", "a", "a@a.com", Account.State.Unlocked, 0));
@@ -247,6 +247,9 @@ public class FileAccountManager implements AccountManager
     	
         deleteAccount(targetAccountID);
     	accountHM.put(targetAccountID, admin);
+        
+        saveData();
+        
     	return true;
     }
     /**

@@ -30,9 +30,9 @@ public class FileItemManager implements ItemManager
         }
         
         // first run
-        SharedPreferences preferences = FMSApplication.getAppContext().getSharedPreferences(FILENAME, 0);
+        SharedPreferences preferences = FMSApplication.getAppContext().getSharedPreferences(FILENAME, Context.MODE_PRIVATE);
         if(preferences.getBoolean("firstRun", true)){
-            preferences.edit().putBoolean("firstRun", false);
+            preferences.edit().putBoolean("firstRun", false).commit();
             itemsHM.put(0, new Item(0, 0, "item", "Atlanta", Item.Status.Open, "$0", Item.Type.Found, "Keepsake", "ES GUD YALL", new Date()));
             itemsHM.put(1, new Item(1, 1, "name", "location", Item.Status.Open, "$0", Item.Type.Lost, "Category", "Description", new Date()));
             saveData();

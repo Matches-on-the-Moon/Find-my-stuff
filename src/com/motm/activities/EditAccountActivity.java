@@ -63,12 +63,13 @@ public class EditAccountActivity extends Activity {
     /**
      * 
      */
-    private void startMainActivity()
+    private void clearToMainActivity()
     {
         // start main
         Intent intent = new Intent(this, MainActivity.class);
+        // clear top will go back the main and clear everything after
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        finish();
     }
     
     /**
@@ -95,7 +96,7 @@ public class EditAccountActivity extends Activity {
     {
     	if(accountManager.promoteAccount(targetAccountID)) {
 	    	message = "Account promoted.";
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     	}
     }
     
@@ -106,7 +107,7 @@ public class EditAccountActivity extends Activity {
     {
     	if(accountManager.lockAccount(targetAccountID)) {
 	        message = "Account locked.";
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     	}
     }
     
@@ -128,14 +129,13 @@ public class EditAccountActivity extends Activity {
     {
     	if(accountManager.deleteAccount(targetAccountID)) {
     		message = "Account deleted.";
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
         	if(FMSApplication.getInstance().getCurrentAccount().getAccountId() != targetAccountID) {
-        		startFindAccountActivity();
         		finish();
         	} else {
                 FMSApplication.getInstance().setCurrentAccount(null);
-                startMainActivity();
-        		finish();
+                clearToMainActivity();
+                finish();
         	}
     	}
     }

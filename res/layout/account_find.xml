@@ -30,11 +30,11 @@
     
 	    <Button
 	        android:id="@+id/viewAccountButton"
-        	android:layout_width="80dp"
+        	android:layout_width="100dp"
        		android:layout_height="50dp"
 	        android:layout_gravity="center_horizontal|top"
 	        android:onClick="viewAccountButtonPressed"
-	        android:text="View Account" />
+	        android:text="View Your Account" />
     	
 	</LinearLayout>
 

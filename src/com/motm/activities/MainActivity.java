@@ -6,13 +6,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.motm.R;
 import com.motm.application.FMSApplication;
+import com.motm.helpers.Factory;
 import com.motm.models.Account;
+import com.motm.models.interfaces.AccountManager;
 
 public class MainActivity extends Activity
 {
+    AccountManager accountManager;
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
      */
@@ -21,6 +25,8 @@ public class MainActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         
+        accountManager = Factory.getAccountManager();
+        
         Account currentAccount = FMSApplication.getInstance().getCurrentAccount();
 
         if(currentAccount == null) {
@@ -28,6 +34,12 @@ public class MainActivity extends Activity
         }
         
         setContentView(R.layout.main);
+        
+        // if admin show message
+        if (currentAccount != null && accountManager.isAdmin(currentAccount.getAccountId())){
+            TextView isAdminTextView = (TextView)findViewById(R.id.accountIsAdminText);
+            isAdminTextView.setText(R.string.accountIsAdmin);
+        }
     }
 
     /* (non-Javadoc)
