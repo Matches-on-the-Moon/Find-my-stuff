@@ -3,9 +3,15 @@ package com.motm.activities;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SearchView;
+import android.widget.Spinner;
 import com.motm.R;
 import com.motm.adapters.ItemViewAdapter;
 import com.motm.helpers.Factory;
@@ -13,7 +19,7 @@ import com.motm.models.Item;
 import com.motm.models.interfaces.ItemManager;
 import java.util.ArrayList;
 
-public class FindItemActivity extends ListActivity
+public class FindItemActivity extends ListActivity implements OnItemSelectedListener
 {
     public static final String PERFORM_ACTION_ADD_FOUND_ITEM  = "addFoundItem";
     public static final String PERFORM_ACTION_ADD_LOST_ITEM  = "addLostItem";
@@ -21,6 +27,7 @@ public class FindItemActivity extends ListActivity
     private ItemManager itemManager;
     private ItemViewAdapter adapter;
     private ArrayList<Item> rowItems;
+    private String itemSortFilter;
     
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -34,6 +41,8 @@ public class FindItemActivity extends ListActivity
         
         itemManager = Factory.getItemManager();
         
+        EditText inputSearchEditText = (EditText)findViewById(R.id.inputSearch);
+        
         // main activity can tell FoundItem to open Add item
         String performAction = getIntent().getStringExtra("performAction");
         if(performAction != null){
@@ -46,6 +55,50 @@ public class FindItemActivity extends ListActivity
                 startAddItemActivityWithType(Item.Type.Lost);
             }
         }
+        
+        // spinner adapter
+        Spinner spinner = (Spinner) findViewById(R.id.sortSpinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                                                                             R.array.itemSearchOptions,
+                                                                             android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+        
+        // default filter
+        this.itemSortFilter = "Name";
+        
+        // add listener
+        inputSearchEditText.addTextChangedListener(new TextWatcher() {
+ 
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3)
+            {
+                // When user changed the Text
+                String search = itemSortFilter + "|" + cs;
+                FindItemActivity.this.adapter.getFilter().filter(search);
+                
+                EditText inputSearchEditText = (EditText)FindItemActivity.this.findViewById(R.id.inputSearch);
+                if(itemSortFilter.equals("Status")){
+                    // Open/Resolved
+                    inputSearchEditText.setHint("Open/Resolved");
+                    
+                } else if(itemSortFilter.equals("Date")){
+                    // yyyy-mm-dd
+                    inputSearchEditText.setHint("yyyy-mm-dd");
+                    
+                } else {
+                    // default: Search items...
+                    inputSearchEditText.setHint("!Search items..!");
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3){}
+
+            @Override
+            public void afterTextChanged(Editable arg0){}
+        });
     }
     
     /* (non-Javadoc)
@@ -72,6 +125,18 @@ public class FindItemActivity extends ListActivity
         
     	startViewItemActivity(item.getItemID());
     }
+    
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+    {
+        String filter = (String)parent.getItemAtPosition(pos);
+        this.itemSortFilter = filter;
+    }
+
+    public void onNothingSelected(AdapterView<?> parent)
+    {
+        // Another interface callback
+    }
+
     
     /**
      * 

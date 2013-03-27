@@ -39,4 +39,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="accountIsAdmin">You are an Admin</string>
 
+    <string-array name="itemSearchOptions">
+        <item>Name</item>
+        <item>Category</item>
+        <item>Status</item><!-- Open/Resolved -->
+        <item>Date</item><!-- yyyy-mm-dd -->
+    </string-array>
+
 </resources>
