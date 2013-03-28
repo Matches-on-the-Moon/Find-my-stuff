@@ -216,7 +216,7 @@ public class FileItemManager implements ItemManager
     private void saveData()
     {
         try {
-            FileOutputStream fs = FMSApplication.getAppContext().openFileOutput(FILENAME, Context.MODE_PRIVATE | Context.MODE_APPEND);
+            FileOutputStream fs = FMSApplication.getAppContext().openFileOutput(FILENAME, Context.MODE_PRIVATE);
             ObjectOutputStream s = new ObjectOutputStream(fs);
             s.writeObject(itemsHM);
             s.close();
