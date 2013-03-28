@@ -20,7 +20,6 @@ public class EditAccountActivity extends Activity {
     private AccountManager accountManager;
 	private EditText passwordInput;
 	private EditText emailInput;
-	private TextView editStatus;
 	private TextView loginName;
 	private String message;
 	
@@ -51,12 +50,6 @@ public class EditAccountActivity extends Activity {
     {
         Intent intent = new Intent(this, ViewAccountActivity.class);
         intent.putExtra("targetAccount", targetAccountID);
-        startActivity(intent);
-    }
-    
-    private void startFindAccountActivity()
-    {
-        Intent intent = new Intent(this, FindAccountActivity.class);
         startActivity(intent);
     }
     

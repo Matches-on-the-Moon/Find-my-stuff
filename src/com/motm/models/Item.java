@@ -1,7 +1,9 @@
 package com.motm.models;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.Locale;
+import java.text.SimpleDateFormat;
 
 public class Item implements Serializable
 {
@@ -23,7 +25,7 @@ public class Item implements Serializable
     
     private Integer id;
     private Integer ownerID; 
-    private Date date;
+    private Calendar calendar;
     private String name;
     private String location;
     private Status status;
@@ -32,11 +34,11 @@ public class Item implements Serializable
     private String category;
     private String description;
     
-    Item(Integer id, Integer ownerID, String name, String location, Status status, String reward, Type type, String category, String description, Date date)
+    Item(Integer id, Integer ownerID, String name, String location, Status status, String reward, Type type, String category, String description, Calendar calendar)
     {
         this.id = id;
         this.ownerID = ownerID;
-        this.date = date;
+        this.calendar = calendar;
         this.name = name;
         this.location = location;
         this.status = status;
@@ -77,17 +79,22 @@ public class Item implements Serializable
     }
 
     /**
-     * @return the date
+     * @return the Calendar
      */
-    public Date getDate() {
-        return date;
+    public Calendar getCalendar() {
+        return calendar;
+    }
+    
+    public String getFormattedCalendar() {
+    	String formattedCalendar = new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(calendar.getTime());
+    	return formattedCalendar;
     }
 
     /**
-     * @param date the date to set
+     * @param Calendar the Calendar to set
      */
-    public void setDate(Date date) {
-        this.date = date;
+    public void setCalendar(Calendar calendar) {
+        this.calendar = calendar;
     }
 
     /**

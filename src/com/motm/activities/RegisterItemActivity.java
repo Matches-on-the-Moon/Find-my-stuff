@@ -85,7 +85,7 @@ public class RegisterItemActivity extends Activity
         } else {
         	Integer accountID = FMSApplication.getInstance().getCurrentAccount().getAccountId();
         	try {
-        		Integer targetItemId = itemManager.createItem(accountID, itemName, itemLocation, itemReward, itemType, itemCategory, itemDescription);
+        		itemManager.createItem(accountID, itemName, itemLocation, itemReward, itemType, itemCategory, itemDescription);
         		String message = getString(R.string.submissionSuccessful);
 	            setAddItemStatus(message);
                 // show the item list

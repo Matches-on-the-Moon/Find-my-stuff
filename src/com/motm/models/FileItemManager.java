@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.Logger;
 import com.motm.models.interfaces.ItemManager;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,14 +15,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Set;
 
 public class FileItemManager implements ItemManager
 {
     private static final String FILENAME = "itemsHM";
-    
     private static HashMap<Integer, Item> itemsHM;
     
     public FileItemManager()
@@ -31,17 +33,14 @@ public class FileItemManager implements ItemManager
         
         // first run
         SharedPreferences preferences = FMSApplication.getAppContext().getSharedPreferences(FILENAME, Context.MODE_PRIVATE);
-        if(preferences.getBoolean("firstRun", true)){
+        if(preferences.getBoolean("firstRun", true)) {
             preferences.edit().putBoolean("firstRun", false).commit();
-            itemsHM.put(0, new Item(0, 0, "item", "Atlanta", Item.Status.Open, "$0", Item.Type.Found, "Keepsake", "ES GUD YALL", new Date(1992, 6, 24)));
-            itemsHM.put(1, new Item(1, 1, "name", "location", Item.Status.Open, "$0", Item.Type.Lost, "Category", "Description", new Date(2013, 3, 24)));
+            itemsHM.put(0, new Item(0, 0, "Ring", "Atlanta", Item.Status.Open, "$0", Item.Type.Found, "Keepsake", "MY PRECIOUS", new GregorianCalendar(1962, 1, 2)));
+            itemsHM.put(1, new Item(1, 1, "name", "location", Item.Status.Open, "$0", Item.Type.Lost, "Category", "Description", new GregorianCalendar(2005, 8, 21)));
             saveData();
             return;
         }
-        
         loadData();
-        
-        
     }
     
     /**
@@ -72,7 +71,7 @@ public class FileItemManager implements ItemManager
             id++;
         }
         
-        Item item = new Item(id, ownerID, name, location, Item.Status.Open, reward, type, category, description, new Date());
+        Item item = new Item(id, ownerID, name, location, Item.Status.Open, reward, type, category, description, new GregorianCalendar());
         itemsHM.put(id, item);
         
         saveData();
@@ -175,15 +174,15 @@ public class FileItemManager implements ItemManager
         return items;
     }
     /**
-     * Lookup items by date
-     * @param date date of items to look for
-     * @return list of items with specified date
+     * Lookup items by Calendar
+     * @param Calendar Calendar of items to look for
+     * @return list of items with specified Calendar
      */
-    public ArrayList<Item> findItemsByDate(Date date)
+    public ArrayList<Item> findItemsByCalendar(Calendar calendar)
     {
         ArrayList<Item> items = new ArrayList<Item>();
         for(Item item : itemsHM.values()){
-            if(item.getDate().equals(date)){
+            if(item.getCalendar().equals(calendar)){
                 items.add(item);
             }
         }
@@ -217,10 +216,11 @@ public class FileItemManager implements ItemManager
     private void saveData()
     {
         try {
-            FileOutputStream fs = FMSApplication.getAppContext().openFileOutput(FILENAME, Context.MODE_PRIVATE);
+            FileOutputStream fs = FMSApplication.getAppContext().openFileOutput(FILENAME, Context.MODE_PRIVATE | Context.MODE_APPEND);
             ObjectOutputStream s = new ObjectOutputStream(fs);
             s.writeObject(itemsHM);
             s.close();
+
         }
         catch (Exception e) {
             Logger.d(e.getMessage());
@@ -236,7 +236,6 @@ public class FileItemManager implements ItemManager
             ObjectInputStream s = new ObjectInputStream(fs);
             HashMap<Integer, Item> items = (HashMap<Integer, Item>)s.readObject();
             s.close();
-            
             itemsHM = items;
         }
         catch (FileNotFoundException e){

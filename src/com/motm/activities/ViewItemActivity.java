@@ -115,7 +115,7 @@ public class ViewItemActivity extends Activity {
         location.setText("Location: " + item.getLocation());
         reward.setText("Reward: " + item.getReward());
         category.setText("Category: " + item.getCategory());
-        date.setText("Date Entered: " + item.getDate());
+        date.setText("Date Entered: " + item.getFormattedCalendar());
     }
     
     /**

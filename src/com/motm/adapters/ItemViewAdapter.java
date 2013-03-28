@@ -5,7 +5,6 @@ import com.motm.R;
 
 import android.app.Activity;
 import android.content.Context;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +13,10 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.motm.helpers.Logger;
 import com.motm.models.Item;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
 {
@@ -118,40 +116,35 @@ public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
                     results.values = originalItems;
                 } else {
                     
-                    search = search.toString().toLowerCase();
+                    search = search.toString().toLowerCase(Locale.ENGLISH);
                     for(int i = 0; i < originalItems.size(); i++){
                         Item data = originalItems.get(i);
                         
                         // compare by the sortBy
                         if(sortBy.equals("Name")){
                             // name
-                            if(data.getName().toLowerCase().contains(search)){
+                            if(data.getName().toLowerCase(Locale.ENGLISH).startsWith(search)){
                                 filteredResults.add(data);
                             }
                             
                         } else if(sortBy.equals("Category")){
                             // category
-                            if(data.getCategory().toLowerCase().contains(search)){
+                            if(data.getCategory().toLowerCase(Locale.ENGLISH).startsWith(search)){
                                 filteredResults.add(data);
                             }
                             
                         } else if(sortBy.equals("Status")){
                             // status
-                            if(data.getStatus().toString().toLowerCase().contains(search)){
+                            if(data.getStatus().toString().toLowerCase(Locale.ENGLISH).startsWith(search)){
                                 filteredResults.add(data);
                             }
                             
                         } else if(sortBy.equals("Date")){
-                            // date
-                            Date date = data.getDate();
-                            date.setYear(date.getYear()-1900);
-                            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                            String dateSearch = formatter.format(date);
-                            Logger.d("Date: "+dateSearch);
-                            if(dateSearch.contains(search)){
-                                filteredResults.add(data);
-                            }
-                            
+                        	if (search.length() == 10) {
+	                            if(data.getCalendar().after(new GregorianCalendar(Integer.parseInt(search.substring(0,4)), Integer.parseInt(search.substring(5, 7)), Integer.parseInt(search.substring(8,10))))) {
+	                                filteredResults.add(data);
+	                            }
+                        	}
                         }
                     }
                     // set the Filtered result to return

@@ -2,7 +2,7 @@ package com.motm.models.interfaces;
 
 import com.motm.models.Item;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 public interface ItemManager
 {
@@ -21,7 +21,7 @@ public interface ItemManager
 
     public ArrayList<Item> findItemsByType(Item.Type type);
 
-    public ArrayList<Item> findItemsByDate(Date date);
+    public ArrayList<Item> findItemsByCalendar(Calendar calendar);
 
 	public ArrayList<Item> getAllItems();
 
