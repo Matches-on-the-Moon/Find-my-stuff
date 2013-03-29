@@ -128,7 +128,11 @@ public class FileItemManager implements ItemManager
     private void saveData()
     {
         try {
+<<<<<<< HEAD
             FileOutputStream fs = FMSApplication.getAppContext().openFileOutput(FILENAME, Context.MODE_PRIVATE);
+=======
+            FileOutputStream fs = FMSApplication.getAppContext().openFileOutput(FILENAME, Context.MODE_APPEND);
+>>>>>>> No append we only read 1 object
             ObjectOutputStream s = new ObjectOutputStream(fs);
             s.writeObject(itemsHM);
             s.close();
