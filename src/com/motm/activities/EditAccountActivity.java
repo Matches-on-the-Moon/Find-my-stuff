@@ -16,7 +16,7 @@ import com.motm.models.interfaces.AccountManager;
 
 public class EditAccountActivity extends Activity {
 
-	private int targetAccountID;
+	private Integer targetAccountID;
     private AccountManager accountManager;
 	private EditText passwordInput;
 	private EditText emailInput;
@@ -50,6 +50,16 @@ public class EditAccountActivity extends Activity {
     {
         Intent intent = new Intent(this, ViewAccountActivity.class);
         intent.putExtra("targetAccount", targetAccountID);
+        startActivity(intent);
+    }
+    
+    /**
+     * 
+     */
+    private void clearToFindAccountActivity()
+    {
+        Intent intent = new Intent(this, FindAccountActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
     
@@ -122,8 +132,10 @@ public class EditAccountActivity extends Activity {
     {
     	if(accountManager.deleteAccount(targetAccountID)) {
     		message = "Account deleted.";
+    		Factory.getItemManager().deleteUsersItems(targetAccountID);
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
         	if(FMSApplication.getInstance().getCurrentAccount().getAccountId() != targetAccountID) {
+        		clearToFindAccountActivity();
         		finish();
         	} else {
                 FMSApplication.getInstance().setCurrentAccount(null);

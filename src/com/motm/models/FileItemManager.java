@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.Logger;
 import com.motm.models.interfaces.ItemManager;
-
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -15,7 +13,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Set;
@@ -89,104 +86,19 @@ public class FileItemManager implements ItemManager
         
         saveData();
     }
+    
     /**
-     * Gets the items for a user
+     * Deletes user's items
      * @param userID id of user
-     * @return list of items for the user
      */
-    public ArrayList<Item> findItemsByUserID(Integer userID)
+    public void deleteUsersItems(Integer userID)
     {
-        ArrayList<Item> items = new ArrayList<Item>();
-        
-        for(Item item : itemsHM.values()){
-            if(item.getOwnerID().equals(userID)){
-                items.add(item);
+        for(Item item : new ArrayList<Item>(itemsHM.values())) {
+            if(item.getOwnerID().equals(userID)) {
+                itemsHM.remove(item.getItemID());
             }
         }
-        
-        return items;
-    }
-    /**
-     * Find all the items for a location
-     * @param location location to search for items
-     * @return list of items with the specified location
-     */
-    public ArrayList<Item> findItemsByLocation(String location)
-    {
-        ArrayList<Item> items = new ArrayList<Item>();
-        
-        for(Item item : itemsHM.values()){
-            if(item.getLocation().equals(location)){
-                items.add(item);
-            }
-        }
-        
-        return items;
-    }
-    /**
-     * Look for items based on status
-     * @param status status of the types of items 
-     * @return list of items with the specified status
-     */
-    public ArrayList<Item> findItemsByStatus(Item.Status status)
-    {
-        ArrayList<Item> items = new ArrayList<Item>();
-        
-        for(Item item : itemsHM.values()){
-            if(item.getStatus().equals(status)){
-                items.add(item);
-            }
-        }
-        
-        return items;
-    }
-    /**
-     * Lookup items by category
-     * @param category category of items to look for
-     * @return list of items with specified category
-     */
-    public ArrayList<Item> findItemsByCategory(String category)
-    {
-        ArrayList<Item> items = new ArrayList<Item>();
-        
-        for(Item item : itemsHM.values()){
-            if(item.getCategory().equals(category)){
-                items.add(item);
-            }
-        }
-        
-        return items;
-    }
-    /**
-     * Lookup items by type
-     * @param type type of items to look for
-     * @return list of items with specified type
-     */
-    public ArrayList<Item> findItemsByType(Item.Type type)
-    {
-        ArrayList<Item> items = new ArrayList<Item>();
-        for(Item item : itemsHM.values()){
-            if(item.getType().equals(type)){
-                items.add(item);
-            }
-        }
-        
-        return items;
-    }
-    /**
-     * Lookup items by Calendar
-     * @param Calendar Calendar of items to look for
-     * @return list of items with specified Calendar
-     */
-    public ArrayList<Item> findItemsByCalendar(Calendar calendar)
-    {
-        ArrayList<Item> items = new ArrayList<Item>();
-        for(Item item : itemsHM.values()){
-            if(item.getCalendar().equals(calendar)){
-                items.add(item);
-            }
-        }
-        return items;
+        saveData();
     }
     /**
      * Get all items

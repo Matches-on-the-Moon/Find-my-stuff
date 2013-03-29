@@ -50,7 +50,6 @@ public class ViewAccountActivity extends Activity {
         Intent intent = new Intent(this, EditAccountActivity.class);
         intent.putExtra("targetAccount", targetAccountId);
         startActivity(intent);
-        finish();
     }
     
     /**
