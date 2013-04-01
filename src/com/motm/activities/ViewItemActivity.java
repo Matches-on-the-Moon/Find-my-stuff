@@ -11,20 +11,21 @@ import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
 import com.motm.models.Account;
 import com.motm.models.Item;
+import com.motm.models.interfaces.AccountManager;
 import com.motm.models.interfaces.ItemManager;
 
 public class ViewItemActivity extends Activity {
 	
 	private Integer targetItemId;
-	private ItemManager itemManager;
+	private Integer targetAccountId;
 	private TextView name;
 	private TextView description;
 	private TextView type;
-	//private TextView status;
 	private TextView location;
 	private TextView reward;
 	private TextView category;
 	private TextView date;
+	private AccountManager accountManager = Factory.getAccountManager();
 	
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -33,33 +34,34 @@ public class ViewItemActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        
         setContentView(R.layout.item_view); 
-        
-        itemManager = Factory.getItemManager();
         
         name = (TextView)findViewById(R.id.name);
         type = (TextView)findViewById(R.id.type);
         description = (TextView)findViewById(R.id.description);
-        //status = (TextView)findViewById(R.id.status);
         location = (TextView)findViewById(R.id.location);
         reward = (TextView)findViewById(R.id.reward);
         category = (TextView)findViewById(R.id.category);
         date = (TextView)findViewById(R.id.date);
         
+        ItemManager itemManager = Factory.getItemManager();
         targetItemId = this.getIntent().getExtras().getInt("targetItemId");
-    	Item item = itemManager.getItem(targetItemId);
-        setFields(item);
-        
+        targetAccountId = itemManager.getItem(targetItemId).getOwnerID();
         Account currentAccount = FMSApplication.getInstance().getCurrentAccount();
-        int targetOwnerId = -1;
-        if (itemManager.getItem(targetItemId) != null) {
-        	targetOwnerId = itemManager.getItem(targetItemId).getOwnerID();
-        }
-        if (currentAccount.getAccountId() == targetOwnerId)
+    	Item item = itemManager.getItem(targetItemId);
+        
+        if (currentAccount.getAccountId() == targetAccountId)
         	setButtonDisplay(true, item);
         else 
         	setButtonDisplay(false, item);
+        
+        setFields(item);
+    }
+    
+    public void onResume() {
+        super.onResume();
+        if (accountManager.getAccount(targetAccountId) == null)
+        	finish();
     }
     
     /**
@@ -68,7 +70,7 @@ public class ViewItemActivity extends Activity {
     private void startViewAccountActivity()
     {
         Intent intent = new Intent(this, ViewAccountActivity.class);
-        intent.putExtra("targetAccount", itemManager.getItem(targetItemId).getOwnerID());
+        intent.putExtra("targetAccount", targetAccountId);
         startActivity(intent);
     }
     
@@ -80,7 +82,6 @@ public class ViewItemActivity extends Activity {
         Intent intent = new Intent(this, EditItemActivity.class);
         intent.putExtra("targetItem", targetItemId);
         startActivity(intent);
-        finish();
     }
     
     /**

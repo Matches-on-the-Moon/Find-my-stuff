@@ -16,10 +16,10 @@ import com.motm.models.interfaces.AccountManager;
 public class ViewAccountActivity extends Activity {
 	
 	private int targetAccountId;
-	private AccountManager accountManager;
 	private TextView name;
 	private TextView email;
 	private TextView loginName;
+	private AccountManager accountManager = Factory.getAccountManager();
 	
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -32,14 +32,19 @@ public class ViewAccountActivity extends Activity {
         loginName = (TextView)findViewById(R.id.loginName);
         name = (TextView)findViewById(R.id.name);
         email = (TextView)findViewById(R.id.email);
-        accountManager = Factory.getAccountManager();
         targetAccountId = getIntent().getExtras().getInt("targetAccount");
-        setFields();
-
         Account currentAccount = FMSApplication.getInstance().getCurrentAccount();
-        if (currentAccount.getAccountId() == targetAccountId || accountManager.isAdmin(currentAccount.getAccountId())){
+        
+        if (currentAccount.getAccountId() == targetAccountId || accountManager.isAdmin(currentAccount.getAccountId()))
         	setButtonDisplay();
-        }
+        
+        setFields(accountManager.getAccount(targetAccountId));
+    }
+    
+    public void onResume() {
+        super.onResume();
+        if (accountManager.getAccount(targetAccountId) == null)
+        	finish();
     }
     
     /**
@@ -63,8 +68,7 @@ public class ViewAccountActivity extends Activity {
     /**
      * 
      */
-    private void setFields() {
-    	Account account = accountManager.getAccount(targetAccountId);
+    private void setFields(Account account) {
     	loginName.setText(account.getLoginName());
     	name.setText("Name: " + account.getName());
     	email.setText("Email: " + account.getEmail());

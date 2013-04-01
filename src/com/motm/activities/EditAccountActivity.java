@@ -56,10 +56,9 @@ public class EditAccountActivity extends Activity {
     /**
      * 
      */
-    private void clearToFindAccountActivity()
+    private void startFindAccountActivity()
     {
         Intent intent = new Intent(this, FindAccountActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
     
@@ -135,7 +134,7 @@ public class EditAccountActivity extends Activity {
     		Factory.getItemManager().deleteUsersItems(targetAccountID);
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
         	if(FMSApplication.getInstance().getCurrentAccount().getAccountId() != targetAccountID) {
-        		clearToFindAccountActivity();
+        		startFindAccountActivity();
         		finish();
         	} else {
                 FMSApplication.getInstance().setCurrentAccount(null);
