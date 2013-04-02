@@ -13,7 +13,11 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.motm.helpers.Logger;
 import com.motm.models.Item;
+import com.motm.models.Item.Type;
+
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -51,10 +55,6 @@ public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
         TextView itemIdView;
     }
 
-    /* (non-Javadoc)
-     * @see android.widget.ArrayAdapter#getView(int, android.view.View, android.view.ViewGroup)
-     */
-    @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
         ViewHolder holder = null;
@@ -101,16 +101,41 @@ public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
             @Override
             protected FilterResults performFiltering(CharSequence constraint)
             {
-                int split = constraint.toString().indexOf('|');
-                String sortBy = constraint.subSequence(0, split).toString();
-                String search = constraint.subSequence(split+1, constraint.length()).toString();
+                
+                String sortBy = "";
+                String search = "";
+                String location = null;
+                        
+                String [] tokens = constraint.toString().split("\\|");
+                //Logger.d("constraint: "+constraint.toString()+" len: "+tokens.length);
+                
+                if(tokens.length==1){
+                	sortBy = tokens[0];
+                	search="";
+                }
+                if(tokens.length==2){
+                	sortBy = tokens[0];
+                	search = tokens[1];
+                }if(tokens.length==3){//Name|name|Location|		location is blank
+                	sortBy = "Found";
+                	search = tokens[1];
+                	location = "";
+                	//Logger.d("Search *"+search+"* @"+location+"@");
+                }if(tokens.length==4){//Name|name|Location|location
+                	sortBy = "Found";
+                	search = tokens[1];
+                	location = tokens[3];
+                	//Logger.d("Search *"+search+"* @"+location+"@");
+                }
+                
+                Logger.d("sortBy: "+sortBy);
                 
                 List<Item> filteredResults = new ArrayList<Item>();
 
                 FilterResults results = new FilterResults();
                 results.values = filteredResults;
 
-                if(search == null || search.length() == 0){
+                if(search == null || (search.length() == 0 && !sortBy.equals("Found"))){
                     // set the Original result to return  
                     results.count = originalItems.size();
                     results.values = originalItems;
@@ -144,6 +169,13 @@ public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
 	                            if(data.getCalendar().after(new GregorianCalendar(Integer.parseInt(search.substring(0,4)), Integer.parseInt(search.substring(5, 7)), Integer.parseInt(search.substring(8,10))))) {
 	                                filteredResults.add(data);
 	                            }
+                        	}
+                        }else if(sortBy.equals("Found")){
+                        	
+                        	if( data.getType()==Type.Found && data.getName().toString().toLowerCase(Locale.ENGLISH).startsWith(search) &&
+                        			data.getLocation().toString().toLowerCase(Locale.ENGLISH).startsWith(location) ){
+                        		
+                        		filteredResults.add(data);
                         	}
                         }
                     }

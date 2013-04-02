@@ -44,6 +44,8 @@
         <item>Category</item>
         <item>Status</item><!-- Open/Resolved -->
         <item>Date</item><!-- yyyy-mm-dd -->
+        <item >Found</item>
     </string-array>
+    
 
 </resources>

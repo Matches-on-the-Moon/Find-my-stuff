@@ -10,11 +10,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioGroup.LayoutParams;
 import android.widget.Spinner;
 import com.motm.R;
 import com.motm.adapters.ItemViewAdapter;
 import com.motm.helpers.Factory;
+import com.motm.helpers.Logger;
 import com.motm.models.Item;
 import com.motm.models.interfaces.ItemManager;
 import java.util.ArrayList;
@@ -42,6 +45,7 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
         itemManager = Factory.getItemManager();
         
         EditText inputSearchEditText = (EditText)findViewById(R.id.inputSearch);
+        EditText locationEditText = (EditText)findViewById(R.id.locationEditText);
         
         // main activity can tell FoundItem to open Add item
         String performAction = getIntent().getStringExtra("performAction");
@@ -75,22 +79,36 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
             public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3)
             {
                 // When user changed the Text
-                String search = itemSortFilter + "|" + cs;
+            	String search;
+            	if( itemSortFilter.equals("Found") ){
+            		EditText locationEditText = (EditText)FindItemActivity.this.findViewById(R.id.locationEditText);
+            		search = "Name" + "|" +cs + "|Location|" + locationEditText.getText().toString();
+            	}else{
+            		search = itemSortFilter + "|" + cs;
+            	}
                 FindItemActivity.this.adapter.getFilter().filter(search);
                 
                 EditText inputSearchEditText = (EditText)FindItemActivity.this.findViewById(R.id.inputSearch);
                 if(itemSortFilter.equals("Status")){
                     // Open/Resolved
                     inputSearchEditText.setHint("Open/Resolved");
+                    inputSearchEditText.getLayoutParams().height= LayoutParams.MATCH_PARENT;
                     
                 } else if(itemSortFilter.equals("Date")){
                     // yyyy-mm-dd
                     inputSearchEditText.setHint("yyyy-mm-dd");
+                    inputSearchEditText.getLayoutParams().height= LayoutParams.MATCH_PARENT;
+                    
+                } else if(itemSortFilter.equals("Found")){
+                    
+                    inputSearchEditText.setHint("Name");
                     
                 } else {
                     // default: Search items...
                     inputSearchEditText.setHint("!Search items..!");
+                    inputSearchEditText.getLayoutParams().height= LayoutParams.MATCH_PARENT;
                 }
+                
             }
 
             @Override
@@ -98,6 +116,36 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
 
             @Override
             public void afterTextChanged(Editable arg0){}
+        });
+        
+        locationEditText.addTextChangedListener( new TextWatcher() {
+
+			@Override
+			public void afterTextChanged(Editable arg0) {}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,int count) {
+				
+				
+				// When user changed the Text
+                            	
+            	
+                
+            	if( itemSortFilter.equals("Found")){
+            		
+            		EditText inputSearch = (EditText)FindItemActivity.this.findViewById(R.id.inputSearch);
+                	String search = "Name" + "|" +inputSearch.getText().toString() + "|Location|" + s;
+                	FindItemActivity.this.adapter.getFilter().filter(search);
+                	
+            		EditText locationEditText = (EditText)FindItemActivity.this.findViewById(R.id.locationEditText);
+            		locationEditText.setHint("Location");		
+            	}
+			}
+        	
         });
     }
     
@@ -130,6 +178,26 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
     {
         String filter = (String)parent.getItemAtPosition(pos);
         this.itemSortFilter = filter;
+        EditText inputSearchEditText = (EditText)findViewById(R.id.inputSearch);
+    	EditText locationEditText = (EditText)findViewById(R.id.locationEditText);
+    	
+    	
+        if( itemSortFilter.equals("Found")){
+        	
+        	
+        	
+        	locationEditText.setVisibility(View.VISIBLE);
+        	locationEditText.setText("");
+        	inputSearchEditText.setText("");
+        
+        }else{
+        	
+        	locationEditText.setText("");
+        	inputSearchEditText.setText("");
+        	locationEditText.setVisibility(View.INVISIBLE);
+        	
+        }
+        
     }
 
     public void onNothingSelected(AdapterView<?> parent)
