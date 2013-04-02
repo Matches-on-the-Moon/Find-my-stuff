@@ -10,14 +10,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioGroup.LayoutParams;
 import android.widget.Spinner;
 import com.motm.R;
 import com.motm.adapters.ItemViewAdapter;
 import com.motm.helpers.Factory;
-import com.motm.helpers.Logger;
 import com.motm.models.Item;
 import com.motm.models.interfaces.ItemManager;
 import java.util.ArrayList;
@@ -90,12 +88,10 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
                 
                 EditText inputSearchEditText = (EditText)FindItemActivity.this.findViewById(R.id.inputSearch);
                 if(itemSortFilter.equals("Status")){
-                    // Open/Resolved
                     inputSearchEditText.setHint("Open/Resolved");
                     inputSearchEditText.getLayoutParams().height= LayoutParams.MATCH_PARENT;
                     
                 } else if(itemSortFilter.equals("Date")){
-                    // yyyy-mm-dd
                     inputSearchEditText.setHint("yyyy-mm-dd");
                     inputSearchEditText.getLayoutParams().height= LayoutParams.MATCH_PARENT;
                     
@@ -105,7 +101,7 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
                     
                 } else {
                     // default: Search items...
-                    inputSearchEditText.setHint("!Search items..!");
+                    inputSearchEditText.setHint("Search items..!");
                     inputSearchEditText.getLayoutParams().height= LayoutParams.MATCH_PARENT;
                 }
                 
