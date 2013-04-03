@@ -9,14 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.motm.activities.FindItemActivity;
+import com.motm.helpers.Factory;
 import com.motm.helpers.Logger;
 import com.motm.models.Item;
 import com.motm.models.Item.Type;
+import com.motm.models.interfaces.ItemManager;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -53,6 +57,7 @@ public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
         TextView descriptionView;
         TextView typeView;
         TextView itemIdView;
+        Button matchesButton;
     }
 
     public View getView(int position, View convertView, ViewGroup parent)
@@ -70,6 +75,7 @@ public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
             holder.typeView = (TextView) convertView.findViewById(R.id.type);
             holder.itemIdView = (TextView) convertView.findViewById(R.id.itemId);
             holder.imageView = (ImageView) convertView.findViewById(R.id.itemImage);
+            holder.matchesButton = (Button) convertView.findViewById(R.id.matchesButton);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -77,8 +83,28 @@ public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
 
         holder.nameView.setText(item.getName());
         holder.descriptionView.setText(item.getDescription());
-        holder.typeView.setText(item.getType().toString());
-        holder.itemIdView.setText(item.getItemID().toString());
+        Type type = item.getType();
+        holder.typeView.setText(type==null?"":item.getType().toString());
+        Integer id = item.getItemID();
+        holder.itemIdView.setText(id==null?"":item.getItemID().toString());
+        
+        if( item.getType()==Type.Lost ){
+        	
+	        ItemManager im = Factory.getItemManager();
+	        ArrayList<Item> matches = im.getMatches(item);
+	        if( matches != null){
+	        	int numMatches = matches.size();
+	        	holder.matchesButton.setText(numMatches+((numMatches==1)?" match":" matches"));
+	        	holder.matchesButton.setVisibility(View.VISIBLE);
+	        	FindItemActivity.addButton(holder.matchesButton,id);
+	        	
+	        }else{
+	        	holder.matchesButton.setVisibility(View.INVISIBLE);
+	        }
+	        
+        }else{
+        	holder.matchesButton.setVisibility(View.INVISIBLE);
+        }
         holder.imageView.setImageResource(R.drawable.question_mark); //rowItem.getImageId()
 
         return convertView;

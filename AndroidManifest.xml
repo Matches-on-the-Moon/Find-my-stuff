@@ -12,9 +12,10 @@
     <application
         android:name="com.motm.application.FMSApplication"
         android:allowBackup="true"
+        android:debuggable="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" android:debuggable="true">
+        android:theme="@style/AppTheme" >
         <activity
             android:name="com.motm.activities.MainActivity"
             android:label="@string/app_name" >
@@ -48,7 +49,14 @@
         <activity
             android:name="com.motm.activities.EditItemActivity"
             android:label="Edit an item." />
-        <activity android:name="com.motm.activities.RegisterItemActivity" android:label="Add an item."></activity>
+        <activity
+            android:name="com.motm.activities.RegisterItemActivity"
+            android:label="Add an item." >
+        </activity>
+        <activity
+            android:name="com.motm.activities.ShowFoundMatchesActivity"
+            android:label="@string/title_activity_show_found_matches" >
+        </activity>
     </application>
 
 </manifest>

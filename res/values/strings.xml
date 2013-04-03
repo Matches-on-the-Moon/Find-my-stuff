@@ -42,10 +42,13 @@
     <string-array name="itemSearchOptions">
         <item>Name</item>
         <item>Category</item>
-        <item>Status</item><!-- Open/Resolved -->
-        <item>Date</item><!-- yyyy-mm-dd -->
-        <item >Found</item>
+        <item>Status</item>
+ <!-- Open/Resolved -->
+        <item>Date</item>
+ <!-- yyyy-mm-dd -->
+        <item>Found</item>
     </string-array>
-    
+
+    <string name="title_activity_show_found_matches">ShowFoundMatchesActivity</string>
 
 </resources>

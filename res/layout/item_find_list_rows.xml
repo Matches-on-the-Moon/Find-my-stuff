@@ -33,13 +33,15 @@
  
     <TextView
         android:id="@+id/description"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/matchesButton"
         android:layout_below="@id/name"
-        android:textSize="12sp"
         android:layout_marginTop="1dp"
+        android:layout_toLeftOf="@+id/matchesButton"
         android:layout_toRightOf="@+id/thumbnail"
-        android:text="@string/description" />
+        android:text="@string/description"
+        android:textSize="12sp" />
     
     <TextView
         android:id="@+id/type"
@@ -63,5 +65,17 @@
         android:textSize="12sp"
         android:textStyle="bold" 
         android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/matchesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/thumbnail"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/name"
+        android:visibility="gone"
+        android:onClick="matchesFound"
+        android:focusable="false"
+        android:text="Button" />
  
 </RelativeLayout>

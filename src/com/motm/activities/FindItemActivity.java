@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup.LayoutParams;
@@ -19,16 +21,20 @@ import com.motm.helpers.Factory;
 import com.motm.models.Item;
 import com.motm.models.interfaces.ItemManager;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FindItemActivity extends ListActivity implements OnItemSelectedListener
 {
     public static final String PERFORM_ACTION_ADD_FOUND_ITEM  = "addFoundItem";
     public static final String PERFORM_ACTION_ADD_LOST_ITEM  = "addLostItem";
+    public static final String PERFORM_SHOW_MATCHES  = "showMatches";
 
     private ItemManager itemManager;
     private ItemViewAdapter adapter;
     private ArrayList<Item> rowItems;
     private String itemSortFilter;
+    private Item item;
+    private static HashMap<Button,Integer> buttonHash;
     
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -37,10 +43,12 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        
         setContentView(R.layout.item_find);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         
+        item = null;
         itemManager = Factory.getItemManager();
+        buttonHash = new HashMap<Button,Integer>();
         
         EditText inputSearchEditText = (EditText)findViewById(R.id.inputSearch);
         EditText locationEditText = (EditText)findViewById(R.id.locationEditText);
@@ -55,6 +63,12 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
             } else if(performAction.equals(PERFORM_ACTION_ADD_LOST_ITEM)){
                 // open add item, set to lost
                 startAddItemActivityWithType(Item.Type.Lost);
+            }
+            else if(performAction.equals(PERFORM_SHOW_MATCHES)){
+            	Integer itemId = getIntent().getExtras().getInt("targetItem");
+            	item = itemManager.getItem(itemId);
+            	
+            	
             }
         }
         
@@ -153,12 +167,23 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
     {
         super.onResume();
         
-        // update the list
-        rowItems = itemManager.getAllItems();
+        if( item != null )
+        	rowItems = itemManager.getMatches(item);
+        else
+        	rowItems = itemManager.getAllItems();
         adapter = new ItemViewAdapter(this, R.layout.item_find_list_rows, rowItems);
         setListAdapter(adapter);
     }
 
+    public void matchesFound(View view){
+    	
+    	Button matchesButton = (Button)view.findViewById(R.id.matchesButton);
+    	Integer id = buttonHash.get(matchesButton);
+    	Intent intent = new Intent(this, FindItemActivity.class);
+        intent.putExtra("targetItem", id);
+        intent.putExtra("performAction", FindItemActivity.PERFORM_SHOW_MATCHES);
+        startActivity(intent);
+    }
     /* (non-Javadoc)
      * @see android.app.ListActivity#onListItemClick(android.widget.ListView, android.view.View, int, long)
      */
@@ -169,7 +194,6 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
         
     	startViewItemActivity(item.getItemID());
     }
-    
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
     {
         String filter = (String)parent.getItemAtPosition(pos);
@@ -179,7 +203,6 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
     	
     	
         if( itemSortFilter.equals("Found")){
-        	
         	
         	
         	locationEditText.setVisibility(View.VISIBLE);
@@ -230,4 +253,10 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
         intent.putExtra("targetItemId", itemID);
         startActivity(intent);
     }
+
+	public static void addButton(Button matchesButton, Integer id) {
+		
+		buttonHash.put(matchesButton, id);
+		
+	}
 }

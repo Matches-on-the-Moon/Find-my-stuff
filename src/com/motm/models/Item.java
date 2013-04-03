@@ -194,4 +194,13 @@ public class Item implements Serializable
     public void setDescription(String description) {
         this.description = description;
     }
+	
+	public String toString() {
+		return "Item [id=" + id + ", ownerID=" + ownerID + ", calendar="
+				+ calendar+ ", name=" + name + ", location=" + location
+				+ ", status=" + status + ", reward=" + reward + ", type="
+				+ type + ", category=" + category + ", description="
+				+ description + "]";
+	}
+    
 }

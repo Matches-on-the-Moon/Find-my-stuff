@@ -16,4 +16,6 @@ public interface ItemManager
 
 	public Item getItem(Integer itemId);
 
+	public ArrayList<Item> getMatches(Item item);
+
 }

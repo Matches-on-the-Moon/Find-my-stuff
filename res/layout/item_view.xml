@@ -77,9 +77,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:onClick="editItemButtonPressed"
-            android:text="Edit Item" 
+            android:text="Edit Item"
             android:visibility="gone"/>
-        
 
+        <Button
+            android:id="@+id/foundMatchesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="foundMatchesButtonPressed"
+            android:text="Button" 
+            android:visibility="gone"/>
         
 </LinearLayout>

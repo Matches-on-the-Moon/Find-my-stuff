@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.Logger;
+import com.motm.models.Item.Type;
 import com.motm.models.interfaces.ItemManager;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Set;
 
 public class FileItemManager implements ItemManager
@@ -38,6 +40,7 @@ public class FileItemManager implements ItemManager
             return;
         }
         loadData();
+        
     }
     
     /**
@@ -122,6 +125,33 @@ public class FileItemManager implements ItemManager
 		return item;
 	}
     
+	public ArrayList<Item> getMatches(Item item){
+		
+		ArrayList<Item> items = new ArrayList<Item>(itemsHM.values());
+		ArrayList<Item> matches = new ArrayList<Item>();
+		
+		for(Item currItem:items){
+			
+			String currName = currItem.getName().toLowerCase(Locale.ENGLISH);
+			String itemName = item.getName().toLowerCase(Locale.ENGLISH);
+			String currCategory = currItem.getCategory().toLowerCase(Locale.ENGLISH);
+			String itemCategory = item.getCategory().toLowerCase(Locale.ENGLISH);
+			
+			if( (currName.contains(itemName) ||
+					itemName.contains(currName))
+					&& (currCategory.contains(itemCategory)|| itemCategory.contains(currCategory))
+					&& currItem.getType()==Type.Found){
+				
+				matches.add(currItem);
+				
+			}
+		}
+		
+		if( matches.size() == 0 )
+			return null;
+		else
+			return matches;
+	}
     /**
      * Save FileItemManager information to file
      */

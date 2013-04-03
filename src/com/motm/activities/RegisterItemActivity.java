@@ -1,6 +1,9 @@
 package com.motm.activities;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -8,6 +11,7 @@ import android.widget.Toast;
 import com.motm.R;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
+import com.motm.helpers.Logger;
 import com.motm.models.Item;
 import com.motm.models.interfaces.ItemManager;
 
@@ -85,10 +89,27 @@ public class RegisterItemActivity extends Activity
         } else {
         	Integer accountID = FMSApplication.getInstance().getCurrentAccount().getAccountId();
         	try {
-        		itemManager.createItem(accountID, itemName, itemLocation, itemReward, itemType, itemCategory, itemDescription);
+        		Integer id = itemManager.createItem(accountID, itemName, itemLocation, itemReward, itemType, itemCategory, itemDescription);
         		String message = getString(R.string.submissionSuccessful);
 	            setAddItemStatus(message);
                 // show the item list
+	            Logger.d("id: "+id);
+	            Item item = itemManager.getItem(id);
+	            Logger.d("item: "+item);
+	            ArrayList<Item> matches = itemManager.getMatches(item);
+	            
+	            if( matches!= null ){
+	            	Logger.d("NumMatches: "+matches.size());
+	            	/*
+	            	int numMatches = matches.size();
+	            	Context context = getApplicationContext();
+	            	CharSequence text = numMatches+((numMatches==1)?" match":" matches");
+	            	int duration = Toast.LENGTH_SHORT;
+
+	            	Toast toast = Toast.makeText(context, text, duration);
+	            	toast.show();
+	            	*/
+	            }
                 startFindItemActivity();
             }
             catch(Exception e) {
