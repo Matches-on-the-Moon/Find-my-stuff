@@ -128,13 +128,7 @@
         android:text="@string/submit" 
 		android:layout_height="50dp"
         android:layout_width="80dp"
-        android:layout_marginLeft="6dp"
-        android:background="@drawable/button_type_0"
-		android:textColor="#000000"
-        android:shadowColor="#D3D3D3"
-        android:shadowDx="3"
-        android:shadowDy="-3"
-        android:shadowRadius="1.5"/>
+        android:layout_marginLeft="6dp"/>
     
     <Button
         android:id="@+id/cancelItemButton"
@@ -144,13 +138,8 @@
         android:onClick="cancelItemButtonPressed"
         android:text="Cancel" 
 		android:layout_height="50dp"
-        android:layout_width="80dp"
-        android:background="@drawable/button_type_0"
-		android:textColor="#000000"
-        android:shadowColor="#D3D3D3"
-        android:shadowDx="3"
-        android:shadowDy="-3"
-        android:shadowRadius="1.5"/>
+        android:layout_width="80dp"/>
 
 </RelativeLayout>
+
 </LinearLayout>

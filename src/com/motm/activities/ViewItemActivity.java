@@ -170,7 +170,7 @@ public class ViewItemActivity extends Activity {
     }
     private void setMatchButton(Item item, ItemManager itemManager){
     
-    	if( item.getType()==Type.Lost ){
+    	if( item.getType()== Type.Lost ){
     		
 	    	ArrayList<Item> matches = itemManager.getMatches(item);
 	        

@@ -123,34 +123,23 @@
 
     <Button
         android:id="@+id/editDoneButton"
-        android:layout_toLeftOf="@+id/cancelItemButtonPressed"
-        android:onClick="editSaveButtonPressed"
-        android:text="Save" 
+        android:layout_toLeftOf="@+id/cancelItemButton"
+        android:onClick="submitItemButtonPressed"
+        android:text="@string/submit" 
 		android:layout_height="50dp"
         android:layout_width="80dp"
-        android:layout_marginLeft="6dp"
-        android:background="@drawable/button_type_0"
-		android:textColor="#000000"
-        android:shadowColor="#D3D3D3"
-        android:shadowDx="3"
-        android:shadowDy="-3"
-        android:shadowRadius="1.5"/>
+        android:layout_marginLeft="6dp"/>
     
     <Button
         android:id="@+id/cancelItemButton"
         android:layout_alignParentRight="true"
         android:layout_marginRight="70dp"
         android:layout_marginLeft="10dp"
-        android:onClick="editCancelButtonPressed"
+        android:onClick="cancelItemButtonPressed"
         android:text="Cancel" 
 		android:layout_height="50dp"
-        android:layout_width="80dp"
-        android:background="@drawable/button_type_0"
-		android:textColor="#000000"
-        android:shadowColor="#D3D3D3"
-        android:shadowDx="3"
-        android:shadowDy="-3"
-        android:shadowRadius="1.5"/>
+        android:layout_width="80dp"/>
 
 </RelativeLayout>
+
 </LinearLayout>

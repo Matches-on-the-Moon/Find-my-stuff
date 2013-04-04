@@ -53,10 +53,6 @@
             android:name="com.motm.activities.RegisterItemActivity"
             android:label="Add an item." >
         </activity>
-        <activity
-            android:name="com.motm.activities.ShowFoundMatchesActivity"
-            android:label="@string/title_activity_show_found_matches" >
-        </activity>
     </application>
 
 </manifest>
