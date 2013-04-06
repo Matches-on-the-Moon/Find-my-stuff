@@ -9,11 +9,10 @@
     <ImageView
         android:id="@+id/fmsImage"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="5dp"
-        android:layout_weight="1.50"
-        android:src="@drawable/a" />
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/fmslogo" />
     
 <LinearLayout
     android:layout_width="match_parent"
@@ -23,7 +22,7 @@
 
     <Button
         android:id="@+id/itemFoundButton"
-        android:layout_width="100dp"
+        android:layout_width="110dp"
         android:layout_height="match_parent"
         android:layout_marginLeft="55dp"
         android:onClick="itemFoundButtonPressed"
@@ -31,7 +30,7 @@
 
     <Button
         android:id="@+id/itemLostButton"
-        android:layout_width="100dp"
+        android:layout_width="110dp"
         android:layout_height="match_parent"
         android:onClick="itemLostButtonPressed"
         android:text="Lost an &#10;item?"/>
