@@ -34,6 +34,7 @@ public class ViewItemActivity extends Activity {
 	private TextView category;
 	private TextView date;
 	private AccountManager accountManager = Factory.getAccountManager();
+	private ItemManager itemManager = Factory.getItemManager();
 	private Item item;
 	
     /* (non-Javadoc)
@@ -53,7 +54,6 @@ public class ViewItemActivity extends Activity {
         category = (TextView)findViewById(R.id.category);
         date = (TextView)findViewById(R.id.date);
         
-        ItemManager itemManager = Factory.getItemManager();
         targetItemId = this.getIntent().getExtras().getInt("targetItemId");
         targetAccountId = itemManager.getItem(targetItemId).getOwnerID();
         Account currentAccount = FMSApplication.getInstance().getCurrentAccount();
@@ -66,25 +66,19 @@ public class ViewItemActivity extends Activity {
         	setButtonDisplay(false, item);
         
         setMatchButton(item,itemManager);
-        
         setFields(item);
     }
     
     public void onResume() {
         super.onResume();
-        
-        Logger.d("Item: "+item);
-        
-        Integer itemId = getIntent().getExtras().getInt("targetItemId");
-        Logger.d("itemId: "+itemId);
-        if( itemId!= null ){
-        	ItemManager itemManager = Factory.getItemManager();
-        	item = itemManager.getItem(itemId);
-        	setMatchButton(item,itemManager);
-        }
-        setFields(item);
         if (accountManager.getAccount(targetAccountId) == null)
         	finish();
+        
+        Logger.d("Item: "+item);
+        Logger.d("itemId: "+targetItemId);
+
+        setMatchButton(itemManager.getItem(targetItemId),itemManager);
+        setFields(itemManager.getItem(targetItemId));
     }
     
     /* (non-Javadoc)
@@ -216,7 +210,7 @@ public class ViewItemActivity extends Activity {
     }
     private void setMatchButton(Item item, ItemManager itemManager){
     
-    	if( item.getType()== Type.Lost && item.getOwnerID() == FMSApplication.getInstance().getCurrentAccount().getAccountId()){
+    	if( item.getType() == Type.Lost && item.getOwnerID() == FMSApplication.getInstance().getCurrentAccount().getAccountId()){
     		
 	    	ArrayList<Item> matches = itemManager.getMatches(item);
 	        

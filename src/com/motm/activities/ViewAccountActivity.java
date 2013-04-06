@@ -48,6 +48,8 @@ public class ViewAccountActivity extends Activity {
         super.onResume();
         if (accountManager.getAccount(targetAccountId) == null)
         	finish();
+        
+        setFields(accountManager.getAccount(targetAccountId));
     }
     
     /* (non-Javadoc)

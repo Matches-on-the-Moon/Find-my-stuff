@@ -25,7 +25,6 @@ public class EditItemActivity extends Activity {
     private EditText itemRewardInput;
     private EditText itemCategoryInput;
     private EditText itemDescriptionInput;
-    private Item.Type itemType;
     private Item item;
     
     public void onCreate(Bundle savedInstanceState)
@@ -119,7 +118,7 @@ public class EditItemActivity extends Activity {
      * Submits an item
      * @param view
      */
-    public void editSaveButtonPressed(View view)
+    public void submitItemEditButtonPressed(View view)
     {
         String itemName = itemNameInput.getText().toString().trim();
     	String itemLocation = itemLocationInput.getText().toString().trim();
@@ -127,7 +126,7 @@ public class EditItemActivity extends Activity {
     	String itemCategory = itemCategoryInput.getText().toString().trim();
     	String itemDescription = itemDescriptionInput.getText().toString().trim();
         
-        if(itemName.isEmpty() || itemLocation.isEmpty() || itemCategory.isEmpty() || itemDescription.isEmpty()) {
+        if(itemName.isEmpty() || itemLocation.isEmpty() || itemCategory.isEmpty() || itemDescription.isEmpty() || itemReward.isEmpty()) {
             String message = getString(R.string.registrationRequiredFields);
             setAddItemStatus(message);
             
@@ -175,7 +174,7 @@ public class EditItemActivity extends Activity {
     /**
      * @param view
      */
-    public void editCancelButtonPressed(View view) 
+    public void cancelItemEditButtonPressed(View view) 
     {
     	startFindItemActivity();
     }

@@ -217,12 +217,6 @@ public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
     }
 
     @Override
-    public int getCount()
-    {
-        return items.size();
-    }
-
-    @Override
     public Item getItem(int position)
     {
         return items.get(position);

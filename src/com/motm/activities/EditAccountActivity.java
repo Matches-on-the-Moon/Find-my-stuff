@@ -131,7 +131,6 @@ public class EditAccountActivity extends Activity {
     	if (!email.isEmpty()){
     		accountManager.editAccountEmail(targetAccountID, email);
         }
-    	startViewAccountActivity();
     	finish();
     }
     

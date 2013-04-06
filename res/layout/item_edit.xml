@@ -122,20 +122,20 @@
     android:orientation="horizontal" >
 
     <Button
-        android:id="@+id/editDoneButton"
-        android:layout_toLeftOf="@+id/cancelItemButton"
-        android:onClick="submitItemButtonPressed"
+        android:id="@+id/submitItemEditButton"
+        android:layout_toLeftOf="@+id/cancelItemEditButton"
+        android:onClick="submitItemEditButtonPressed"
         android:text="@string/submit" 
 		android:layout_height="50dp"
         android:layout_width="80dp"
         android:layout_marginLeft="6dp"/>
     
     <Button
-        android:id="@+id/cancelItemButton"
+        android:id="@+id/cancelItemEditButton"
         android:layout_alignParentRight="true"
         android:layout_marginRight="70dp"
         android:layout_marginLeft="10dp"
-        android:onClick="cancelItemButtonPressed"
+        android:onClick="cancelItemEditButtonPressed"
         android:text="Cancel" 
 		android:layout_height="50dp"
         android:layout_width="80dp"/>
