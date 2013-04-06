@@ -134,12 +134,12 @@ public class FileItemManager implements ItemManager
 			
 			String currName = currItem.getName().toLowerCase(Locale.ENGLISH);
 			String itemName = item.getName().toLowerCase(Locale.ENGLISH);
-			String currCategory = currItem.getCategory().toLowerCase(Locale.ENGLISH);
-			String itemCategory = item.getCategory().toLowerCase(Locale.ENGLISH);
+			String currLocation = currItem.getLocation().toLowerCase(Locale.ENGLISH);
+			String itemLocation = item.getLocation().toLowerCase(Locale.ENGLISH);
 			
 			if( (currName.contains(itemName) ||
 					itemName.contains(currName))
-					&& (currCategory.contains(itemCategory)|| itemCategory.contains(currCategory))
+					&& (currLocation.contains(itemLocation)|| itemLocation.contains(currLocation))
 					&& currItem.getType()==Type.Found){
 				
 				matches.add(currItem);

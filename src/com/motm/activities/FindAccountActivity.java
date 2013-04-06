@@ -3,8 +3,12 @@ package com.motm.activities;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.motm.R;
 import com.motm.adapters.AccountViewAdapter;
 import com.motm.application.FMSApplication;
@@ -42,15 +46,47 @@ public class FindAccountActivity extends ListActivity {
         setListAdapter(adapter);
     }
     
-    
-    /**
-     * @param view
+    /* (non-Javadoc)
+     * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      */
-    public void viewAccountButtonPressed(View view) 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
     {
-    	targetAccountID = FMSApplication.getInstance().getCurrentAccount().getAccountId();
-        startViewAccountActivity();
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
+    
+    /*
+     * Event Handling for Individual menu item selected
+     * Identify single menu item by it's id
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+    	Intent intent;
+        switch (item.getItemId())
+        {
+        case R.id.viewAccount:
+            intent = new Intent(this, ViewAccountActivity.class);
+            Integer targetAccountID = FMSApplication.getInstance().getCurrentAccount().getAccountId();
+            intent.putExtra("targetAccount", targetAccountID);
+            startActivity(intent);
+            Toast.makeText(getApplicationContext(), "\"Viewing your account.\"", Toast.LENGTH_SHORT).show();
+            return true;
+ 
+        case R.id.logoutButton:
+            Toast.makeText(getApplicationContext(), "\"See you next time!\"", Toast.LENGTH_SHORT).show();
+            FMSApplication.getInstance().setCurrentAccount(null);
+            // start login
+            intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+ 
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    } 
     
     /**
      * 

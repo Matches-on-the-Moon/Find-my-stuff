@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.motm.activities.FindItemActivity;
+import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
 import com.motm.helpers.Logger;
 import com.motm.models.Item;
@@ -92,11 +93,11 @@ public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
         	
 	        ItemManager im = Factory.getItemManager();
 	        ArrayList<Item> matches = im.getMatches(item);
-	        if( matches != null){
+	        if( matches != null && item.getOwnerID() == FMSApplication.getInstance().getCurrentAccount().getAccountId()){
 	        	int numMatches = matches.size();
 	        	holder.matchesButton.setText(numMatches+((numMatches==1)?" match":" matches"));
 	        	holder.matchesButton.setVisibility(View.VISIBLE);
-	        	FindItemActivity.addButton(holder.matchesButton,id);
+	        	FindItemActivity.addButton(holder.matchesButton, id);
 	        	
 	        }else{
 	        	holder.matchesButton.setVisibility(View.INVISIBLE);

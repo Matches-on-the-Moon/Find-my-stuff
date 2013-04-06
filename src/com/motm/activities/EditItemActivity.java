@@ -11,6 +11,8 @@ import com.motm.models.interfaces.ItemManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -62,6 +64,48 @@ public class EditItemActivity extends Activity {
         
     }
 
+    /* (non-Javadoc)
+     * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    
+    /*
+     * Event Handling for Individual menu item selected
+     * Identify single menu item by it's id
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+    	Intent intent;
+        switch (item.getItemId())
+        {
+        case R.id.viewAccount:
+            intent = new Intent(this, ViewAccountActivity.class);
+            Integer targetAccountID = FMSApplication.getInstance().getCurrentAccount().getAccountId();
+            intent.putExtra("targetAccount", targetAccountID);
+            startActivity(intent);
+            Toast.makeText(getApplicationContext(), "\"Viewing your account.\"", Toast.LENGTH_SHORT).show();
+            return true;
+ 
+        case R.id.logoutButton:
+            Toast.makeText(getApplicationContext(), "\"See you next time!\"", Toast.LENGTH_SHORT).show();
+            FMSApplication.getInstance().setCurrentAccount(null);
+            // start login
+            intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+ 
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    } 
+    
     /**
      * To add picture
      * @param view
