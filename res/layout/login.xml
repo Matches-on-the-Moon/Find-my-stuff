@@ -6,7 +6,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:orientation="vertical"
-	android:background="@drawable/findmystuff">
+	android:background="@drawable/findmystuff1">
 
 <!--  Sets the page's name/use to the top -->
     

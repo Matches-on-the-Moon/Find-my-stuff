@@ -3,13 +3,13 @@ package com.motm.activities;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.motm.R;
 import com.motm.application.FMSApplication;
@@ -26,6 +26,7 @@ public class RegisterItemActivity extends Activity
     private EditText itemRewardInput;
     private EditText itemCategoryInput;
     private EditText itemDescriptionInput;
+    private ImageView itemPictureButton;
     private Item.Type itemType;
 
     /* (non-Javadoc)
@@ -43,6 +44,7 @@ public class RegisterItemActivity extends Activity
         itemRewardInput = (EditText)findViewById(R.id.itemRewardInput);
         itemCategoryInput = (EditText)findViewById(R.id.itemCategoryInput);
         itemDescriptionInput = (EditText)findViewById(R.id.itemDescriptionInput);
+        itemPictureButton = (ImageView)findViewById(R.id.itemPictureButton);
         
         // get the item type that started this intent
         String typeString = getIntent().getStringExtra("type");
@@ -112,7 +114,6 @@ public class RegisterItemActivity extends Activity
      */
     public void itemPictureButtonPressed(View view)
     {
-    	//steps to add a picture
     }
     
     /**
