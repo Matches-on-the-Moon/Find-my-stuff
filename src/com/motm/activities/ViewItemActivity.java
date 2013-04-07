@@ -142,6 +142,7 @@ public class ViewItemActivity extends Activity {
         intent.putExtra("targetItemId", targetItemId);
         startActivity(intent);
     }
+    
     private void startFoundMatchesActivity(){
     	
     	
@@ -150,10 +151,12 @@ public class ViewItemActivity extends Activity {
         intent.putExtra("performAction", FindItemActivity.PERFORM_SHOW_MATCHES);
         startActivity(intent);
     }
+    
     public void foundMatchesButtonPressed(View view){
     
     	startFoundMatchesActivity();
     }
+    
     /**
      * @param view
      */
@@ -167,6 +170,7 @@ public class ViewItemActivity extends Activity {
      */
     public void lostFoundButtonPressed(View view)
     {
+    	Toast.makeText(getApplicationContext(), "\"Please contact this user!\"", Toast.LENGTH_SHORT).show();
         startViewAccountActivity();
     }
     
