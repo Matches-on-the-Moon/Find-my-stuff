@@ -4,6 +4,7 @@
 *.war
 *.ear
 
+/doc
 /bin
 /gen
 /assets

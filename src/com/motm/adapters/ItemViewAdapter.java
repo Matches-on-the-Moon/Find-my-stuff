@@ -61,6 +61,7 @@ public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
         Button matchesButton;
     }
 
+    @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
         ViewHolder holder = null;
@@ -214,6 +215,12 @@ public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
                 return results;
             }
         };
+    }
+    
+    @Override
+    public int getCount()
+    {
+        return items.size();
     }
 
     @Override
