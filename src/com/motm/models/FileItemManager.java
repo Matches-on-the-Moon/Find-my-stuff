@@ -2,6 +2,7 @@ package com.motm.models;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.SparseArray;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.Logger;
 import com.motm.models.Item.Type;
@@ -15,27 +16,26 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Set;
 
 public class FileItemManager implements ItemManager
 {
-    private static final String FILENAME = "itemsHM";
-    private static HashMap<Integer, Item> itemsHM;
+    private static final String FILENAME = "itemsSA";
+    private static SparseArray<Item> itemsSA;
     
     public FileItemManager()
     {
-        if(itemsHM == null){
-            itemsHM = new HashMap<Integer, Item>();
+        if(itemsSA == null){
+            itemsSA = new SparseArray<Item>();
         }
         
         // first run
         SharedPreferences preferences = FMSApplication.getAppContext().getSharedPreferences(FILENAME, Context.MODE_PRIVATE);
         if(preferences.getBoolean("firstRun", true)) {
             preferences.edit().putBoolean("firstRun", false).commit();
-            itemsHM.put(0, new Item(0, 0, "Ring", "Atlanta", Item.Status.Open, "$0", Item.Type.Found, "Keepsake", "MY PRECIOUS", new GregorianCalendar(1962, 1, 2)));
-            itemsHM.put(1, new Item(1, 1, "name", "location", Item.Status.Open, "$0", Item.Type.Lost, "Category", "Description", new GregorianCalendar(2005, 8, 21)));
+            itemsSA.put(0, new Item(0, 0, "Ring", "Atlanta", Item.Status.Open, "$0", Item.Type.Found, "Keepsake", "MY PRECIOUS", new GregorianCalendar(1962, 1, 2)));
+            itemsSA.put(1, new Item(1, 1, "name", "location", Item.Status.Open, "$0", Item.Type.Lost, "Category", "Description", new GregorianCalendar(2005, 8, 21)));
             saveData();
             return;
         }
@@ -58,21 +58,17 @@ public class FileItemManager implements ItemManager
     public Integer createItem(Integer ownerID, String name, String location, String reward, Item.Type type, String category, String description) throws Exception
     {
         // create a new, unique key
-        Set<Integer> itemIDs = itemsHM.keySet();
-        if(itemIDs.size() >= Integer.MAX_VALUE){
+        if(itemsSA.size() >= Integer.MAX_VALUE){
             throw new Exception("Can't create a new item, the max amount of items have been created");
         }
         Integer id = 1;
-        if(itemIDs.size() > 0){
-            id = Collections.max(itemIDs) + 1;
-        }
         // keep incrementing the id until the set doesn't contain it
-        while(itemIDs.contains(id)){
+        while(itemsSA.get(id) != null){
             id++;
         }
         
         Item item = new Item(id, ownerID, name, location, Item.Status.Open, reward, type, category, description, new GregorianCalendar());
-        itemsHM.put(id, item);
+        itemsSA.put(id, item);
         
         saveData();
         
@@ -85,7 +81,7 @@ public class FileItemManager implements ItemManager
      */
     public void deleteItem(Integer itemID)
     {
-        itemsHM.remove(itemID);
+        itemsSA.remove(itemID);
         
         saveData();
     }
@@ -96,11 +92,16 @@ public class FileItemManager implements ItemManager
      */
     public void deleteUsersItems(Integer userID)
     {
-        for(Item item : new ArrayList<Item>(itemsHM.values())) {
-            if(item.getOwnerID().equals(userID)) {
-                itemsHM.remove(item.getItemID());
+        int key = 0;
+        for(int i = 0; i < itemsSA.size(); i++) {
+           key = itemsSA.keyAt(i);
+           // get the object by the key.
+           Item item = itemsSA.get(key);
+           if(item.getOwnerID().equals(userID)) {
+                itemsSA.remove(item.getItemID());
             }
         }
+
         saveData();
     }
     /**
@@ -109,7 +110,15 @@ public class FileItemManager implements ItemManager
      */
     public ArrayList<Item> getAllItems()
     {
-    	ArrayList<Item> items = new ArrayList<Item>(itemsHM.values());
+    	ArrayList<Item> items = new ArrayList<Item>();
+        
+        int key = 0;        
+        for(int i = 0; i < itemsSA.size(); i++) {
+            key = itemsSA.keyAt(i);
+            // get the object by the key.
+            Item item = itemsSA.get(key);
+            items.add(item);
+        }
         
 		return items;
 	}
@@ -120,14 +129,20 @@ public class FileItemManager implements ItemManager
 	 */
 	public Item getItem(Integer itemId)
     {
-		Item item = itemsHM.get(itemId);
+		Item item = itemsSA.get(itemId);
         
 		return item;
 	}
     
 	public ArrayList<Item> getMatches(Item item){
 		
-		ArrayList<Item> items = new ArrayList<Item>(itemsHM.values());
+		ArrayList<Item> items = new ArrayList<Item>();
+        int key = 0;
+        for(int i = 0; i < itemsSA.size(); i++) {
+           key = itemsSA.keyAt(i);
+           items.add(itemsSA.get(key));
+        }
+        
 		ArrayList<Item> matches = new ArrayList<Item>();
 		
 		for(Item currItem:items){
@@ -160,7 +175,7 @@ public class FileItemManager implements ItemManager
         try {
             FileOutputStream fs = FMSApplication.getAppContext().openFileOutput(FILENAME, Context.MODE_PRIVATE);
             ObjectOutputStream s = new ObjectOutputStream(fs);
-            s.writeObject(itemsHM);
+            s.writeObject(itemsSA);
             s.close();
 
         }
@@ -176,9 +191,9 @@ public class FileItemManager implements ItemManager
         try {
             FileInputStream fs = FMSApplication.getAppContext().openFileInput(FILENAME);
             ObjectInputStream s = new ObjectInputStream(fs);
-            HashMap<Integer, Item> items = (HashMap<Integer, Item>)s.readObject();
+            SparseArray<Item> items = (SparseArray<Item>)s.readObject();
             s.close();
-            itemsHM = items;
+            itemsSA = items;
         }
         catch (FileNotFoundException e){
             // ignore
