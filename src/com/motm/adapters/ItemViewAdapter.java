@@ -176,19 +176,19 @@ public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
                         // compare by the sortBy
                         if(sortBy.equals("Name")){
                             // name
-                            if(data.getName().toLowerCase(Locale.ENGLISH).startsWith(search)){
+                            if(data.getName().toLowerCase(Locale.ENGLISH).contains(search)){
                                 filteredResults.add(data);
                             }
                             
                         } else if(sortBy.equals("Category")){
                             // category
-                            if(data.getCategory().toLowerCase(Locale.ENGLISH).startsWith(search)){
+                            if(data.getCategory().toLowerCase(Locale.ENGLISH).contains(search)){
                                 filteredResults.add(data);
                             }
                             
                         } else if(sortBy.equals("Status")){
                             // status
-                            if(data.getStatus().toString().toLowerCase(Locale.ENGLISH).startsWith(search)){
+                            if(data.getStatus().toString().toLowerCase(Locale.ENGLISH).contains(search)){
                                 filteredResults.add(data);
                             }
                             
@@ -200,8 +200,8 @@ public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
                         	}
                         }else if(sortBy.equals("Found")){
                         	
-                        	if( data.getType()==Type.Found && data.getName().toString().toLowerCase(Locale.ENGLISH).startsWith(search) &&
-                        			data.getLocation().toString().toLowerCase(Locale.ENGLISH).startsWith(location) ){
+                        	if( data.getType()==Type.Found && data.getName().toString().toLowerCase(Locale.ENGLISH).contains(search) &&
+                        			data.getLocation().toString().toLowerCase(Locale.ENGLISH).contains(location) ){
                         		
                         		filteredResults.add(data);
                         	}
