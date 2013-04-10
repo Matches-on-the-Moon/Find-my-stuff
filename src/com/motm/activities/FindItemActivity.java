@@ -67,8 +67,7 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
             } else if(performAction.equals(PERFORM_ACTION_ADD_LOST_ITEM)){
                 // open add item, set to lost
                 startAddItemActivityWithType(Item.Type.Lost);
-            }
-            else if(performAction.equals(PERFORM_SHOW_MATCHES)){
+            } else if(performAction.equals(PERFORM_SHOW_MATCHES)){
             	Integer itemId = getIntent().getExtras().getInt("targetItem");
             	item = itemManager.getItem(itemId);
             	
@@ -213,10 +212,11 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
     {
         super.onResume();
         
-        if( item != null )
+        if( item != null ) {
         	rowItems = itemManager.getMatches(item);
-        else
+        } else {
         	rowItems = itemManager.getAllItems();
+        }
         adapter = new ItemViewAdapter(this, R.layout.item_find_list_rows, rowItems);
         setListAdapter(adapter);
     }

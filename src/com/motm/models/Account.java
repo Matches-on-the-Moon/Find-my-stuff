@@ -4,19 +4,19 @@ import java.io.Serializable;
 
 public class Account implements Serializable
 {	
-    private static final long serialVersionUID = 1L;
+    protected static final long serialVersionUID = 1L;
     
     public enum State {
         Locked, Unlocked
     }
     
-    private Integer id;
-    private String name;
-    private String loginName;
-    private String password;
-    private State accountState;
-    private String email;
-    private int loginAttempts;
+    protected Integer id;
+    protected String name;
+    protected String loginName;
+    protected String password;
+    protected State accountState;
+    protected String email;
+    protected int loginAttempts;
     
     /**
      * New account

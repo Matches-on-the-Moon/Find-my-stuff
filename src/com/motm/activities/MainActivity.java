@@ -16,7 +16,6 @@ import com.motm.models.interfaces.AccountManager;
 
 public class MainActivity extends Activity
 {
-    AccountManager accountManager;
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
      */
@@ -25,7 +24,7 @@ public class MainActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         
-        accountManager = Factory.getAccountManager();
+        AccountManager accountManager = Factory.getAccountManager();
         
         Account currentAccount = FMSApplication.getInstance().getCurrentAccount();
 

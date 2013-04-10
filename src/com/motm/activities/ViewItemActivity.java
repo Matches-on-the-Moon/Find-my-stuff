@@ -35,7 +35,6 @@ public class ViewItemActivity extends Activity {
 	private TextView date;
 	private AccountManager accountManager = Factory.getAccountManager();
 	private ItemManager itemManager = Factory.getItemManager();
-	private Item item;
 	
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -57,13 +56,14 @@ public class ViewItemActivity extends Activity {
         targetItemId = this.getIntent().getExtras().getInt("targetItemId");
         targetAccountId = itemManager.getItem(targetItemId).getOwnerID();
         Account currentAccount = FMSApplication.getInstance().getCurrentAccount();
-    	item = itemManager.getItem(targetItemId);
+    	Item item = itemManager.getItem(targetItemId);
     	Logger.d("original id: "+targetItemId);
         
-        if (currentAccount.getAccountId() == targetAccountId)
+        if (currentAccount.getAccountId() == targetAccountId) {
         	setButtonDisplay(true, item);
-        else 
+        } else {
         	setButtonDisplay(false, item);
+        }
         
         setMatchButton(item,itemManager);
         setFields(item);
@@ -71,10 +71,10 @@ public class ViewItemActivity extends Activity {
     
     public void onResume() {
         super.onResume();
-        if (accountManager.getAccount(targetAccountId) == null)
+        if (accountManager.getAccount(targetAccountId) == null) {
         	finish();
+        }
         
-        Logger.d("Item: "+item);
         Logger.d("itemId: "+targetItemId);
 
         setMatchButton(itemManager.getItem(targetItemId),itemManager);
@@ -204,10 +204,12 @@ public class ViewItemActivity extends Activity {
         	editItemButton.setVisibility(View.VISIBLE);
         } else {
         	Button lostFoundButton = (Button)findViewById(R.id.lostFoundButton);
-        	if(item.getType() == Item.Type.Found)
+        	if(item.getType() == Item.Type.Found) {
         		lostFoundButton.setText("I lost this item.");
-        	else
+        	}
+        	else {
         		lostFoundButton.setText("I found this item.");
+        	}
     		lostFoundButton.setVisibility(View.VISIBLE);
         }
 

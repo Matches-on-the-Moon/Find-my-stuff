@@ -38,18 +38,24 @@ public class ViewAccountActivity extends Activity {
         targetAccountId = getIntent().getExtras().getInt("targetAccount");
         Account currentAccount = FMSApplication.getInstance().getCurrentAccount();
         
-        if (currentAccount.getAccountId() == targetAccountId || accountManager.isAdmin(currentAccount.getAccountId()))
+        if (currentAccount.getAccountId() == targetAccountId || accountManager.isAdmin(currentAccount.getAccountId())) {
         	setButtonDisplay();
+        }
         
         setFields(accountManager.getAccount(targetAccountId));
     }
     
     public void onResume() {
         super.onResume();
-        if (accountManager.getAccount(targetAccountId) == null)
+        // checks to avoid Null Pointer Exceptions
+        if (accountManager == null) {
+        	accountManager = Factory.getAccountManager();
+        }
+        if (accountManager.getAccount(targetAccountId) == null) {
         	finish();
-        
-        setFields(accountManager.getAccount(targetAccountId));
+        } else {
+        	setFields(accountManager.getAccount(targetAccountId));
+        }
     }
     
     /* (non-Javadoc)

@@ -23,7 +23,6 @@ public class EditAccountActivity extends Activity {
 	private EditText passwordInput;
 	private EditText emailInput;
 	private TextView loginName;
-	private String message;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -41,9 +40,9 @@ public class EditAccountActivity extends Activity {
         accountManager = Factory.getAccountManager();
 		targetAccountID = getIntent().getExtras().getInt("targetAccount");
 		loginName.setText(accountManager.getAccount(targetAccountID).getLoginName());
-        if (accountManager.isAdmin(FMSApplication.getInstance().getCurrentAccount().getAccountId()))
+        if (accountManager.isAdmin(FMSApplication.getInstance().getCurrentAccount().getAccountId())) {
         	setButtonDisplay();
-	}
+	}	}
 	
     /* (non-Javadoc)
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
@@ -140,8 +139,7 @@ public class EditAccountActivity extends Activity {
     public void promoteButtonPressed(View view)
     {
     	if(accountManager.promoteAccount(targetAccountID)) {
-	    	message = "Account promoted.";
-            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Account promoted.", Toast.LENGTH_SHORT).show();
     	}
     }
     
@@ -151,8 +149,7 @@ public class EditAccountActivity extends Activity {
     public void lockButtonPressed(View view) 
     {
     	if(accountManager.lockAccount(targetAccountID)) {
-	        message = "Account locked.";
-            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Account locked.", Toast.LENGTH_SHORT).show();
     	}
     }
     
@@ -162,8 +159,7 @@ public class EditAccountActivity extends Activity {
     public void unlockButtonPressed(View view)
     {
     	if(accountManager.unlockAccount(targetAccountID)) {
-        	message = "Account unlocked.";
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Account unlocked.", Toast.LENGTH_SHORT).show();
     	}
     }
     
@@ -173,9 +169,8 @@ public class EditAccountActivity extends Activity {
     public void deleteButtonPressed(View view)
     {
     	if(accountManager.deleteAccount(targetAccountID)) {
-    		message = "Account deleted.";
     		Factory.getItemManager().deleteUsersItems(targetAccountID);
-            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Account deleted.", Toast.LENGTH_SHORT).show();
         	if(FMSApplication.getInstance().getCurrentAccount().getAccountId() != targetAccountID) {
         		startFindAccountActivity();
         		finish();
@@ -222,8 +217,9 @@ public class EditAccountActivity extends Activity {
         lockButton.setVisibility(View.VISIBLE);
         unlockButton.setVisibility(View.VISIBLE);
         deleteButton.setVisibility(View.VISIBLE);
-    	if(!accountManager.isAdmin(targetAccountID)) 
+    	if(!accountManager.isAdmin(targetAccountID)) {
             promoteButton.setVisibility(View.VISIBLE);
+    	}
     }
 
 }
