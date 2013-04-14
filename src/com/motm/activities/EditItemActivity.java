@@ -140,11 +140,7 @@ public class EditItemActivity extends Activity {
         		message = getString(R.string.submissionSuccessful);
         		setAddItemStatus(message);
         	}
-        		//Intent intent = Intent.getIntentOld(ViewItemActivity.class.toString());
-        		//intent.putExtra("targetItemId", itemId);
         	finish();
-                // show the item list
-                //startFindItemActivity();
         }
    
     }
