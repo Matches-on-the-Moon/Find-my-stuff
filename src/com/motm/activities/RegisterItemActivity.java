@@ -1,7 +1,6 @@
 package com.motm.activities;
 
-import java.util.ArrayList;
-
+import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 import com.motm.R;
 import com.motm.application.FMSApplication;
@@ -26,7 +24,6 @@ public class RegisterItemActivity extends Activity
     private EditText itemRewardInput;
     private EditText itemCategoryInput;
     private EditText itemDescriptionInput;
-    private ImageView itemPictureButton;
     private Item.Type itemType;
 
     /* (non-Javadoc)
@@ -44,13 +41,12 @@ public class RegisterItemActivity extends Activity
         itemRewardInput = (EditText)findViewById(R.id.itemRewardInput);
         itemCategoryInput = (EditText)findViewById(R.id.itemCategoryInput);
         itemDescriptionInput = (EditText)findViewById(R.id.itemDescriptionInput);
-        itemPictureButton = (ImageView)findViewById(R.id.itemPictureButton);
         
         // get the item type that started this intent
         String typeString = getIntent().getStringExtra("type");
         if(typeString == null){
             // default: lost
-            itemType = Item.Type.Lost;
+            itemType = Item.Type.LOST;
         } else {
             itemType = Item.Type.valueOf(typeString);
         }
@@ -112,9 +108,7 @@ public class RegisterItemActivity extends Activity
      * To add picture
      * @param view
      */
-    public void itemPictureButtonPressed(View view)
-    {
-    }
+    public void itemPictureButtonPressed(View view){}
     
     /**
      * Submits an item
@@ -142,7 +136,7 @@ public class RegisterItemActivity extends Activity
 	            Logger.d("id: "+id);
 	            Item item = itemManager.getItem(id);
 	            Logger.d("item: "+item);
-	            ArrayList<Item> matches = itemManager.getMatches(item);
+	            List<Item> matches = itemManager.getMatches(item);
 	            
 	            if( matches!= null ){
 	            	Logger.d("NumMatches: "+matches.size());

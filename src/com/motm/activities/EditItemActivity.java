@@ -25,7 +25,7 @@ public class EditItemActivity extends Activity {
     private EditText itemRewardInput;
     private EditText itemCategoryInput;
     private EditText itemDescriptionInput;
-    private Item item;
+    private Integer itemId;
     
     public void onCreate(Bundle savedInstanceState)
     {
@@ -40,9 +40,9 @@ public class EditItemActivity extends Activity {
         itemDescriptionInput = (EditText)findViewById(R.id.itemDescriptionInput);
         
         
-        Integer itemId = getIntent().getExtras().getInt("targetItemId");
+        itemId = getIntent().getExtras().getInt("targetItemId");
         Logger.d("Here: "+itemId);
-        item = itemManager.getItem(itemId);
+        Item item = itemManager.getItem(itemId);
         
         itemNameInput.setText( item.getName() );
         itemLocationInput.setText( item.getLocation() );
@@ -132,32 +132,19 @@ public class EditItemActivity extends Activity {
             
         } else {
         	
-        	try {
-        		
-        		item.setName( itemName );
-        		item.setLocation( itemLocation );
-        		item.setReward( itemReward );
-        		item.setCategory( itemCategory );
-        		item.setDescription( itemDescription );
-        		Type type = item.getType();
-        		int ownerID = item.getOwnerID();
-        		
-        		itemManager.deleteItem( item.getItemID() );        		
-        		int id = itemManager.createItem(ownerID, itemName, itemLocation, itemReward, type, itemCategory, itemDescription);
-        		Logger.d("new id: "+id);
-        		Intent intent = Intent.getIntentOld(ViewItemActivity.class.toString());
-        		intent.putExtra("targetItemId", id);
-        		
-        		
-        		String message = getString(R.string.submissionSuccessful);
-	            setAddItemStatus(message);
+        	String message;
+        	if(itemManager.editItem(itemId, itemName, itemLocation, itemReward, itemCategory, itemDescription)) {
+        		message = getString(R.string.submissionSuccessful);
+        		setAddItemStatus(message);
+        	} else {
+        		message = getString(R.string.submissionSuccessful);
+        		setAddItemStatus(message);
+        	}
+        		//Intent intent = Intent.getIntentOld(ViewItemActivity.class.toString());
+        		//intent.putExtra("targetItemId", itemId);
+        	finish();
                 // show the item list
-                startFindItemActivity();
-            }
-            catch(Exception e) {
-                String message = getString(R.string.submissionUnsuccessful);
-                setAddItemStatus(message);
-            }
+                //startFindItemActivity();
         }
    
     }
@@ -186,18 +173,6 @@ public class EditItemActivity extends Activity {
     private void setAddItemStatus(String message)
     {
     	Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-    }
-    
-    /**
-     * Clear fields
-     */
-    private void clearFields()
-    {
-        itemNameInput.setText("");
-        itemLocationInput.setText("");
-        itemRewardInput.setText("");
-        itemCategoryInput.setText("");
-        itemDescriptionInput.setText("");
     }
 
 }

@@ -18,7 +18,7 @@
         android:layout_marginBottom="30dp"
         android:text="@string/welcome"
         android:textSize="24sp"
-        android:textColor="@color/WhiteSmoke"/>
+        android:textColor="#f5f5f5"/>
     
 <GridLayout 
     android:id="@+id/GridLayout1"
@@ -34,7 +34,7 @@
         android:layout_gravity="center"
         android:layout_row="1"
         android:text="@string/login" 
-        android:textColor="@color/WhiteSmoke"/>
+        android:textColor="#f5f5f5"/>
     
 <!--  Sets the password string next to the appropriate input box -->
     
@@ -43,7 +43,7 @@
         android:layout_gravity="center"
         android:layout_row="2"
         android:text="@string/password"
-        android:textColor="@color/WhiteSmoke"/>
+        android:textColor="#f5f5f5"/>
 
 <!--  Sets up the loginInput box -->  
     

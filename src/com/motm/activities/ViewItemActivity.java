@@ -1,7 +1,6 @@
 package com.motm.activities;
 
-import java.util.ArrayList;
-
+import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -71,7 +70,7 @@ public class ViewItemActivity extends Activity {
     
     public void onResume() {
         super.onResume();
-        if (accountManager.getAccount(targetAccountId) == null) {
+        if (itemManager.getItem(targetItemId) == null ) {
         	finish();
         }
         
@@ -186,8 +185,7 @@ public class ViewItemActivity extends Activity {
         
         description.setText("Description: " + item.getDescription());
         name.setText("Name: " + item.getName());
-        Type t = item.getType();
-        type.setText("Type: " + (t==null?"":item.getType().toString()));
+        type.setText("Type: " + ((item.getType()==null)?"":item.getType().toString()));
         location.setText("Location: " + item.getLocation());
         reward.setText("Reward: " + item.getReward());
         category.setText("Category: " + item.getCategory());
@@ -199,12 +197,12 @@ public class ViewItemActivity extends Activity {
      */
     private void setButtonDisplay(boolean isOwner, Item item)
     {
-        if(isOwner == true) {
+        if(isOwner) {
         	Button editItemButton = (Button)findViewById(R.id.editItemButton);
         	editItemButton.setVisibility(View.VISIBLE);
         } else {
         	Button lostFoundButton = (Button)findViewById(R.id.lostFoundButton);
-        	if(item.getType() == Item.Type.Found) {
+        	if(item.getType() == Item.Type.FOUND) {
         		lostFoundButton.setText("I lost this item.");
         	}
         	else {
@@ -214,19 +212,20 @@ public class ViewItemActivity extends Activity {
         }
 
     }
-    private void setMatchButton(Item item, ItemManager itemManager){
-    
-    	if( item.getType() == Type.Lost && item.getOwnerID() == FMSApplication.getInstance().getCurrentAccount().getAccountId()){
+    private void setMatchButton(Item item, ItemManager itemManager)
+    {
+    	Button matchesButton = (Button)findViewById(R.id.foundMatchesButton);
+    	matchesButton.setVisibility(View.INVISIBLE);
+    	if( item != null && item.getType() == Type.LOST && item.getOwnerID() == FMSApplication.getInstance().getCurrentAccount().getAccountId()) {
     		
-	    	ArrayList<Item> matches = itemManager.getMatches(item);
+	    	List<Item> matches = itemManager.getMatches(item);
 	        
 	        int numMatches = 0;
-	        if(matches!=null)
+	        if(matches!=null) {
 	        	numMatches = matches.size();
+	        }
 	        
-	        
-	        if(numMatches > 0 ){
-	        	Button matchesButton = (Button)findViewById(R.id.foundMatchesButton);
+	        if(numMatches > 0 ) {
 	        	matchesButton.setText(numMatches+((numMatches==1)?" match":" matches"));
 	        	matchesButton.setVisibility(View.VISIBLE);
 	        	

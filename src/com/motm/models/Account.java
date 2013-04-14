@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 public class Account implements Serializable
 {	
-    protected static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     
     public enum State {
-        Locked, Unlocked
+        LOCKED, UNLOCKED;
     }
     
     protected Integer id;

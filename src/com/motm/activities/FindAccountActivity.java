@@ -15,11 +15,11 @@ import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
 import com.motm.models.Account;
 import com.motm.models.interfaces.AccountManager;
-import java.util.ArrayList;
+import java.util.List;
 
 public class FindAccountActivity extends ListActivity {
 	
-	private ArrayList<Account> rowAccounts;
+	private List<Account> rowAccounts;
 	private AccountManager accountManager;
 	private int targetAccountID;
     private AccountViewAdapter adapter;

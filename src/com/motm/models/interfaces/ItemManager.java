@@ -1,21 +1,24 @@
 package com.motm.models.interfaces;
 
 import com.motm.models.Item;
-import java.util.ArrayList;
+import java.util.List;
 
 public interface ItemManager
 {
-    public Integer createItem(Integer ownerID, String name, String location, String reward, Item.Type type, String category, String description)
+     Integer createItem(Integer ownerID, String name, String location, String reward, Item.Type type, String category, String description)
             throws Exception;
     
-    public void deleteItem(Integer itemID);
+     void deleteItem(Integer itemID);
 
-    public void deleteUsersItems(Integer userID);
+     void deleteUsersItems(Integer userID);
 
-	public ArrayList<Item> getAllItems();
+	 List<Item> getAllItems();
 
-	public Item getItem(Integer itemId);
+	 Item getItem(Integer itemId);
 
-	public ArrayList<Item> getMatches(Item item);
+	 List<Item> getMatches(Item item);
+
+	 boolean editItem(Integer itemId, String itemName, String itemLocation,
+			String itemReward, String itemCategory, String itemDescription);
 
 }

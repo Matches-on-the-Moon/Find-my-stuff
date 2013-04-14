@@ -85,16 +85,6 @@ public class EditAccountActivity extends Activity {
             return super.onOptionsItemSelected(item);
         }
     } 
-	
-    /**
-     * 
-     */
-    private void startViewAccountActivity()
-    {
-        Intent intent = new Intent(this, ViewAccountActivity.class);
-        intent.putExtra("targetAccount", targetAccountID);
-        startActivity(intent);
-    }
     
     /**
      * 

@@ -6,9 +6,9 @@ import com.motm.models.Account;
 
 public class FMSApplication extends Application 
 {
-    private static Context context;
+    private static Context Context;
     private Account currentAccount;
-    private static FMSApplication fmsApplication;
+    private static FMSApplication FMSApplication;
 
     
     /* (non-Javadoc)
@@ -18,8 +18,8 @@ public class FMSApplication extends Application
     public void onCreate()
     {
         super.onCreate();
-        FMSApplication.context = getApplicationContext();
-        fmsApplication = this;
+        Context = getApplicationContext();
+        FMSApplication = this;
     }
     
     /**
@@ -27,7 +27,7 @@ public class FMSApplication extends Application
      */
     public static FMSApplication getInstance()
     {
-    	return fmsApplication;
+    	return FMSApplication;
     }
 
     
@@ -52,6 +52,6 @@ public class FMSApplication extends Application
      */
     public static Context getAppContext()
     {
-        return FMSApplication.context;
+        return FMSApplication.Context;
     }
 }

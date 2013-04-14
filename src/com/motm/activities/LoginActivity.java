@@ -109,7 +109,7 @@ public class LoginActivity extends Activity
         }
         
         // check if the loginName is locked
-        if(accountManager.getAccountStateByLoginName(loginName) == Account.State.Locked){
+        if(accountManager.getAccountStateByLoginName(loginName) == Account.State.LOCKED){
             String message = getString(R.string.accountLocked);
             setLoginStatus(message);
             clearFields();

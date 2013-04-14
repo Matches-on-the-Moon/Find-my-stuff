@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.util.SparseArray;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.Logger;
-import com.motm.models.Item.Type;
 import com.motm.models.interfaces.ItemManager;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,28 +13,27 @@ import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
 public class FileItemManager implements ItemManager
 {
     private static final String FILENAME = "itemsSA";
-    private static SparseArray<Item> itemsSA;
+    private static SparseArray<Item> ItemsSA;
     
     public FileItemManager()
     {
-        if(itemsSA == null){
-            itemsSA = new SparseArray<Item>();
+        if(ItemsSA == null){
+            ItemsSA = new SparseArray<Item>();
         }
         
         // first run
         SharedPreferences preferences = FMSApplication.getAppContext().getSharedPreferences(FILENAME, Context.MODE_PRIVATE);
         if(preferences.getBoolean("firstRun", true)) {
             preferences.edit().putBoolean("firstRun", false).commit();
-            itemsSA.put(0, new Item(0, 0, "Ring", "Atlanta", Item.Status.Open, "$0", Item.Type.Found, "Keepsake", "MY PRECIOUS", new GregorianCalendar(1962, 1, 2)));
-            itemsSA.put(1, new Item(1, 1, "name", "location", Item.Status.Open, "$0", Item.Type.Lost, "Category", "Description", new GregorianCalendar(2005, 8, 21)));
+            ItemsSA.put(0, new Item(0, 0, "Ring", "Atlanta", Item.Status.OPEN, "$0", Item.Type.FOUND, "Keepsake", "MY PRECIOUS", new GregorianCalendar(1962, 1, 2)));
+            ItemsSA.put(1, new Item(1, 1, "name", "location", Item.Status.OPEN, "$0", Item.Type.LOST, "Category", "Description", new GregorianCalendar(2005, 8, 21)));
             saveData();
             return;
         }
@@ -58,17 +56,17 @@ public class FileItemManager implements ItemManager
     public Integer createItem(Integer ownerID, String name, String location, String reward, Item.Type type, String category, String description) throws Exception
     {
         // create a new, unique key
-        if(itemsSA.size() >= Integer.MAX_VALUE){
+        if(ItemsSA.size() >= Integer.MAX_VALUE){
             throw new Exception("Can't create a new item, the max amount of items have been created");
         }
         Integer id = 1;
         // keep incrementing the id until the set doesn't contain it
-        while(itemsSA.get(id) != null){
+        while(ItemsSA.get(id) != null){
             id++;
         }
         
-        Item item = new Item(id, ownerID, name, location, Item.Status.Open, reward, type, category, description, new GregorianCalendar());
-        itemsSA.put(id, item);
+        Item item = new Item(id, ownerID, name, location, Item.Status.OPEN, reward, type, category, description, new GregorianCalendar());
+        ItemsSA.put(id, item);
         
         saveData();
         
@@ -81,7 +79,7 @@ public class FileItemManager implements ItemManager
      */
     public void deleteItem(Integer itemID)
     {
-        itemsSA.remove(itemID);
+        ItemsSA.remove(itemID);
         
         saveData();
     }
@@ -93,12 +91,13 @@ public class FileItemManager implements ItemManager
     public void deleteUsersItems(Integer userID)
     {
         int key = 0;
-        for(int i = 0; i < itemsSA.size(); i++) {
-           key = itemsSA.keyAt(i);
+        Item item;
+        for(int i = 0; i < ItemsSA.size(); i++) {
+           key = ItemsSA.keyAt(i);
            // get the object by the key.
-           Item item = itemsSA.get(key);
+           item = ItemsSA.get(key);
            if(item.getOwnerID().equals(userID)) {
-                itemsSA.remove(item.getItemID());
+                ItemsSA.remove(item.getItemID());
             }
         }
 
@@ -108,15 +107,16 @@ public class FileItemManager implements ItemManager
      * Get all items
      * @return list of all items
      */
-    public ArrayList<Item> getAllItems()
+    public List<Item> getAllItems()
     {
-    	ArrayList<Item> items = new ArrayList<Item>();
+    	List<Item> items = new ArrayList<Item>();
         
-        int key = 0;        
-        for(int i = 0; i < itemsSA.size(); i++) {
-            key = itemsSA.keyAt(i);
+        int key = 0;      
+        Item item;
+        for(int i = 0; i < ItemsSA.size(); i++) {
+            key = ItemsSA.keyAt(i);
             // get the object by the key.
-            Item item = itemsSA.get(key);
+            item = ItemsSA.get(key);
             items.add(item);
         }
         
@@ -129,21 +129,21 @@ public class FileItemManager implements ItemManager
 	 */
 	public Item getItem(Integer itemId)
     {
-		Item item = itemsSA.get(itemId);
+		Item item = ItemsSA.get(itemId);
         
 		return item;
 	}
     
-	public ArrayList<Item> getMatches(Item item){
+	public List<Item> getMatches(Item item){
 		
-		ArrayList<Item> items = new ArrayList<Item>();
+		List<Item> items = new ArrayList<Item>();
         int key = 0;
-        for(int i = 0; i < itemsSA.size(); i++) {
-           key = itemsSA.keyAt(i);
-           items.add(itemsSA.get(key));
+        for(int i = 0; i < ItemsSA.size(); i++) {
+           key = ItemsSA.keyAt(i);
+           items.add(ItemsSA.get(key));
         }
         
-		ArrayList<Item> matches = new ArrayList<Item>();
+		List<Item> matches = new ArrayList<Item>();
 		
 		for(Item currItem:items){
 			
@@ -153,20 +153,41 @@ public class FileItemManager implements ItemManager
 			String itemLocation = item.getLocation().toLowerCase(Locale.ENGLISH);
 			
 			if( (currName.contains(itemName) ||
-					itemName.contains(currName))
-					&& (currLocation.contains(itemLocation)|| itemLocation.contains(currLocation))
-					&& currItem.getType()==Type.Found){
-				
+					itemName.contains(currName)) && (currLocation.contains(itemLocation)|| 
+					itemLocation.contains(currLocation)) && currItem.getType().toString().equals("FOUND")) {
 				matches.add(currItem);
 				
 			}
 		}
 		
-		if( matches.size() == 0 )
+		if( matches.size() == 0 ) {
 			return null;
-		else
+		} else {
 			return matches;
+		}
 	}
+	
+	/**
+	 * 
+	 * @param accountID
+	 * @param password
+	 * @return boolean
+	 */
+    public boolean editItem(Integer itemID, String itemName, String itemLocation, String itemReward, String itemCategory, String itemDescription)
+    {
+    	Item item = ItemsSA.get(itemID);
+    	if(item != null) {
+    		item.setName( itemName );
+    		item.setLocation( itemLocation );
+    		item.setReward( itemReward );
+    		item.setCategory( itemCategory );
+    		item.setDescription( itemDescription );
+	        saveData();
+	        return true;
+    	}
+    	return false;
+    }
+    
     /**
      * Save FileItemManager information to file
      */
@@ -175,7 +196,7 @@ public class FileItemManager implements ItemManager
         try {
             FileOutputStream fs = FMSApplication.getAppContext().openFileOutput(FILENAME, Context.MODE_PRIVATE);
             ObjectOutputStream s = new ObjectOutputStream(fs);
-            s.writeObject(itemsSA);
+            s.writeObject(ItemsSA);
             s.close();
 
         }
@@ -193,7 +214,7 @@ public class FileItemManager implements ItemManager
             ObjectInputStream s = new ObjectInputStream(fs);
             SparseArray<Item> items = (SparseArray<Item>)s.readObject();
             s.close();
-            itemsSA = items;
+            ItemsSA = items;
         }
         catch (FileNotFoundException e){
             // ignore

@@ -54,11 +54,13 @@ public class AccountViewAdapter extends ArrayAdapter<Account> {
             holder.emailView = (TextView) convertView.findViewById(R.id.email);
             holder.imageView = (ImageView) convertView.findViewById(R.id.accountImage);
             convertView.setTag(holder);
-        } else
+        } else {
             holder = (ViewHolder) convertView.getTag();
-        	holder.nameView.setText(account.getLoginName()); 
-        	holder.emailView.setText(account.getEmail()); 
-        	holder.imageView.setImageResource(R.drawable.question_mark); //rowAccount.getImageId()
-        	return convertView;
+        }
+        holder.nameView.setText(account.getLoginName()); 
+        holder.emailView.setText(account.getEmail()); 
+        holder.imageView.setImageResource(R.drawable.question_mark); //rowAccount.getImageId()
+        return convertView;
+
     }
 }

@@ -24,8 +24,10 @@ import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
 import com.motm.models.Item;
 import com.motm.models.interfaces.ItemManager;
-import java.util.ArrayList;
+
 import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
 
 public class FindItemActivity extends ListActivity implements OnItemSelectedListener
 {
@@ -35,10 +37,10 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
 
     private ItemManager itemManager;
     private ItemViewAdapter adapter;
-    private ArrayList<Item> rowItems;
+    private List<Item> rowItems;
     private String itemSortFilter;
     private Item item;
-    private static HashMap<Button,Integer> buttonHash;
+    private static Map<Button,Integer> ButtonHash;
     
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -52,7 +54,7 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
         
         item = null;
         itemManager = Factory.getItemManager();
-        buttonHash = new HashMap<Button,Integer>();
+        ButtonHash = new HashMap<Button,Integer>();
         
         EditText inputSearchEditText = (EditText)findViewById(R.id.inputSearch);
         EditText locationEditText = (EditText)findViewById(R.id.locationEditText);
@@ -62,11 +64,11 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
         if(performAction != null){
             if(performAction.equals(PERFORM_ACTION_ADD_FOUND_ITEM)){
                 // open add item, set to found
-                startAddItemActivityWithType(Item.Type.Found);
+                startAddItemActivityWithType(Item.Type.FOUND);
                 
             } else if(performAction.equals(PERFORM_ACTION_ADD_LOST_ITEM)){
                 // open add item, set to lost
-                startAddItemActivityWithType(Item.Type.Lost);
+                startAddItemActivityWithType(Item.Type.LOST);
             } else if(performAction.equals(PERFORM_SHOW_MATCHES)){
             	Integer itemId = getIntent().getExtras().getInt("targetItem");
             	item = itemManager.getItem(itemId);
@@ -85,7 +87,7 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
         spinner.setOnItemSelectedListener(this);
         
         // default filter
-        this.itemSortFilter = "Name";
+        itemSortFilter = "Name";
         
         // add listener
         inputSearchEditText.addTextChangedListener(new TextWatcher() {
@@ -224,7 +226,7 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
     public void matchesFound(View view){
     	
     	Button matchesButton = (Button)view.findViewById(R.id.matchesButton);
-    	Integer id = buttonHash.get(matchesButton);
+    	Integer id = ButtonHash.get(matchesButton);
     	Intent intent = new Intent(this, FindItemActivity.class);
         intent.putExtra("targetItem", id);
         intent.putExtra("performAction", FindItemActivity.PERFORM_SHOW_MATCHES);
@@ -243,9 +245,9 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
     {
         String filter = (String)parent.getItemAtPosition(pos);
-        this.itemSortFilter = filter;
-        EditText inputSearchEditText = (EditText)findViewById(R.id.inputSearch);
-    	EditText locationEditText = (EditText)findViewById(R.id.locationEditText);
+        itemSortFilter = filter;
+        final EditText inputSearchEditText = (EditText)findViewById(R.id.inputSearch);
+        final EditText locationEditText = (EditText)findViewById(R.id.locationEditText);
     	
     	
         if( itemSortFilter.equals("Found")){
@@ -265,10 +267,7 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
         
     }
 
-    public void onNothingSelected(AdapterView<?> parent)
-    {
-        // Another interface callback
-    }
+    public void onNothingSelected(AdapterView<?> parent){}
 
     
     /**
@@ -301,7 +300,7 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
     }
 
 	public static void addButton(Button matchesButton, Integer itemID) {
-		buttonHash.put(matchesButton, itemID);
+		ButtonHash.put(matchesButton, itemID);
 		
 	}
 }

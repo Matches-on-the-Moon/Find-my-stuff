@@ -2,7 +2,6 @@ package com.motm.adapters;
 
 import java.util.List;
 import com.motm.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -30,7 +29,7 @@ import java.util.Locale;
 public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
 {
     Context context;
-    int layoutResourceId;
+    int resourceId;
     List<Item> items = null;
     List<Item> originalItems = null;
 
@@ -43,9 +42,9 @@ public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
     {
         super(context, resourceId, items);
         this.context = context;
-        this.layoutResourceId = resourceId;
+        this.resourceId = resourceId;
         this.items = items;
-        this.originalItems = items;
+        originalItems = items;
     }
 
     /**
@@ -85,26 +84,25 @@ public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
 
         holder.nameView.setText(item.getName());
         holder.descriptionView.setText(item.getDescription());
-        Type type = item.getType();
-        holder.typeView.setText(type==null?"":item.getType().toString());
+        holder.typeView.setText((item.getType()==null)?"":item.getType().toString());
         Integer id = item.getItemID();
-        holder.itemIdView.setText(id==null?"":item.getItemID().toString());
+        holder.itemIdView.setText((id==null)?"":id.toString());
         
-        if( item.getType()==Type.Lost ){
+        if(item.getType()==Type.LOST) {
         	
 	        ItemManager im = Factory.getItemManager();
-	        ArrayList<Item> matches = im.getMatches(item);
+	        List<Item> matches = im.getMatches(item);
 	        if( matches != null && item.getOwnerID() == FMSApplication.getInstance().getCurrentAccount().getAccountId()){
 	        	int numMatches = matches.size();
 	        	holder.matchesButton.setText(numMatches+((numMatches==1)?" match":" matches"));
 	        	holder.matchesButton.setVisibility(View.VISIBLE);
 	        	FindItemActivity.addButton(holder.matchesButton, id);
 	        	
-	        }else{
+	        } else {
 	        	holder.matchesButton.setVisibility(View.INVISIBLE);
 	        }
 	        
-        }else{
+        } else {
         	holder.matchesButton.setVisibility(View.INVISIBLE);
         }
         holder.imageView.setImageResource(R.drawable.question_mark); //rowItem.getImageId()
@@ -169,9 +167,10 @@ public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
                     results.values = originalItems;
                 } else {
                     
-                    search = search.toString().toLowerCase(Locale.ENGLISH);
+                    search = search.toLowerCase(Locale.ENGLISH);
+                    Item data;
                     for(int i = 0; i < originalItems.size(); i++){
-                        Item data = originalItems.get(i);
+                        data = originalItems.get(i);
                         
                         // compare by the sortBy
                         if(sortBy.equals("Name")){
@@ -200,8 +199,8 @@ public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
                         	}
                         }else if(sortBy.equals("Found")){
                         	
-                        	if( data.getType()==Type.Found && data.getName().toString().toLowerCase(Locale.ENGLISH).contains(search) &&
-                        			data.getLocation().toString().toLowerCase(Locale.ENGLISH).contains(location) ){
+                        	if( data.getType()==Type.FOUND && data.getName().toLowerCase(Locale.ENGLISH).contains(search) &&
+                        			data.getLocation().toLowerCase(Locale.ENGLISH).contains(location) ){
                         		
                         		filteredResults.add(data);
                         	}

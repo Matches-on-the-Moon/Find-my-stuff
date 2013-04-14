@@ -14,26 +14,27 @@ import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FileAccountManager implements AccountManager
 {
-    private static final String FILENAME = "accountSA";
+    private static final String FILENAME = "accountsSA";
     
-    private static SparseArray<Account> accountSA;// Key = ID, Value = Account
+    private static SparseArray<Account> AccountsSA;// Key = ID, Value = Account
 
     public FileAccountManager()
     {
-        if(accountSA == null){
-            accountSA = new SparseArray<Account>();
+        if(AccountsSA == null){
+            AccountsSA = new SparseArray<Account>();
         }
         
         // first run
         SharedPreferences preferences = FMSApplication.getAppContext().getSharedPreferences(FILENAME, Context.MODE_PRIVATE);
         if(preferences.getBoolean("firstRun", true)){
             preferences.edit().putBoolean("firstRun", false).commit();
-            accountSA.put(0, new Admin(0, "admin", "admin", "administrator", "FMS_Admin@gatech.edu", Account.State.Unlocked, 0));
-            accountSA.put(1, new Account(1, "user", "user", "user", "FMS_User@gatech.edu", Account.State.Unlocked, 0));
-            accountSA.put(2, new Account(2, "a", "a", "a", "a@a.com", Account.State.Unlocked, 0));
+            AccountsSA.put(0, new Admin(0, "admin", "admin", "administrator", "FMS_Admin@gatech.edu", Account.State.UNLOCKED, 0));
+            AccountsSA.put(1, new Account(1, "user", "user", "user", "FMS_User@gatech.edu", Account.State.UNLOCKED, 0));
+            AccountsSA.put(2, new Account(2, "a", "a", "a", "a@a.com", Account.State.UNLOCKED, 0));
             saveData();
             return;
         }
@@ -56,20 +57,19 @@ public class FileAccountManager implements AccountManager
         }
         
         // create a new, unique key
-        if(accountSA.size() >= Integer.MAX_VALUE){
-            String message = "Can't create a new account, the max amount of accounts have been created";
-            Logger.d(message);
-            throw new FMSException(message);
+        if(AccountsSA.size() >= Integer.MAX_VALUE){
+            Logger.d("Can't create a new account, the max amount of accounts have been created");
+            throw new FMSException("Can't create a new account, the max amount of accounts have been created");
         }
         Integer id = 1;
         // keep incrementing the id until the set doesn't contain it
-        while(accountSA.get(id) != null){
+        while(AccountsSA.get(id) != null){
             id++;
         }
         
         // create a new account
-        Account account = new Account(id, loginName, password, name, email, Account.State.Unlocked, 0);
-        accountSA.put(id, account);
+        Account account = new Account(id, loginName, password, name, email, Account.State.UNLOCKED, 0);
+        AccountsSA.put(id, account);
         
         saveData();
         return true;
@@ -77,7 +77,8 @@ public class FileAccountManager implements AccountManager
     /**
      * Attempt login
      * @param loginName 
-	 * @param password 
+	 * @param password
+	 * @return account 
      */
     public Account attemptLogin(String loginName, String password)
     {
@@ -85,12 +86,13 @@ public class FileAccountManager implements AccountManager
         
         // find an account with the loginName
         int key = 0;
-        for(int i = 0; i < accountSA.size(); i++) {
-           key = accountSA.keyAt(i);
+        Account accountTmp;
+        for(int i = 0; i < AccountsSA.size(); i++) {
+           key = AccountsSA.keyAt(i);
            // get the object by the key.
-           Account _account = accountSA.get(key);
-           if(_account.getLoginName().equals(loginName)) {
-                account = _account;
+           accountTmp = AccountsSA.get(key);
+           if(accountTmp.getLoginName().equals(loginName)) {
+                account = accountTmp;
                 break;
             }
         }
@@ -124,17 +126,18 @@ public class FileAccountManager implements AccountManager
     public Account.State getAccountStateByLoginName(String loginName)
     {
         int key = 0;
-        for(int i = 0; i < accountSA.size(); i++) {
-            key = accountSA.keyAt(i);
+        Account account;
+        for(int i = 0; i < AccountsSA.size(); i++) {
+            key = AccountsSA.keyAt(i);
             // get the object by the key.
-            Account account = accountSA.get(key);
+            account = AccountsSA.get(key);
             if(account.getLoginName().equals(loginName)){
                 return account.getAccountState();
             }
         }
         
         // if the account is not found, say it's unlocked
-        return Account.State.Unlocked;
+        return Account.State.UNLOCKED;
     }
     /**
      * Get the account for loginName
@@ -143,10 +146,11 @@ public class FileAccountManager implements AccountManager
     public int getAccountIdByLoginName(String loginName)
     {
         int key = 0;
-        for(int i = 0; i < accountSA.size(); i++) {
-            key = accountSA.keyAt(i);
+        Account account;
+        for(int i = 0; i < AccountsSA.size(); i++) {
+            key = AccountsSA.keyAt(i);
             // get the object by the key.
-            Account account = accountSA.get(key);
+            account = AccountsSA.get(key);
             if(account.getLoginName().equals(loginName)){
                 return account.getAccountId();
             }
@@ -160,23 +164,24 @@ public class FileAccountManager implements AccountManager
 	 */
     public Account getAccount(Integer accountID)
     {
-        return accountSA.get(accountID);
+        return AccountsSA.get(accountID);
         
     }
     /**
      * Get all accounts
      * @return all accounts
      */
-    public ArrayList<Account> getAllAccounts()
+    public List<Account> getAllAccounts()
     {
-        ArrayList<Account> accounts = new ArrayList<Account>();
+        List<Account> accounts = new ArrayList<Account>();
         
-        int key = 0;        
-        for(int i = 0; i < accountSA.size(); i++) {
-            key = accountSA.keyAt(i);
+        int key = 0;   
+        Account accountTmp;
+        for(int i = 0; i < AccountsSA.size(); i++) {
+            key = AccountsSA.keyAt(i);
             // get the object by the key.
-            Account _account = accountSA.get(key);
-            accounts.add(_account);
+            accountTmp = AccountsSA.get(key);
+            accounts.add(accountTmp);
         }
         
 		return accounts;
@@ -189,7 +194,7 @@ public class FileAccountManager implements AccountManager
      */
     public boolean lockAccount(Integer accountID)
     {
-    	accountSA.get(accountID).setAccountState(Account.State.Locked);
+    	AccountsSA.get(accountID).setAccountState(Account.State.LOCKED);
         
         saveData();
         
@@ -203,7 +208,7 @@ public class FileAccountManager implements AccountManager
      */
     public boolean unlockAccount(Integer accountID)
     {
-    	accountSA.get(accountID).setAccountState(Account.State.Unlocked);
+    	AccountsSA.get(accountID).setAccountState(Account.State.UNLOCKED);
         
         saveData();
         
@@ -216,7 +221,7 @@ public class FileAccountManager implements AccountManager
      */
     public boolean deleteAccount(Integer accountID)
     {
-    	accountSA.remove(accountID);
+    	AccountsSA.remove(accountID);
         saveData();
         
         return true;
@@ -229,7 +234,7 @@ public class FileAccountManager implements AccountManager
      */
     public boolean editAccountPassword(Integer accountID, String password)
     {
-    	accountSA.get(accountID).setPassword(password);
+    	AccountsSA.get(accountID).setPassword(password);
         
         saveData();
         
@@ -243,7 +248,7 @@ public class FileAccountManager implements AccountManager
      */
     public boolean editAccountEmail(Integer accountID, String email)
     {
-    	accountSA.get(accountID).setEmail(email);
+    	AccountsSA.get(accountID).setEmail(email);
         
         saveData();
         
@@ -262,7 +267,7 @@ public class FileAccountManager implements AccountManager
     			account.getName(), account.getEmail(), account.getAccountState(), account.getLoginAttempts());
     	
         deleteAccount(targetAccountID);
-    	accountSA.put(targetAccountID, admin);
+    	AccountsSA.put(targetAccountID, admin);
         
         saveData();
         
@@ -276,10 +281,11 @@ public class FileAccountManager implements AccountManager
     public boolean isLoginNameUnique(String loginName)
     {
         int key = 0;
-        for(int i = 0; i < accountSA.size(); i++) {
-            key = accountSA.keyAt(i);
+        Account account;
+        for(int i = 0; i < AccountsSA.size(); i++) {
+            key = AccountsSA.keyAt(i);
             // get the object by the key.
-            Account account = accountSA.get(key);
+            account = AccountsSA.get(key);
             if(account.getLoginName().equals(loginName)){
                 return false;
             }
@@ -309,7 +315,7 @@ public class FileAccountManager implements AccountManager
         try {
             FileOutputStream fs = FMSApplication.getAppContext().openFileOutput(FILENAME, Context.MODE_PRIVATE);
             ObjectOutputStream s = new ObjectOutputStream(fs);
-            s.writeObject(accountSA);
+            s.writeObject(AccountsSA);
             s.close();
         }
         catch (Exception e) {
@@ -327,7 +333,7 @@ public class FileAccountManager implements AccountManager
             SparseArray<Account> accounts = (SparseArray<Account>)s.readObject();
             s.close();
             
-            accountSA = accounts;
+            AccountsSA = accounts;
         }
         catch (FileNotFoundException e){
             // ignore

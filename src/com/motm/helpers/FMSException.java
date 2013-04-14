@@ -5,7 +5,6 @@
 package com.motm.helpers;
 
 /**
- *
  * A generic exception so I can tell the difference between my exceptions and all others
  */
 public class FMSException extends Exception

@@ -1,37 +1,37 @@
 package com.motm.models.interfaces;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.motm.helpers.FMSException;
 import com.motm.models.Account;
 
 public interface AccountManager
 {
-    public boolean createAccount(String loginName, String password, String name, String email) throws FMSException;
+     boolean createAccount(String loginName, String password, String name, String email) throws FMSException;
 
-    public Account attemptLogin(String loginName, String password);
+     Account attemptLogin(String loginName, String password);
     
-    public Account getAccount(Integer accountID);
+     Account getAccount(Integer accountID);
     
-    public Account.State getAccountStateByLoginName(String loginName);
+     Account.State getAccountStateByLoginName(String loginName);
 
-    public boolean lockAccount(Integer accountID);
+     boolean lockAccount(Integer accountID);
 
-    public boolean unlockAccount(Integer accountID);
+     boolean unlockAccount(Integer accountID);
 
-    public boolean deleteAccount(Integer accountID);
+     boolean deleteAccount(Integer accountID);
 
-    public boolean editAccountPassword(Integer accountID, String password);
+     boolean editAccountPassword(Integer accountID, String password);
 
-    public boolean editAccountEmail(Integer accountID, String email);
+     boolean editAccountEmail(Integer accountID, String email);
     
-    public boolean isLoginNameUnique(String loginName);
+     boolean isLoginNameUnique(String loginName);
 
-	public int getAccountIdByLoginName(String text);
+	 int getAccountIdByLoginName(String text);
 
-	public boolean isAdmin(Integer accountID);
+	 boolean isAdmin(Integer accountID);
 
-	public ArrayList<Account> getAllAccounts();
+	 List<Account> getAllAccounts();
 
-	public boolean promoteAccount(Integer targetAccountID);
+	 boolean promoteAccount(Integer targetAccountID);
 }

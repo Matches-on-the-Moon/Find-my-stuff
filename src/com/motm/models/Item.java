@@ -10,11 +10,11 @@ public class Item implements Serializable
     private static final long serialVersionUID = 1L;
     
     public enum Status {
-        Open, Resolved;
+        OPEN, RESOLVED;
     }
     
     public enum Type {
-        Lost, Found;
+        LOST, FOUND;
         
         @Override
         public String toString()
