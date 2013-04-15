@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.motm.R;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
+import com.motm.helpers.Logger;
 import com.motm.models.Account;
 import com.motm.models.interfaces.AccountManager;
 
@@ -40,6 +41,14 @@ public class MainActivity extends Activity
             isAdminTextView.setText(R.string.accountIsAdmin);
         }
     }
+    
+    public void onResume() {
+        super.onResume();
+        if(FMSApplication.getInstance().getCurrentAccount() == null) {
+            startLoginActivity();
+        }
+    }
+    
 
     /* (non-Javadoc)
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
@@ -87,6 +96,7 @@ public class MainActivity extends Activity
     {
         // start login
         Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         
         // finish main, to prevent back

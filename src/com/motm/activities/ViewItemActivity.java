@@ -113,6 +113,7 @@ public class ViewItemActivity extends Activity {
             FMSApplication.getInstance().setCurrentAccount(null);
             // start login
             intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
             return true;

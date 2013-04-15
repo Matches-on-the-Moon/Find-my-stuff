@@ -1,8 +1,8 @@
 package com.motm.models;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.SparseArray;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.FMSException;
 import com.motm.helpers.Logger;
@@ -15,26 +15,30 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Set;
 
+@SuppressLint("UseSparseArrays")
 public class FileAccountManager implements AccountManager
 {
-    private static final String FILENAME = "accountsSA";
+    private static final String FILENAME = "accountsHM";
     
-    private static SparseArray<Account> AccountsSA;// Key = ID, Value = Account
+    private static HashMap<Integer, Account> AccountsHM;// Key = ID, Value = Account
 
     public FileAccountManager()
     {
-        if(AccountsSA == null){
-            AccountsSA = new SparseArray<Account>();
+        if(AccountsHM == null){
+            AccountsHM = new HashMap<Integer, Account>();
         }
         
         // first run
         SharedPreferences preferences = FMSApplication.getAppContext().getSharedPreferences(FILENAME, Context.MODE_PRIVATE);
         if(preferences.getBoolean("firstRun", true)){
             preferences.edit().putBoolean("firstRun", false).commit();
-            AccountsSA.put(0, new Admin(0, "admin", "admin", "administrator", "FMS_Admin@gatech.edu", Account.State.UNLOCKED, 0));
-            AccountsSA.put(1, new Account(1, "user", "user", "user", "FMS_User@gatech.edu", Account.State.UNLOCKED, 0));
-            AccountsSA.put(2, new Account(2, "a", "a", "a", "a@a.com", Account.State.UNLOCKED, 0));
+            AccountsHM.put(0, new Admin(0, "admin", "admin", "administrator", "FMS_Admin@gatech.edu", Account.State.UNLOCKED, 0));
+            AccountsHM.put(1, new Account(1, "user", "user", "user", "FMS_User@gatech.edu", Account.State.UNLOCKED, 0));
+            AccountsHM.put(2, new Account(2, "a", "a", "a", "a@a.com", Account.State.UNLOCKED, 0));
             saveData();
             return;
         }
@@ -49,6 +53,7 @@ public class FileAccountManager implements AccountManager
 	 *  @param password password
 	 *  @param name name
 	 *  @param email email
+	 *  @return true if account created
      */
     public boolean createAccount(String loginName, String password, String name, String email) throws FMSException
     {
@@ -57,19 +62,23 @@ public class FileAccountManager implements AccountManager
         }
         
         // create a new, unique key
-        if(AccountsSA.size() >= Integer.MAX_VALUE){
+        Set<Integer> accountIDs = AccountsHM.keySet();
+        if(accountIDs.size() >= Integer.MAX_VALUE){
             Logger.d("Can't create a new account, the max amount of accounts have been created");
             throw new FMSException("Can't create a new account, the max amount of accounts have been created");
         }
         Integer id = 1;
+        if(accountIDs.size() > 0){
+            id = Collections.max(accountIDs) + 1;
+        }
         // keep incrementing the id until the set doesn't contain it
-        while(AccountsSA.get(id) != null){
+        while(accountIDs.contains(id)){
             id++;
         }
         
         // create a new account
         Account account = new Account(id, loginName, password, name, email, Account.State.UNLOCKED, 0);
-        AccountsSA.put(id, account);
+        AccountsHM.put(id, account);
         
         saveData();
         return true;
@@ -77,21 +86,16 @@ public class FileAccountManager implements AccountManager
     /**
      * Attempt login
      * @param loginName 
-	 * @param password
-	 * @return account 
+	 * @param password 
+	 * @return account
      */
     public Account attemptLogin(String loginName, String password)
     {
         Account account = null;
         
         // find an account with the loginName
-        int key = 0;
-        Account accountTmp;
-        for(int i = 0; i < AccountsSA.size(); i++) {
-           key = AccountsSA.keyAt(i);
-           // get the object by the key.
-           accountTmp = AccountsSA.get(key);
-           if(accountTmp.getLoginName().equals(loginName)) {
+        for(Account accountTmp : AccountsHM.values()){
+            if(accountTmp.getLoginName().equals(loginName)) {
                 account = accountTmp;
                 break;
             }
@@ -125,12 +129,7 @@ public class FileAccountManager implements AccountManager
      */
     public Account.State getAccountStateByLoginName(String loginName)
     {
-        int key = 0;
-        Account account;
-        for(int i = 0; i < AccountsSA.size(); i++) {
-            key = AccountsSA.keyAt(i);
-            // get the object by the key.
-            account = AccountsSA.get(key);
+        for(Account account : AccountsHM.values()) {
             if(account.getLoginName().equals(loginName)){
                 return account.getAccountState();
             }
@@ -142,15 +141,10 @@ public class FileAccountManager implements AccountManager
     /**
      * Get the account for loginName
      * @param loginName
+     * @return accountId
      */
-    public int getAccountIdByLoginName(String loginName)
-    {
-        int key = 0;
-        Account account;
-        for(int i = 0; i < AccountsSA.size(); i++) {
-            key = AccountsSA.keyAt(i);
-            // get the object by the key.
-            account = AccountsSA.get(key);
+    public int getAccountIdByLoginName(String loginName) {
+        for(Account account : AccountsHM.values()) {
             if(account.getLoginName().equals(loginName)){
                 return account.getAccountId();
             }
@@ -161,28 +155,19 @@ public class FileAccountManager implements AccountManager
 	/**
 	 * Retrieve account
 	 * @param accountID id of account
+	 * @return account
 	 */
     public Account getAccount(Integer accountID)
     {
-        return AccountsSA.get(accountID);
+        return AccountsHM.get(accountID);
         
     }
     /**
      * Get all accounts
      * @return all accounts
      */
-    public List<Account> getAllAccounts()
-    {
-        List<Account> accounts = new ArrayList<Account>();
-        
-        int key = 0;   
-        Account accountTmp;
-        for(int i = 0; i < AccountsSA.size(); i++) {
-            key = AccountsSA.keyAt(i);
-            // get the object by the key.
-            accountTmp = AccountsSA.get(key);
-            accounts.add(accountTmp);
-        }
+    public List<Account> getAllAccounts() {
+    	List<Account> accounts = new ArrayList<Account>(AccountsHM.values());
         
 		return accounts;
     }
@@ -194,7 +179,7 @@ public class FileAccountManager implements AccountManager
      */
     public boolean lockAccount(Integer accountID)
     {
-    	AccountsSA.get(accountID).setAccountState(Account.State.LOCKED);
+    	AccountsHM.get(accountID).setAccountState(Account.State.LOCKED);
         
         saveData();
         
@@ -208,7 +193,7 @@ public class FileAccountManager implements AccountManager
      */
     public boolean unlockAccount(Integer accountID)
     {
-    	AccountsSA.get(accountID).setAccountState(Account.State.UNLOCKED);
+    	AccountsHM.get(accountID).setAccountState(Account.State.UNLOCKED);
         
         saveData();
         
@@ -221,7 +206,7 @@ public class FileAccountManager implements AccountManager
      */
     public boolean deleteAccount(Integer accountID)
     {
-    	AccountsSA.remove(accountID);
+    	AccountsHM.remove(accountID);
         saveData();
         
         return true;
@@ -234,7 +219,7 @@ public class FileAccountManager implements AccountManager
      */
     public boolean editAccountPassword(Integer accountID, String password)
     {
-    	AccountsSA.get(accountID).setPassword(password);
+    	AccountsHM.get(accountID).setPassword(password);
         
         saveData();
         
@@ -248,7 +233,7 @@ public class FileAccountManager implements AccountManager
      */
     public boolean editAccountEmail(Integer accountID, String email)
     {
-    	AccountsSA.get(accountID).setEmail(email);
+    	AccountsHM.get(accountID).setEmail(email);
         
         saveData();
         
@@ -267,7 +252,7 @@ public class FileAccountManager implements AccountManager
     			account.getName(), account.getEmail(), account.getAccountState(), account.getLoginAttempts());
     	
         deleteAccount(targetAccountID);
-    	AccountsSA.put(targetAccountID, admin);
+    	AccountsHM.put(targetAccountID, admin);
         
         saveData();
         
@@ -280,13 +265,8 @@ public class FileAccountManager implements AccountManager
      */
     public boolean isLoginNameUnique(String loginName)
     {
-        int key = 0;
-        Account account;
-        for(int i = 0; i < AccountsSA.size(); i++) {
-            key = AccountsSA.keyAt(i);
-            // get the object by the key.
-            account = AccountsSA.get(key);
-            if(account.getLoginName().equals(loginName)){
+        for(Account account : AccountsHM.values()) {
+            if(account.getLoginName().equals(loginName)) {
                 return false;
             }
         }
@@ -296,7 +276,7 @@ public class FileAccountManager implements AccountManager
     /**
      * Tests if an account is an admin
      * @param accountID 
-     * return true if admin false otherwise
+     * @return true if admin false otherwise
      */
     public boolean isAdmin(Integer accountID)
     {
@@ -315,7 +295,7 @@ public class FileAccountManager implements AccountManager
         try {
             FileOutputStream fs = FMSApplication.getAppContext().openFileOutput(FILENAME, Context.MODE_PRIVATE);
             ObjectOutputStream s = new ObjectOutputStream(fs);
-            s.writeObject(AccountsSA);
+            s.writeObject(AccountsHM);
             s.close();
         }
         catch (Exception e) {
@@ -325,15 +305,16 @@ public class FileAccountManager implements AccountManager
     /**
      * Load accounts
      */
-    private void loadData()
+    @SuppressWarnings("unchecked")
+	private void loadData()
     {
         try {
             FileInputStream fs = FMSApplication.getAppContext().openFileInput(FILENAME);
             ObjectInputStream s = new ObjectInputStream(fs);
-            SparseArray<Account> accounts = (SparseArray<Account>)s.readObject();
+            HashMap<Integer, Account> accounts = (HashMap<Integer, Account>)s.readObject();
             s.close();
             
-            AccountsSA = accounts;
+            AccountsHM = accounts;
         }
         catch (FileNotFoundException e){
             // ignore

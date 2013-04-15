@@ -66,14 +66,12 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
                 // open add item, set to found
                 startAddItemActivityWithType(Item.Type.FOUND);
                 
-            } else if(performAction.equals(PERFORM_ACTION_ADD_LOST_ITEM)){
+            } else if(performAction.equals(PERFORM_ACTION_ADD_LOST_ITEM)) {
                 // open add item, set to lost
                 startAddItemActivityWithType(Item.Type.LOST);
-            } else if(performAction.equals(PERFORM_SHOW_MATCHES)){
+            } else if(performAction.equals(PERFORM_SHOW_MATCHES)) {
             	Integer itemId = getIntent().getExtras().getInt("targetItem");
             	item = itemManager.getItem(itemId);
-            	
-            	
             }
         }
         
@@ -197,6 +195,7 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
             FMSApplication.getInstance().setCurrentAccount(null);
             // start login
             intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
             return true;
