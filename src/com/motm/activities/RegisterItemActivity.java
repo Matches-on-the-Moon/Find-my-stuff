@@ -137,11 +137,12 @@ public class RegisterItemActivity extends Activity
 	            Logger.d("id: "+id);
 	            Item item = itemManager.getItem(id);
 	            Logger.d("item: "+item);
-	            List<Item> matches = itemManager.getMatches(item);
+	            /*
+                List<Item> matches = itemManager.getMatches(item);
 	            
 	            if( matches!= null ){
 	            	Logger.d("NumMatches: "+matches.size());
-	            	/*
+	            	
 	            	int numMatches = matches.size();
 	            	Context context = getApplicationContext();
 	            	CharSequence text = numMatches+((numMatches==1)?" match":" matches");
@@ -149,8 +150,9 @@ public class RegisterItemActivity extends Activity
 
 	            	Toast toast = Toast.makeText(context, text, duration);
 	            	toast.show();
-	            	*/
+	            	
 	            }
+                */
                 startFindItemActivity();
             }
             catch(Exception e) {

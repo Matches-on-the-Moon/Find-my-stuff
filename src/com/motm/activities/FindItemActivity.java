@@ -24,6 +24,7 @@ import com.motm.application.FMSApplication;
 import com.motm.helpers.Factory;
 import com.motm.models.Item;
 import com.motm.models.interfaces.ItemManager;
+import java.util.ArrayList;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,6 +42,7 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
     private String itemSortFilter;
     private Item item;
     private static Map<Button,Integer> ButtonHash;
+    private boolean skipResume;
     
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -61,14 +63,18 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
         
         // main activity can tell FoundItem to open Add item
         String performAction = getIntent().getStringExtra("performAction");
+        skipResume = false;
         if(performAction != null){
             if(performAction.equals(PERFORM_ACTION_ADD_FOUND_ITEM)){
                 // open add item, set to found
                 startAddItemActivityWithType(Item.Type.FOUND);
+                skipResume = true;
                 
             } else if(performAction.equals(PERFORM_ACTION_ADD_LOST_ITEM)) {
                 // open add item, set to lost
                 startAddItemActivityWithType(Item.Type.LOST);
+                skipResume = true;
+                
             } else if(performAction.equals(PERFORM_SHOW_MATCHES)) {
             	Integer itemId = getIntent().getExtras().getInt("targetItem");
             	item = itemManager.getItem(itemId);
@@ -118,7 +124,7 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
                     
                 } else {
                     // default: Search items...
-                    inputSearchEditText.setHint("Search items..!");
+                    inputSearchEditText.setHint("Search items...");
                     inputSearchEditText.getLayoutParams().height= LayoutParams.MATCH_PARENT;
                 }
                 
@@ -213,11 +219,17 @@ public class FindItemActivity extends ListActivity implements OnItemSelectedList
     {
         super.onResume();
         
-        if( item != null ) {
+        if(skipResume){
+            skipResume = false;
+            rowItems = new ArrayList<Item>();
+            
+        } else if( item != null ) {
         	rowItems = itemManager.getMatches(item);
+            
         } else {
         	rowItems = itemManager.getAllItems();
         }
+        
         adapter = new ItemViewAdapter(this, R.layout.item_find_list_rows, rowItems);
         setListAdapter(adapter);
     }

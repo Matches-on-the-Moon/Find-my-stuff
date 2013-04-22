@@ -21,9 +21,11 @@ import com.motm.helpers.Logger;
 import com.motm.models.Item;
 import com.motm.models.Item.Type;
 import com.motm.models.interfaces.ItemManager;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 import java.util.Locale;
 
 public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
@@ -193,9 +195,18 @@ public class ItemViewAdapter extends ArrayAdapter<Item> implements Filterable
                             
                         } else if(sortBy.equals("Date")){
                         	if (search.length() == 10) {
-	                            if(data.getCalendar().after(new GregorianCalendar(Integer.parseInt(search.substring(0,4)), Integer.parseInt(search.substring(5, 7)), Integer.parseInt(search.substring(8,10))))) {
-	                                filteredResults.add(data);
-	                            }
+                                
+                                Calendar calendar = Calendar.getInstance();
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                try {
+                                    calendar.setTime(sdf.parse(search));
+                                    if(data.getCalendar().after(calendar)) {
+                                        filteredResults.add(data);
+                                    }
+                                }
+                                catch (ParseException ex) {
+                                    // just ignore, return 0 results
+                                }
                         	}
                         }else if(sortBy.equals("Found")){
                         	

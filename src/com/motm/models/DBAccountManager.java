@@ -1,18 +1,14 @@
 package com.motm.models;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import com.motm.application.FMSApplication;
 import com.motm.helpers.FMSException;
 import com.motm.helpers.Logger;
 import com.motm.models.interfaces.AccountManager;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Collections;
-import java.util.Set;
 
-final public class DBAccountManager implements AccountManager
+final public class DBAccountManager extends APIManager implements AccountManager
 {
     public DBAccountManager()
     {
