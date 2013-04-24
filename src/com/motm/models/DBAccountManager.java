@@ -6,12 +6,22 @@ import com.motm.application.FMSApplication;
 import com.motm.helpers.FMSException;
 import com.motm.helpers.Logger;
 import com.motm.models.interfaces.AccountManager;
+import java.util.ArrayList;
 import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 final public class DBAccountManager extends APIManager implements AccountManager
 {
+    Account nullAccount;
+    
     public DBAccountManager()
     {
+        //setBaseURL("http://gtpkt.org/cs2340api/item/");
+        setBaseURL("http://10.0.2.2/cs2340api/index.php/account/");
+        
+        nullAccount = new Account(0, "", "", "", "", Account.State.LOCKED, 0);
+        
         // first run
         SharedPreferences preferences = FMSApplication.getAppContext().getSharedPreferences("DBAccount", Context.MODE_PRIVATE);
         if(preferences.getBoolean("firstRun", true)){
@@ -30,7 +40,6 @@ final public class DBAccountManager extends APIManager implements AccountManager
     
     /**
      *  Creates a new account
-     *  For the FileAccountManager, it needs to also choose a unique id for the Account
      *  @param loginName loginName
 	 *  @param password password
 	 *  @param name name
@@ -39,7 +48,24 @@ final public class DBAccountManager extends APIManager implements AccountManager
      */
     public boolean createAccount(String loginName, String password, String name, String email) throws FMSException
     {
-        return false;
+        JSONObject result = put("", createParams(
+                "loginName", loginName,
+                "password", password,
+                "name", name,
+                "email", email
+                ));
+        
+        try {
+            if(!result.getBoolean("success")){
+                return false;
+            }
+        }
+        catch(Exception e){
+            Logger.d("createAccount unexpected result from JSON, "+e.getMessage());
+            return false;
+        }
+        
+        return true;
     }
     
     /**
@@ -50,7 +76,51 @@ final public class DBAccountManager extends APIManager implements AccountManager
      */
     public Account attemptLogin(String loginName, String password)
     {
-        return null;
+        JSONObject result = get("attemptLogin", createParams(
+                "loginName", loginName,
+                "password", password
+                ));
+        
+        try {
+            if(!result.getBoolean("success")){
+                return nullAccount;
+            }
+            
+            // get the result array
+            JSONObject jsonObject = result.getJSONObject("result");
+            
+            if(jsonObject.getString("isAdmin").equals("1")){
+                // admin
+                Admin admin = new Admin(
+                        jsonObject.getInt("id"),
+                        jsonObject.getString("loginName"),
+                        jsonObject.getString("password"),
+                        jsonObject.getString("name"),
+                        jsonObject.getString("email"),
+                        Account.State.valueOf(jsonObject.getString("accountState")),
+                        jsonObject.getInt("id"));
+                
+                return admin;
+
+            } else {
+                // account, non-admin
+                Account account = new Account(
+                        jsonObject.getInt("id"),
+                        jsonObject.getString("loginName"),
+                        jsonObject.getString("password"),
+                        jsonObject.getString("name"),
+                        jsonObject.getString("email"),
+                        Account.State.valueOf(jsonObject.getString("accountState")),
+                        jsonObject.getInt("id"));
+                
+                return account;
+            }
+            
+        }
+        catch(Exception e){
+            Logger.d("attemptLogin unexpected result from JSON, "+e.getMessage());
+            return nullAccount;
+        }
     }
     
     /**
@@ -60,7 +130,24 @@ final public class DBAccountManager extends APIManager implements AccountManager
      */
     public Account.State getAccountStateByLoginName(String loginName)
     {
-        return null;
+        JSONObject result = get("", createParams(
+                "loginName", loginName
+                ));
+        
+        try {
+            if(!result.getBoolean("success")){
+                return Account.State.UNLOCKED;
+            }
+            
+            // get the result array
+            JSONObject jsonObject = result.getJSONObject("result");
+            
+            return Account.State.valueOf(jsonObject.getString("state"));
+        }
+        catch(Exception e){
+            Logger.d("getAccountStateByLoginName unexpected result from JSON, "+e.getMessage());
+            return Account.State.UNLOCKED;
+        }
     }
     
     /**
@@ -70,7 +157,24 @@ final public class DBAccountManager extends APIManager implements AccountManager
      */
     public int getAccountIdByLoginName(String loginName)
     {
-        return 0;
+        JSONObject result = get("idByLoginName", createParams(
+                "loginName", loginName
+                ));
+        
+        try {
+            if(!result.getBoolean("success")){
+                return 0;
+            }
+            
+            // get the result array
+            JSONObject jsonObject = result.getJSONObject("result");
+            
+            return jsonObject.getInt("id");
+        }
+        catch(Exception e){
+            Logger.d("getAccountIdByLoginName unexpected result from JSON, "+e.getMessage());
+            return 0;
+        }
     }
     
 	/**
@@ -80,7 +184,50 @@ final public class DBAccountManager extends APIManager implements AccountManager
 	 */
     public Account getAccount(Integer accountID)
     {
-        return null;
+        JSONObject result = get("", createParams(
+                "id", accountID.toString()
+                ));
+        
+        try {
+            if(!result.getBoolean("success")){
+                return nullAccount;
+            }
+            
+            // get the result array
+            JSONObject jsonObject = result.getJSONObject("result");
+            
+            if(jsonObject.getString("isAdmin").equals("1")){
+                // admin
+                Admin admin = new Admin(
+                        jsonObject.getInt("id"),
+                        jsonObject.getString("loginName"),
+                        jsonObject.getString("password"),
+                        jsonObject.getString("name"),
+                        jsonObject.getString("email"),
+                        Account.State.valueOf(jsonObject.getString("accountState")),
+                        jsonObject.getInt("id"));
+                
+                return admin;
+
+            } else {
+                // account, non-admin
+                Account account = new Account(
+                        jsonObject.getInt("id"),
+                        jsonObject.getString("loginName"),
+                        jsonObject.getString("password"),
+                        jsonObject.getString("name"),
+                        jsonObject.getString("email"),
+                        Account.State.valueOf(jsonObject.getString("accountState")),
+                        jsonObject.getInt("id"));
+                
+                return account;
+            }
+            
+        }
+        catch(Exception e){
+            Logger.d("getAccount unexpected result from JSON, "+e.getMessage());
+            return nullAccount;
+        }
     }
     
     /**
@@ -89,7 +236,67 @@ final public class DBAccountManager extends APIManager implements AccountManager
      */
     public List<Account> getAllAccounts()
     {
-        return null;
+        JSONObject result = get("all", null);
+        
+        ArrayList nullList = new ArrayList<Account>();
+        nullList.add(nullAccount);
+        
+        try {
+            if(!result.getBoolean("success")){
+                return nullList;
+            }
+            
+            // get the result array
+            JSONArray accountsJSONArray = result.getJSONArray("result");
+            
+            ArrayList<Account> accounts = new ArrayList<Account>();
+            
+            // make items from the results
+            for(int i = 0; i < accountsJSONArray.length(); i++){
+                // catch for each item, so I can ignore the ones with errors
+                try {
+                    JSONObject jsonObject = accountsJSONArray.getJSONObject(i);
+                    
+                    if(jsonObject.getString("isAdmin").equals("1")){
+                        // admin
+                        Admin admin = new Admin(
+                                jsonObject.getInt("id"),
+                                jsonObject.getString("loginName"),
+                                jsonObject.getString("password"),
+                                jsonObject.getString("name"),
+                                jsonObject.getString("email"),
+                                Account.State.valueOf(jsonObject.getString("accountState")),
+                                jsonObject.getInt("id"));
+
+                        accounts.add(admin);
+
+                    } else {
+                        // account, non-admin
+                        Account account = new Account(
+                                jsonObject.getInt("id"),
+                                jsonObject.getString("loginName"),
+                                jsonObject.getString("password"),
+                                jsonObject.getString("name"),
+                                jsonObject.getString("email"),
+                                Account.State.valueOf(jsonObject.getString("accountState")),
+                                jsonObject.getInt("id"));
+
+                        accounts.add(account);
+                    }
+                }
+                catch(Exception e){
+                    // I don't care, continue
+                }
+            
+            }
+            
+            return accounts;
+            
+        }
+        catch(Exception e){
+            Logger.d("getAllAccounts unexpected result from JSON, "+e.getMessage());
+            return nullList;
+        }
     }
 
     /**
@@ -99,7 +306,21 @@ final public class DBAccountManager extends APIManager implements AccountManager
      */
     public boolean lockAccount(Integer accountID)
     {
-    	return true;
+    	JSONObject result = post("lock", createParams(
+                "id", accountID.toString()
+                ));
+        
+        try {
+            if(!result.getBoolean("success")){
+                return false;
+            }
+        }
+        catch(Exception e){
+            Logger.d("lockAccount unexpected result from JSON, "+e.getMessage());
+            return false;
+        }
+        
+        return true;
     }
 
     /**
@@ -109,7 +330,21 @@ final public class DBAccountManager extends APIManager implements AccountManager
      */
     public boolean unlockAccount(Integer accountID)
     {
-    	return true;
+    	JSONObject result = post("unlock", createParams(
+                "id", accountID.toString()
+                ));
+        
+        try {
+            if(!result.getBoolean("success")){
+                return false;
+            }
+        }
+        catch(Exception e){
+            Logger.d("unlockAccount unexpected result from JSON, "+e.getMessage());
+            return false;
+        }
+        
+        return true;
     }
     
     /**
@@ -119,7 +354,21 @@ final public class DBAccountManager extends APIManager implements AccountManager
      */
     public boolean deleteAccount(Integer accountID)
     {
-    	return true;
+    	JSONObject result = post("delete", createParams(
+                "id", accountID.toString()
+                ));
+        
+        try {
+            if(!result.getBoolean("success")){
+                return false;
+            }
+        }
+        catch(Exception e){
+            Logger.d("deleteAccount unexpected result from JSON, "+e.getMessage());
+            return false;
+        }
+        
+        return true;
     }
     
     /**
@@ -130,7 +379,22 @@ final public class DBAccountManager extends APIManager implements AccountManager
      */
     public boolean editAccountPassword(Integer accountID, String password)
     {
-    	return true;
+    	JSONObject result = post("unlock", createParams(
+                "id", accountID.toString(),
+                "password", password
+                ));
+        
+        try {
+            if(!result.getBoolean("success")){
+                return false;
+            }
+        }
+        catch(Exception e){
+            Logger.d("editAccountPassword unexpected result from JSON, "+e.getMessage());
+            return false;
+        }
+        
+        return true;
     }
     
     /**
@@ -141,7 +405,22 @@ final public class DBAccountManager extends APIManager implements AccountManager
      */
     public boolean editAccountEmail(Integer accountID, String email)
     {
-    	return true;
+    	JSONObject result = post("unlock", createParams(
+                "id", accountID.toString(),
+                "email", email
+                ));
+        
+        try {
+            if(!result.getBoolean("success")){
+                return false;
+            }
+        }
+        catch(Exception e){
+            Logger.d("editAccountEmail unexpected result from JSON, "+e.getMessage());
+            return false;
+        }
+        
+        return true;
     }
     
     /**
@@ -151,6 +430,20 @@ final public class DBAccountManager extends APIManager implements AccountManager
      */
     public boolean promoteAccount(Integer targetAccountID) 
     {
+        JSONObject result = post("promote", createParams(
+                "id", targetAccountID.toString()
+                ));
+        
+        try {
+            if(!result.getBoolean("success")){
+                return false;
+            }
+        }
+        catch(Exception e){
+            Logger.d("promoteAccount unexpected result from JSON, "+e.getMessage());
+            return false;
+        }
+        
         return true;
     }
     /**
@@ -160,7 +453,27 @@ final public class DBAccountManager extends APIManager implements AccountManager
      */
     public boolean isLoginNameUnique(String loginName)
     {
-        return true;
+        JSONObject result = get("isLoginNameUnique", createParams(
+                "loginName", loginName
+                ));
+        
+        try {
+            if(!result.getBoolean("success")){
+                return false;
+            }
+            
+            JSONObject jsonObject = result.getJSONObject("result");
+            
+            if(jsonObject.getString("unique").equals("yes")){
+                return true;
+            }
+            
+            return false;
+        }
+        catch(Exception e){
+            Logger.d("promoteAccount unexpected result from JSON, "+e.getMessage());
+            return false;
+        }
     }
     
     /**
@@ -170,6 +483,26 @@ final public class DBAccountManager extends APIManager implements AccountManager
      */
     public boolean isAdmin(Integer accountID)
     {
-    	return false;
+    	JSONObject result = get("isAdmin", createParams(
+                "id", accountID.toString()
+                ));
+        
+        try {
+            if(!result.getBoolean("success")){
+                return false;
+            }
+            
+            JSONObject jsonObject = result.getJSONObject("result");
+            
+            if(jsonObject.getString("isAdmin").equals("yes")){
+                return true;
+            }
+            
+            return false;
+        }
+        catch(Exception e){
+            Logger.d("promoteAccount unexpected result from JSON, "+e.getMessage());
+            return false;
+        }
     }
 }

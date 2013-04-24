@@ -66,7 +66,7 @@ public class DBItemManager extends APIManager implements ItemManager
      */
     public void deleteItem(Integer itemID)
     {
-        JSONObject result = delete("", createParams(
+        JSONObject result = post("delete", createParams(
                 "id", itemID.toString()
                 ));
     }
