@@ -16,8 +16,8 @@ public class DBItemManager extends APIManager implements ItemManager
 {
     public DBItemManager()
     {
-        //setBaseURL("http://gtpkt.org/cs2340api/item/");
-        setBaseURL("http://10.0.2.2/cs2340api/index.php/item/");
+        setBaseURL("http://www.gtpkt.org/cs2340api/item/");
+        //setBaseURL("http://10.0.2.2/cs2340api/index.php/item/");
 
         // first run
         SharedPreferences preferences = FMSApplication.getAppContext().getSharedPreferences("DBItem", Context.MODE_PRIVATE);

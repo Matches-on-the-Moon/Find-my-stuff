@@ -17,8 +17,8 @@ final public class DBAccountManager extends APIManager implements AccountManager
     
     public DBAccountManager()
     {
-        //setBaseURL("http://gtpkt.org/cs2340api/item/");
-        setBaseURL("http://10.0.2.2/cs2340api/index.php/account/");
+        setBaseURL("http://www.gtpkt.org/cs2340api/account/");
+        //setBaseURL("http://10.0.2.2/cs2340api/index.php/account/");
         
         nullAccount = new Account(0, "", "", "", "", Account.State.LOCKED, 0);
         
@@ -83,7 +83,7 @@ final public class DBAccountManager extends APIManager implements AccountManager
         
         try {
             if(!result.getBoolean("success")){
-                return nullAccount;
+                return null;
             }
             
             // get the result array
@@ -119,7 +119,7 @@ final public class DBAccountManager extends APIManager implements AccountManager
         }
         catch(Exception e){
             Logger.d("attemptLogin unexpected result from JSON, "+e.getMessage());
-            return nullAccount;
+            return null;
         }
     }
     
